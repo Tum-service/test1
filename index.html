@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<title>🎃 ชักกะเย่อคำศัพท์ · Tournament v16.3.3</title>
+<title>🎃 ชักกะเย่อคำศัพท์ · Tournament v16.3.4</title>
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@500;700;800;900&family=Creepster&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -35,24 +35,58 @@ label{display:block;color:#c4b5fd;font-size:.88rem;margin-bottom:5px;font-weight
 
 /* ⭐ [v16.3.2] Mode selection cards */
 .mode-section-title{font-size:1.05rem;color:#c4b5fd;font-weight:800;margin-bottom:12px;text-align:center}
-.mode-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:22px}
-.mode-card{padding:18px 12px 14px;border:2px solid rgba(168,85,247,.4);border-radius:16px;background:linear-gradient(180deg,rgba(45,27,78,.7),rgba(20,10,40,.9));color:#fff;font-family:inherit;font-weight:800;cursor:pointer;text-align:center;transition:.2s;position:relative;overflow:hidden}
+.mode-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:22px}
+.mode-card{padding:18px 12px 14px;border:2px solid rgba(168,85,247,.4);border-radius:16px;background:linear-gradient(180deg,rgba(45,27,78,.7),rgba(20,10,40,.9));color:#fff;font-family:inherit;font-weight:800;cursor:pointer;text-align:center;transition:.25s;position:relative;overflow:hidden;min-height:170px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:8px}
 .mode-card:hover{transform:translateY(-3px);border-color:#f97316}
 .mode-card.active{border-color:#22c55e;background:linear-gradient(180deg,rgba(34,197,94,.3),rgba(20,83,45,.5));box-shadow:0 0 24px rgba(34,197,94,.5)}
-.mode-card.active::before{content:"✓";position:absolute;top:6px;right:8px;background:#22c55e;color:#fff;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:900}
+.mode-card.active::before{content:"✓";position:absolute;top:8px;right:10px;background:#22c55e;color:#fff;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:900;z-index:5;box-shadow:0 2px 10px rgba(0,0,0,.5)}
 .mode-card.locked{opacity:.55;cursor:not-allowed;filter:grayscale(.4)}
 .mode-card.locked:hover{transform:none;border-color:rgba(168,85,247,.4)}
 .mode-card .mode-emoji{font-size:2.4rem;margin-bottom:6px;display:block;line-height:1}
-/* ⭐ [v16.3.3] Custom image instead of emoji */
-.mode-card .mode-emoji-img{width:2.4rem;height:2.4rem;margin:0 auto 6px;display:block;object-fit:contain;filter:drop-shadow(0 3px 6px rgba(0,0,0,.5));border-radius:6px}
-.mode-emoji-img-inline{width:1.4rem;height:1.4rem;display:inline-block;object-fit:contain;vertical-align:-.3em;border-radius:4px}
-.mode-card .mode-name{font-size:1rem;color:#ffedd5;margin-bottom:8px;line-height:1.2}
-.mode-card .mode-badge{display:inline-block;font-size:.68rem;padding:3px 10px;border-radius:999px;font-weight:900;letter-spacing:.3px}
-.mode-card .mode-badge.ready{background:#22c55e;color:#fff}
+.mode-card .mode-emoji-img{display:none}
+.mode-emoji-img-inline{width:2rem;height:1.6rem;display:inline-block;object-fit:contain;vertical-align:-.4em;border-radius:4px;margin:0 3px}
+.mode-card .mode-name{font-size:1.05rem;color:#ffedd5;line-height:1.2;position:relative;z-index:3;text-shadow:0 2px 8px rgba(0,0,0,.95),0 0 20px rgba(0,0,0,.85)}
+.mode-card .mode-badge{display:inline-block;font-size:.7rem;padding:4px 12px;border-radius:999px;font-weight:900;letter-spacing:.3px;position:relative;z-index:3}
+.mode-card .mode-badge.ready{background:#22c55e;color:#fff;box-shadow:0 2px 10px rgba(34,197,94,.5)}
 .mode-card .mode-badge.coming{background:rgba(251,191,36,.25);color:#fbbf24;border:1px solid rgba(251,191,36,.5)}
 .mode-selected-info{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.35);border-radius:12px;padding:10px 14px;margin-bottom:14px;color:#bbf7d0;font-size:.85rem;text-align:center;font-weight:800}
 .mode-selected-info span{color:#fbbf24}
-@media(max-width:520px){.mode-grid{grid-template-columns:repeat(2,1fr);gap:8px}.mode-card{padding:14px 8px 10px}.mode-card .mode-emoji{font-size:1.9rem}.mode-card .mode-emoji-img{width:calc(100% + 16px);height:4rem;margin:-14px -8px 8px}.mode-card .mode-name{font-size:.85rem}}
+
+/* ⭐ [v16.3.4] Tug of War — รูปเป็น background เต็มการ์ด */
+.mode-card[data-mode="tug"]{
+  background-image:linear-gradient(180deg,rgba(10,5,20,.15) 0%,rgba(10,5,20,.55) 45%,rgba(10,5,20,.92) 100%),url('https://tum-service.github.io/1111/tug%20of%20war.jpg');
+  background-size:cover,cover;
+  background-position:center,center;
+  background-repeat:no-repeat,no-repeat;
+  border-color:rgba(249,115,22,.55);
+}
+.mode-card[data-mode="tug"]:hover{
+  background-image:linear-gradient(180deg,rgba(249,115,22,.15) 0%,rgba(10,5,20,.55) 45%,rgba(10,5,20,.92) 100%),url('https://tum-service.github.io/1111/tug%20of%20war.jpg');
+  border-color:#f97316;
+  box-shadow:0 0 30px rgba(249,115,22,.55);
+}
+.mode-card[data-mode="tug"].active{
+  background-image:linear-gradient(180deg,rgba(34,197,94,.15) 0%,rgba(10,5,20,.55) 45%,rgba(10,5,20,.92) 100%),url('https://tum-service.github.io/1111/tug%20of%20war.jpg');
+  border-color:#22c55e;
+  box-shadow:0 0 32px rgba(34,197,94,.7),0 0 60px rgba(34,197,94,.35);
+}
+.mode-card[data-mode="tug"]::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  background:radial-gradient(circle at 50% 30%,transparent 30%,rgba(0,0,0,.25) 100%);
+  z-index:1;
+}
+
+@media(max-width:520px){
+  .mode-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .mode-card{padding:12px 6px 10px;min-height:140px}
+  .mode-card .mode-emoji{font-size:1.9rem}
+  .mode-card .mode-name{font-size:.85rem}
+  .mode-emoji-img-inline{width:1.5rem;height:1.2rem}
+}
 
 .grades{display:flex;flex-direction:column;gap:14px;margin-top:6px}
 .grade-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
@@ -358,7 +392,7 @@ h1{font-size:1.7rem}.room-code{font-size:2.6rem}.timer-big{font-size:1.6rem;min-
 <div class="screen active" id="scLanding">
   <div style="max-width:520px;margin:30px auto">
     <h1>🎃 ชักกะเย่อคำศัพท์ 🦇</h1>
-    <p style="text-align:center;color:#fb923c;font-weight:900;font-size:.95rem;margin-bottom:20px">Tournament v16.3.3 · หลายโหมด</p>
+    <p style="text-align:center;color:#fb923c;font-weight:900;font-size:.95rem;margin-bottom:20px">Tournament v16.3.4 · หลายโหมด</p>
     <div class="card" style="margin-top:24px">
       <button class="btn btn-primary" onclick="go('scGradeSelect')" style="margin-bottom:12px">🎤 สร้างห้อง (Host)</button>
       <button class="btn btn-success" onclick="go('scPlayerJoin')">🎮 เข้าร่วมเกม (Player)</button>
@@ -371,12 +405,11 @@ h1{font-size:1.7rem}.room-code{font-size:2.6rem}.timer-big{font-size:1.6rem;min-
     <button class="btn-small btn-secondary" onclick="go('scLanding')">← กลับ</button>
     <h1>🎮 เลือกโหมดและระดับชั้น</h1>
 
-    <!-- ⭐ [v16.3.3] Mode selection with custom image for tug -->
     <div class="card">
       <div class="mode-section-title">🎯 เลือกโหมดเกม</div>
       <div class="mode-grid">
         <button class="mode-card active" data-mode="tug" onclick="selectGameMode('tug')">
-          <img class="mode-emoji-img" src="https://tum-service.github.io/1111/tug%20of%20war.jpg" alt="ชักกะเย่อ" onerror="this.outerHTML='<span class=\'mode-emoji\'>🎯</span>'">
+          <img class="mode-emoji-img" src="https://tum-service.github.io/1111/tug%20of%20war.jpg" alt="">
           <div class="mode-name">ชักกะเย่อ</div>
           <span class="mode-badge ready">พร้อมเล่น</span>
         </button>
@@ -428,7 +461,7 @@ h1{font-size:1.7rem}.room-code{font-size:2.6rem}.timer-big{font-size:1.6rem;min-
 
     <div class="card" style="text-align:center;background:linear-gradient(180deg,rgba(34,197,94,.15),rgba(20,83,45,.3));border-color:rgba(34,197,94,.4)">
       <div style="line-height:1" id="configModeEmoji">
-        <img src="https://tum-service.github.io/1111/tug%20of%20war.jpg" alt="" style="width:3rem;height:3rem;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,.5));border-radius:8px" onerror="this.outerHTML='<span style=\'font-size:2.2rem\'>🎯</span>'">
+        <img src="https://tum-service.github.io/1111/tug%20of%20war.jpg" alt="" style="width:7rem;height:5rem;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(249,115,22,.7));border-radius:10px" onerror="this.outerHTML='<span style=\'font-size:2.2rem\'>🎯</span>'">
       </div>
       <div style="font-weight:900;color:#4ade80;font-size:1.1rem;margin-top:4px" id="configModeName">ชักกะเย่อ</div>
     </div>
@@ -804,7 +837,6 @@ const TEAMS_DEF=[
   {id:'t3',name:'ทีมเขียว',emoji:'🦇',color:'#16a34a',cls:'t3'},
   {id:'t4',name:'ทีมเหลือง',emoji:'🕷️',color:'#eab308',cls:'t4'}
 ];
-/* ⭐ [v16.3.3] Custom image for tug mode */
 const TUG_IMG='https://tum-service.github.io/1111/tug%20of%20war.jpg';
 function shouldPlayEffect(){if(G.role==='host')return G.hostEffectOn;if(G.role==='player')return G.playersEffectOn;return true;}
 function shouldPlayBGM(){if(G.role==='host')return G.hostBgmOn;if(G.role==='player')return G.playersBgmOn;return true;}
@@ -812,10 +844,7 @@ function shouldPlayBGM(){if(G.role==='host')return G.hostBgmOn;if(G.role==='play
 /* ═══ SOUND ENGINE ═══ */
 let ac=null;
 function iA(){try{if(!ac)ac=new(window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume()}catch(e){}}
-
-/* ⭐ [FIX v16.3.1] ปุ่ม click sound — ฟังก์ชันแยกอิสระ อยู่บนสุด */
 function sc(){if(!shouldPlayEffect())return;iA();if(!ac)return;const t0=ac.currentTime;const o=ac.createOscillator(),g=ac.createGain();o.type='square';o.frequency.setValueAtTime(1400,t0);o.frequency.exponentialRampToValueAtTime(650,t0+0.05);g.gain.setValueAtTime(0.14,t0);g.gain.exponentialRampToValueAtTime(0.0001,t0+0.06);o.connect(g);g.connect(ac.destination);o.start(t0);o.stop(t0+0.08)}
-
 function org(f,st,d,v){if(!shouldPlayEffect()||!ac)return;const t0=ac.currentTime+st;[1,2,3,4].forEach((m,i)=>{const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.setValueAtTime(f*m,t0);const vv=(v||0.16)*(1/(i+1.3));g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(vv,t0+0.05);g.gain.exponentialRampToValueAtTime(vv*0.55,t0+d*0.4);g.gain.exponentialRampToValueAtTime(0.0001,t0+d);o.connect(g);g.connect(ac.destination);o.start(t0);o.stop(t0+d+0.05)})}
 function bel(f,st,d,v){if(!shouldPlayEffect()||!ac)return;const t0=ac.currentTime+(st||0);[1,2.76,5.4,8.9].forEach((m,i)=>{const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.setValueAtTime(f*m,t0);const vv=(v||0.14)/Math.pow(1.9,i);g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(vv,t0+0.005);g.gain.exponentialRampToValueAtTime(0.0001,t0+d);o.connect(g);g.connect(ac.destination);o.start(t0);o.stop(t0+d+0.05)})}
 function gl(st,v){if(!shouldPlayEffect()||!ac)return;const t0=ac.currentTime+(st||0);for(let i=0;i<5;i++){const o=ac.createOscillator(),g=ac.createGain();o.type='sine';const b=400+Math.random()*80;o.frequency.setValueAtTime(b,t0+i*0.11);o.frequency.exponentialRampToValueAtTime(b*0.55,t0+i*0.11+0.14);g.gain.setValueAtTime(0.0001,t0+i*0.11);g.gain.exponentialRampToValueAtTime(v||0.12,t0+i*0.11+0.02);g.gain.exponentialRampToValueAtTime(0.0001,t0+i*0.11+0.14);o.connect(g);g.connect(ac.destination);o.start(t0+i*0.11);o.stop(t0+i*0.11+0.18)}}
@@ -827,13 +856,12 @@ function sCd(){if(!shouldPlayEffect())return;iA();bel(880,0,0.35,0.12)}
 function sCdGo(){if(!shouldPlayEffect())return;iA();bel(1320,0,0.5,0.16);org(440,0.05,0.4,0.14)}
 function sJoin(){if(!shouldPlayEffect())return;iA();bel(1760,0,0.4,0.1);bel(2093,0.08,0.35,0.08)}
 function sUlt(){if(!shouldPlayEffect())return;iA();const t0=ac.currentTime;const o=ac.createOscillator();o.type='sawtooth';o.frequency.setValueAtTime(80,t0);o.frequency.exponentialRampToValueAtTime(400,t0+0.8);const g=ac.createGain();g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(0.3,t0+0.1);g.gain.exponentialRampToValueAtTime(0.0001,t0+1.0);o.connect(g);g.connect(ac.destination);o.start(t0);o.stop(t0+1.05);thu(0.5,0.35)}
-
 const BT=[440,392,440,349.23,329.63,349.23,392,440,392,349.23,329.63,293.66,329.63,349.23,329.63,293.66,261.63,293.66,329.63,349.23,329.63,293.66,261.63,246.94,220,246.94,261.63,293.66,329.63,293.66,261.63,246.94];
 const BB=[110,87.31,98,82.41];
 let bgm=null,bgT=null,bgS=0,bgOn=false;
 function bgmTick(){if(!bgm||!ac)return;const t0=ac.currentTime+0.06;const n=BT[bgS%BT.length];[1,2,3,4].forEach((m,i)=>{const o=ac.createOscillator();o.type='sine';o.frequency.value=n*m;const g=ac.createGain();const v=0.06/(i+1.4);g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(v,t0+0.06);g.gain.exponentialRampToValueAtTime(v*0.5,t0+0.375);g.gain.exponentialRampToValueAtTime(0.0001,t0+0.75);o.connect(g);g.connect(bgm.master);o.start(t0);o.stop(t0+0.8)});if(bgS%8===0){const b=BB[(Math.floor(bgS/8))%BB.length];const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=b;g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(0.05,t0+0.08);g.gain.exponentialRampToValueAtTime(0.0001,t0+3);o.connect(g);g.connect(bgm.master);o.start(t0);o.stop(t0+3.1)}bgS++;}
 function startBGM(){if(!shouldPlayBGM())return;iA();if(!ac||bgOn)return;bgOn=true;try{const m=ac.createGain();m.gain.setValueAtTime(0.0001,ac.currentTime);m.gain.exponentialRampToValueAtTime(0.035,ac.currentTime+2.5);m.connect(ac.destination);bgm={master:m};bgS=0;bgT=setInterval(bgmTick,380);bgmTick();}catch(e){bgm=null;bgOn=false}}
-function stopBGM(){if(bgT){clearInterval(bgT);bgT=null}if(bgm&&ac){try{const now=ac.currentTime,g=bgm.master.gain;g.cancelScheduledValues(now);g.setValueAtTime(Math.max(0.0001,g.value),now);g.exponentialRampToValueAtTime(0.0001,now+0.35);}catch(e){}}bgm=null;bgOn=false}
+function stopBGM(){if(bgT){clearInterval(bgT);bgT=null}if(bgm&&ac){try{const now=ac.currentTime,g=bgm.master.gain;g.cancelScheduledValues(now);g.setValueAtTime(Math.max(0.0001,g.value),now);g.gain.exponentialRampToValueAtTime(0.0001,now+0.35);}catch(e){}}bgm=null;bgOn=false}
 
 /* ═══ MQTT ═══ */
 const MQTT_BROKERS=['wss://broker.hivemq.com:8884/mqtt','wss://broker.emqx.io:8084/mqtt'];
@@ -846,7 +874,6 @@ function toast(m,ms){const t=$('toast');t.textContent=m;t.classList.add('show');
 function gCode(){const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let r='';for(let i=0;i<4;i++)r+=c[Math.floor(Math.random()*c.length)];return r}
 function shuf(a){const r=a.slice();for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]]}return r}
 function fmtTime(sec){const m=Math.floor(sec/60),s=sec%60;return m+':'+String(s).padStart(2,'0')}
-
 function connectMQTT(onConnect,onFail){
   if(mqttClient){try{mqttClient.end(true)}catch(e){}}
   mqttHandlers={};mqttConnected=false;
@@ -880,8 +907,6 @@ function broadcastSoundState(){hostBroadcast({type:'sound',playersEffectOn:G.pla
 
 /* ═══ GRADE / WP ═══ */
 const GR=[{id:'p1',name:'ป.1',c:'g1'},{id:'p2',name:'ป.2',c:'g2'},{id:'p3',name:'ป.3',c:'g3'},{id:'p4',name:'ป.4',c:'g4'},{id:'p5',name:'ป.5',c:'g5'},{id:'p6',name:'ป.6',c:'g6'},{id:'extra',name:'พิเศษ',c:'g7'}];
-
-/* ⭐ [v16.3.3] GAME_MODES with html property */
 const GAME_MODES={
   tug:    {name:'ชักกะเย่อ',      emoji:'🎯', html:`<img class="mode-emoji-img-inline" src="${TUG_IMG}" alt="" onerror="this.outerHTML='🎯'">`, ready:true,  desc:'ทีมแข่งดึงเชือกคำศัพท์'},
   attack: {name:'โจมตี-ป้องกัน', emoji:'🏰', html:'🏰', ready:false, desc:'ทีมโจมตี vs ทีมป้องกัน'},
@@ -907,14 +932,13 @@ function updateConfigModeDisplay(){
   const nameEl=$('configModeName');
   if(emojiEl && info){
     if(mode==='tug'){
-      emojiEl.innerHTML=`<img src="${TUG_IMG}" alt="" style="width:3rem;height:3rem;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,.5));border-radius:8px" onerror="this.outerHTML='<span style=\\'font-size:2.2rem\\'>🎯</span>'">`;
+      emojiEl.innerHTML=`<img src="${TUG_IMG}" alt="" style="width:7rem;height:5rem;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(249,115,22,.7));border-radius:10px" onerror="this.outerHTML='<span style=\\'font-size:2.2rem\\'>🎯</span>'">`;
     } else {
       emojiEl.textContent=info.emoji;
     }
   }
   if(nameEl && info) nameEl.textContent=info.name;
 }
-
 function renderGrades(){const w=$('gradeList');w.innerHTML='';const r0=document.createElement('div');r0.className='grade-row';const a=document.createElement('button');a.className='grade g-all';a.innerHTML=`<div class="g-name">🌟 รวม</div><div class="g-count">${POOLS.all.length} คำ</div>`;a.onclick=()=>{sc();pickG('all')};r0.appendChild(a);w.appendChild(r0);const r1=document.createElement('div');r1.className='grade-row';const r2=document.createElement('div');r2.className='grade-row';GR.forEach((g,i)=>{const b=document.createElement('button');b.className='grade '+g.c;const cnt=POOLS[g.id]?POOLS[g.id].length:0;b.innerHTML=`<div class="g-name">${g.name}</div><div class="g-count">${cnt} คำ</div>`;b.onclick=()=>{sc();pickG(g.id)};if(i<4)r1.appendChild(b);else r2.appendChild(b)});w.appendChild(r1);w.appendChild(r2);}
 function pickG(id){G.config.gradeId=id;G.selectedWords=new Set();openWP()}
 function openWP(){const gid=G.config.gradeId;const g=GR.find(x=>x.id===gid);$('wpTitle').textContent=g?g.name:'รวม';const pool=POOLS[gid]||[];$('wpTotal').textContent=pool.length;if(G.selectedWords.size===0){pool.slice(0,Math.min(20,pool.length)).forEach(w=>G.selectedWords.add(w.en))}const w=$('wpActions');w.innerHTML='';const SS=20;const nS=Math.ceil(pool.length/SS);for(let i=0;i<Math.min(nS,30);i++){const c=document.createElement('button');c.className='wp-chip';c.textContent=i+1;c.onclick=()=>{sc();setSet(pool.slice(i*SS,(i+1)*SS))};w.appendChild(c)}const ab=document.createElement('button');ab.className='wp-chip all';ab.textContent='ทั้งหมด';ab.onclick=()=>{sc();pool.forEach(x=>G.selectedWords.add(x.en));renderGrid()};w.appendChild(ab);const cl=document.createElement('button');cl.className='wp-chip clear';cl.textContent='🗑';cl.onclick=()=>{sc();G.selectedWords.clear();renderGrid()};w.appendChild(cl);renderGrid();go('scWordPicker');}
@@ -943,13 +967,11 @@ function createRoom(){
   const qi=document.createElement('img');
   qi.src=`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(jU)}`;
   qi.onerror=()=>{qr.style.display='none'};qr.appendChild(qi);
-
   G.tournament.teams=[];
   for(let i=0;i<G.config.teamCount;i++){
     const def=TEAMS_DEF[i];const nameEl=$('teamName'+(i+1));
     G.tournament.teams.push({id:def.id,name:(nameEl&&nameEl.value.trim())||def.name,emoji:def.emoji,color:def.color,cls:def.cls,score:0,members:[],totalCorrect:0,totalWrong:0,avgTime:0});
   }
-
   $('hostStartBtn').textContent='⏳ กำลังเชื่อมต่อ...';
   setConnStatus('⏳ กำลังเชื่อมต่อ...','wait');
   connectMQTT(()=>{
@@ -967,24 +989,8 @@ function createRoom(){
     setConnStatus('❌ เชื่อมต่อไม่ได้','err');toast('❌ MQTT ล้มเหลว',5000);
   });
 }
-
-function assignTeamToPlayer(){
-  const counts=G.tournament.teams.map(t=>({id:t.id,count:Object.values(G.players).filter(p=>p.teamId===t.id).length}));
-  counts.sort((a,b)=>a.count-b.count);
-  const minCount=counts[0].count;
-  const candidates=counts.filter(c=>c.count===minCount);
-  return candidates[Math.floor(Math.random()*candidates.length)].id;
-}
-function rebalanceTeams(){
-  const players=Object.values(G.players);if(!players.length)return;
-  const n=G.tournament.teams.length;if(n<1)return;
-  const shuffled=[...players].sort(()=>Math.random()-0.5);
-  shuffled.forEach((p,i)=>{const teamIdx=i%n;p.teamId=G.tournament.teams[teamIdx].id;p.team=G.tournament.teams[teamIdx].name;});
-  G.tournament.teams.forEach(t=>t.members=[]);
-  players.forEach(p=>{const team=G.tournament.teams.find(t=>t.id===p.teamId);if(team)team.members.push(p);});
-  players.forEach(p=>{const team=G.tournament.teams.find(t=>t.id===p.teamId);if(!team)return;pub(`tug_kv10/${G.roomCode}/player/${p.id}/assigned`,{teamId:team.id,teamName:team.name,teamEmoji:team.emoji,teamColor:team.color});});
-  rPL();uSB();hostBroadcastLobby();
-}
+function assignTeamToPlayer(){const counts=G.tournament.teams.map(t=>({id:t.id,count:Object.values(G.players).filter(p=>p.teamId===t.id).length}));counts.sort((a,b)=>a.count-b.count);const minCount=counts[0].count;const candidates=counts.filter(c=>c.count===minCount);return candidates[Math.floor(Math.random()*candidates.length)].id;}
+function rebalanceTeams(){const players=Object.values(G.players);if(!players.length)return;const n=G.tournament.teams.length;if(n<1)return;const shuffled=[...players].sort(()=>Math.random()-0.5);shuffled.forEach((p,i)=>{const teamIdx=i%n;p.teamId=G.tournament.teams[teamIdx].id;p.team=G.tournament.teams[teamIdx].name;});G.tournament.teams.forEach(t=>t.members=[]);players.forEach(p=>{const team=G.tournament.teams.find(t=>t.id===p.teamId);if(team)team.members.push(p);});players.forEach(p=>{const team=G.tournament.teams.find(t=>t.id===p.teamId);if(!team)return;pub(`tug_kv10/${G.roomCode}/player/${p.id}/assigned`,{teamId:team.id,teamName:team.name,teamEmoji:team.emoji,teamColor:team.color});});rPL();uSB();hostBroadcastLobby();}
 function hostOnJoin(d){
   const id=d.playerId;if(!id)return;
   if(!G.players[id]){
@@ -992,9 +998,7 @@ function hostOnJoin(d){
     G.players[id]={id,name:d.name||'ผู้เล่น',avatar:d.avatar||'🎃',team:team?team.name:'',teamId,score:0,streak:0,totalAnswers:0,totalCorrect:0,totalWrong:0,totalTimeMs:0,avgTime:0,blocked:false,connected:true};
     sJoin();
     pub(`tug_kv10/${G.roomCode}/player/${id}/assigned`,{teamId,teamName:team.name,teamEmoji:team.emoji,teamColor:team.color});
-  }else{
-    G.players[id].connected=true;if(d.name)G.players[id].name=d.name;if(d.avatar)G.players[id].avatar=d.avatar;
-  }
+  }else{G.players[id].connected=true;if(d.name)G.players[id].name=d.name;if(d.avatar)G.players[id].avatar=d.avatar;}
   G.tournament.teams.forEach(t=>t.members=[]);
   Object.values(G.players).forEach(p=>{const team=G.tournament.teams.find(t=>t.id===p.teamId);if(team){p.team=team.name;team.members.push(p);}});
   hostBroadcastLobby();rPL();uSB();
@@ -1010,17 +1014,13 @@ function hostOnAnswer(id,d){
   const team=G.tournament.teams.find(t=>t.id===p.teamId);
   if(team){team.score=team.members.reduce((s,m)=>s+(m.score||0),0);team.totalCorrect=team.members.reduce((s,m)=>s+(m.totalCorrect||0),0);team.totalWrong=team.members.reduce((s,m)=>s+(m.totalWrong||0),0);}
   G.replayLog.push({t:Date.now(),pid:p.id,teamId:p.teamId,qIdx:d.qIdx||0,correct:!!d.correct,pts:Number(d.points)||0});
-  renderArena();rLB();
-  HostTugArena.animateAnswer(p.teamId,!!d.correct);
+  renderArena();rLB();HostTugArena.animateAnswer(p.teamId,!!d.correct);
   $('hostTotalAnswers').textContent=Object.values(G.players).reduce((s,x)=>s+(x.totalAnswers||0),0);
 }
 function hostOnLeave(id){if(G.players[id]){G.players[id].connected=false;rPL();uSB();}}
 function hostBroadcastLobby(){const list=Object.values(G.players).map(p=>({id:p.id,name:p.name,avatar:p.avatar,team:p.team,teamId:p.teamId,blocked:p.blocked}));pub(`tug_kv10/${G.roomCode}/broadcast`,{type:'lobby',players:list,teams:G.tournament.teams.map(t=>({id:t.id,name:t.name,emoji:t.emoji,cls:t.cls,color:t.color}))});}
 function hostBroadcast(data){pub(`tug_kv10/${G.roomCode}/broadcast`,data);}
-function broadcastRanking(){
-  const list=Object.values(G.players).filter(p=>!p.blocked).sort((a,b)=>b.score-a.score).map(p=>({id:p.id,name:p.name,avatar:p.avatar,team:p.team,teamId:p.teamId,score:p.score}));
-  hostBroadcast({type:'ranking',list,teams:G.tournament.teams.map(t=>({id:t.id,name:t.name,emoji:t.emoji,cls:t.cls,score:t.score,color:t.color,members:t.members.map(m=>({id:m.id,avatar:m.avatar,name:m.name}))}))});
-}
+function broadcastRanking(){const list=Object.values(G.players).filter(p=>!p.blocked).sort((a,b)=>b.score-a.score).map(p=>({id:p.id,name:p.name,avatar:p.avatar,team:p.team,teamId:p.teamId,score:p.score}));hostBroadcast({type:'ranking',list,teams:G.tournament.teams.map(t=>({id:t.id,name:t.name,emoji:t.emoji,cls:t.cls,score:t.score,color:t.color,members:t.members.map(m=>({id:m.id,avatar:m.avatar,name:m.name}))}))});}
 function rPL(){
   const g=$('playersGrid');if(!g)return;
   const l=Object.values(G.players);
@@ -1035,7 +1035,6 @@ function rPL(){
 }
 function togBlock(id){sc();const p=G.players[id];if(!p)return;p.blocked=!p.blocked;rPL();uSB();pub(`tug_kv10/${G.roomCode}/broadcast`,{type:p.blocked?'blocked':'unblocked',playerId:id});}
 function uSB(){const a=Object.values(G.players).filter(p=>!p.blocked&&p.connected);const b=$('hostStartBtn');const teamsWithPlayers=G.tournament.teams.filter(t=>t.members.some(m=>!m.blocked&&m.connected)).length;const needTeams=Math.min(2,G.tournament.teams.length);b.disabled=a.length<2||teamsWithPlayers<needTeams;b.textContent=a.length<2?'⏳ รอผู้เล่น...':`▶ เริ่มทัวร์นาเมนต์! (${a.length} คน)`;}
-
 function copyJoinLink(){const url=new URL(location.href);url.searchParams.set('code',G.roomCode);const jU=url.toString();if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(jU).then(()=>toast('✅ คัดลอก!',2000)).catch(()=>fallbackCopy(jU));}else fallbackCopy(jU);}
 function fallbackCopy(text){const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('✅',2000);}catch(e){}document.body.removeChild(ta);}
 function saveQRCode(){const img=document.querySelector('#qrcode img');if(!img){toast('⚠️');return}fetch(img.src).then(r=>r.blob()).then(blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='tug-qr-'+G.roomCode+'.png';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);document.body.removeChild(a);},1000);toast('✅');}).catch(()=>{window.open(img.src,'_blank');});}
@@ -1048,33 +1047,13 @@ function hostStartTournament(){
   const desc=$('bracketDesc');
   if(teams.length===4){
     desc.textContent='รอบคัดเลือก 4 ทีม → Semi 2 คู่ → ชิงที่ 3 + ชิงชนะเลิศ';
-    grid.innerHTML=`
-      <div class="bracket-col"><div class="bracket-col-title">รอบคัดเลือก</div><div class="bracket-match">${teams.map(t=>`<div class="bracket-team"><span class="bt-emoji">${t.emoji}</span><span class="bt-name">${esc(t.name)}</span></div>`).join('')}</div></div>
-      <div style="text-align:center;color:#7c6fa8;font-size:1.5rem">→</div>
-      <div class="bracket-col"><div class="bracket-col-title">รอบรองฯ</div>
-        <div class="bracket-match"><div class="bracket-team"><span class="bt-emoji">#1</span><span class="bt-name">อันดับ 1</span></div><div class="bracket-vs">VS</div><div class="bracket-team"><span class="bt-emoji">#4</span><span class="bt-name">อันดับ 4</span></div></div>
-        <div class="bracket-match"><div class="bracket-team"><span class="bt-emoji">#2</span><span class="bt-name">อันดับ 2</span></div><div class="bracket-vs">VS</div><div class="bracket-team"><span class="bt-emoji">#3</span><span class="bt-name">อันดับ 3</span></div></div>
-      </div>
-      <div style="text-align:center;color:#7c6fa8;font-size:1.5rem">→</div>
-      <div class="bracket-col"><div class="bracket-col-title">รอบชิง</div>
-        <div class="bracket-match"><div style="font-size:.7rem;color:#fbbf24;font-weight:900;text-align:center">🥇 ชิงชนะเลิศ</div><div class="bracket-team"><span class="bt-emoji">🏆</span><span class="bt-name">ผู้ชนะ A</span></div><div class="bracket-vs">VS</div><div class="bracket-team"><span class="bt-emoji">🏆</span><span class="bt-name">ผู้ชนะ B</span></div></div>
-        <div class="bracket-match"><div style="font-size:.7rem;color:#cd7f32;font-weight:900;text-align:center">🥉 ชิงที่ 3</div><div class="bracket-team"><span class="bt-emoji">🥉</span><span class="bt-name">ผู้แพ้ A</span></div><div class="bracket-vs">VS</div><div class="bracket-team"><span class="bt-emoji">🥉</span><span class="bt-name">ผู้แพ้ B</span></div></div>
-      </div>`;
+    grid.innerHTML=`<div class="bracket-col"><div class="bracket-col-title">รอบคัดเลือก</div><div class="bracket-match">${teams.map(t=>`<div class="bracket-team"><span class="bt-emoji">${t.emoji}</span><span class="bt-name">${esc(t.name)}</span></div>`).join('')}</div></div><div style="text-align:center;color:#7c6fa8;font-size:1.5rem">→</div><div class="bracket-col"><div class="bracket-col-title">รอบรองฯ</div><div class="bracket-match"><div class="bracket-team"><span class="bt-emoji">#1</span><span class="bt-name">อันดับ 1</span></div><div class="bracket-vs">VS</div><div class="bracket-team"><span class="bt-emoji">#4</span><span class="bt-name">อันดับ 4</span></div></div><div class="bracket-match"><div class="bracket-team"><span class="bt-emoji">#2</span><span class="bt-name">อันดับ 2</span></div><div class="bracket-vs">VS</div><div class="bracket-team"><span class="bt-emoji">#3</span><span class="bt-name">อันดับ 3</span></div></div></div><div style="text-align:center;color:#7c6fa8;font-size:1.5rem">→</div><div class="bracket-col"><div class="bracket-col-title">รอบชิง</div><div class="bracket-match"><div style="font-size:.7rem;color:#fbbf24;font-weight:900;text-align:center">🥇 ชิงชนะเลิศ</div><div class="bracket-team"><span class="bt-emoji">🏆</span><span class="bt-name">ผู้ชนะ A</span></div><div class="bracket-vs">VS</div><div class="bracket-team"><span class="bt-emoji">🏆</span><span class="bt-name">ผู้ชนะ B</span></div></div><div class="bracket-match"><div style="font-size:.7rem;color:#cd7f32;font-weight:900;text-align:center">🥉 ชิงที่ 3</div><div class="bracket-team"><span class="bt-emoji">🥉</span><span class="bt-name">ผู้แพ้ A</span></div><div class="bracket-vs">VS</div><div class="bracket-team"><span class="bt-emoji">🥉</span><span class="bt-name">ผู้แพ้ B</span></div></div></div>`;
   } else if(teams.length===3){
     desc.textContent='รอบคัดเลือก 3 ทีม → 1 vs 2 ชิง → อันดับ 3 อัตโนมัติ';
-    grid.innerHTML=`
-      <div class="bracket-col"><div class="bracket-col-title">รอบคัดเลือก (3 ทีม)</div><div class="bracket-match">${teams.map(t=>`<div class="bracket-team"><span class="bt-emoji">${t.emoji}</span><span class="bt-name">${esc(t.name)}</span></div>`).join('')}</div></div>
-      <div style="text-align:center;color:#7c6fa8;font-size:1.5rem">→</div>
-      <div class="bracket-col"><div class="bracket-col-title">รอบชิง</div><div class="bracket-match"><div class="bracket-team"><span class="bt-emoji">#1</span><span class="bt-name">อันดับ 1</span></div><div class="bracket-vs">VS</div><div class="bracket-team"><span class="bt-emoji">#2</span><span class="bt-name">อันดับ 2</span></div></div></div>
-      <div style="text-align:center;color:#7c6fa8;font-size:1.5rem">→</div>
-      <div class="bracket-col"><div class="bracket-col-title">ผล</div><div class="bracket-match" style="text-align:center;font-size:.85rem">🥇 #1 vs #2<br>🥈 ผู้แพ้<br>🥉 อันดับ 3 (auto)</div></div>`;
+    grid.innerHTML=`<div class="bracket-col"><div class="bracket-col-title">รอบคัดเลือก (3 ทีม)</div><div class="bracket-match">${teams.map(t=>`<div class="bracket-team"><span class="bt-emoji">${t.emoji}</span><span class="bt-name">${esc(t.name)}</span></div>`).join('')}</div></div><div style="text-align:center;color:#7c6fa8;font-size:1.5rem">→</div><div class="bracket-col"><div class="bracket-col-title">รอบชิง</div><div class="bracket-match"><div class="bracket-team"><span class="bt-emoji">#1</span><span class="bt-name">อันดับ 1</span></div><div class="bracket-vs">VS</div><div class="bracket-team"><span class="bt-emoji">#2</span><span class="bt-name">อันดับ 2</span></div></div></div><div style="text-align:center;color:#7c6fa8;font-size:1.5rem">→</div><div class="bracket-col"><div class="bracket-col-title">ผล</div><div class="bracket-match" style="text-align:center;font-size:.85rem">🥇 #1 vs #2<br>🥈 ผู้แพ้<br>🥉 อันดับ 3 (auto)</div></div>`;
   } else if(teams.length===2){
     desc.textContent='แข่ง 2 ทีม รอบเดียว';
-    grid.innerHTML=`
-      <div class="bracket-col"><div class="bracket-col-title">แข่งครั้งเดียว</div><div class="bracket-match"><div class="bracket-team"><span class="bt-emoji">${teams[0].emoji}</span><span class="bt-name">${esc(teams[0].name)}</span></div><div class="bracket-vs">VS</div><div class="bracket-team"><span class="bt-emoji">${teams[1].emoji}</span><span class="bt-name">${esc(teams[1].name)}</span></div></div></div>
-      <div style="text-align:center;color:#7c6fa8;font-size:1.5rem">→</div>
-      <div class="bracket-col"><div class="bracket-col-title">ผล</div><div class="bracket-match" style="text-align:center;font-size:.85rem">🥇 ที่ 1<br>🥈 ที่ 2</div></div>
-      <div></div><div></div>`;
+    grid.innerHTML=`<div class="bracket-col"><div class="bracket-col-title">แข่งครั้งเดียว</div><div class="bracket-match"><div class="bracket-team"><span class="bt-emoji">${teams[0].emoji}</span><span class="bt-name">${esc(teams[0].name)}</span></div><div class="bracket-vs">VS</div><div class="bracket-team"><span class="bt-emoji">${teams[1].emoji}</span><span class="bt-name">${esc(teams[1].name)}</span></div></div></div><div style="text-align:center;color:#7c6fa8;font-size:1.5rem">→</div><div class="bracket-col"><div class="bracket-col-title">ผล</div><div class="bracket-match" style="text-align:center;font-size:.85rem">🥇 ที่ 1<br>🥈 ที่ 2</div></div><div></div><div></div>`;
   } else {
     grid.innerHTML='<p style="text-align:center;color:#f87171;padding:20px">ต้องมีอย่างน้อย 2 ทีม</p>';
   }
@@ -1083,28 +1062,17 @@ function hostStartTournament(){
   $('bracketPlayerStatus').textContent=status.slice(0,-2);
   go('scHostBracket');
 }
-
 function startQualifier(){
   G.tournament.teams.forEach(t=>{t.score=0;t.members.forEach(m=>{m.score=0;m.streak=0;m.totalAnswers=0;m.totalCorrect=0;m.totalWrong=0;m.totalTimeMs=0;});});
   G.tournament.activeTeamIds=G.tournament.teams.map(t=>t.id);
   G.tournament.currentRound=0;G.tournament.phase='playing';G.tournament.matchId='qualifier';
   G.gameState='playing';G.totalDeadline=Date.now()+G.config.setDuration*1000;
-
   const sel=[],pool=POOLS[G.config.gradeId]||[];
   pool.forEach(w=>{if(G.selectedWords.has(w.en))sel.push(w)});
   if(sel.length<4){toast('⚠️ ต้องมี 4 คำ');return}
   G.questions=bQ(sel);
   const publicQs=G.questions.map(q=>({text:q.text,sub:q.sub,options:q.options.map(o=>o.text),correct:q.correct,timeLimit:q.timeLimit}));
-
-  hostBroadcast({
-    type:'tournament_start',mode:'tug',
-    teams:G.tournament.teams.map(t=>({id:t.id,name:t.name,emoji:t.emoji,cls:t.cls,color:t.color})),
-    setDuration:G.config.setDuration,theme:G.config.theme,
-    activeTeamIds:G.tournament.activeTeamIds,
-    roundName:'QUALIFIER',questions:publicQs,
-    playersEffectOn:G.playersEffectOn,playersBgmOn:G.playersBgmOn
-  });
-
+  hostBroadcast({type:'tournament_start',mode:'tug',teams:G.tournament.teams.map(t=>({id:t.id,name:t.name,emoji:t.emoji,cls:t.cls,color:t.color})),setDuration:G.config.setDuration,theme:G.config.theme,activeTeamIds:G.tournament.activeTeamIds,roundName:'QUALIFIER',questions:publicQs,playersEffectOn:G.playersEffectOn,playersBgmOn:G.playersBgmOn});
   go('scHostGame');
   $('hostRoundLabel').textContent='ROUND 1 · QUALIFIER';
   $('hostTotalAnswers').textContent='0';
@@ -1112,7 +1080,6 @@ function startQualifier(){
   applyTheme(G.config.theme);
   if(G.hostBgmOn)startBGM();
   renderArena();rLB();
-
   clearInterval(G.totalTimerId);
   G.totalTimerId=setInterval(()=>{
     if(G.gameState==='ended'){clearInterval(G.totalTimerId);return}
@@ -1122,106 +1089,60 @@ function startQualifier(){
     if(remain<=0){clearInterval(G.totalTimerId);endMatch();}
   },500);
   clearInterval(G.rankTimerId);
-  G.rankTimerId=setInterval(()=>{
-    if(G.gameState!=='playing'&&G.gameState!=='paused')return;
-    broadcastRanking();checkWeatherIntensity();
-  },2000);
+  G.rankTimerId=setInterval(()=>{if(G.gameState!=='playing'&&G.gameState!=='paused')return;broadcastRanking();checkWeatherIntensity();},2000);
   broadcastRanking();
   showHostCountdown('QUALIFIER',()=>{toast('🚀 เริ่มเลย!',1200);});
 }
-
 function endMatch(){
   G.tournament.phase='setend';
   hostBroadcast({type:'match_end'});
   stopBGM();
-
   setTimeout(()=>{
     const teams=G.tournament.teams;
     const n=teams.length;
-
     if(G.tournament.matchId==='qualifier'){
       const ranked=rankTeams([...teams]);
       G.tournament.bracket.qualifier.ranking=ranked.map(t=>t.id);
-
       if(n===2){
         G.tournament.bracket.final={first:{teamA:ranked[0].id,teamB:ranked[1].id,winner:ranked[0].id,loser:ranked[1].id},third:null};
-        toast('🏆 จบการแข่งขัน! ประกาศผล...', 2500);
-        setTimeout(()=>endTournament(), 2000);
-      }
-      else if(n===3){
-        G.tournament.bracket.final={
-          third:{teamA:ranked[2].id,winner:ranked[2].id,auto:true,loser:null},
-          first:{teamA:ranked[0].id,teamB:ranked[1].id,winner:null,loser:null}
-        };
+        toast('🏆 จบการแข่งขัน! ประกาศผล...',2500);
+        setTimeout(()=>endTournament(),2000);
+      } else if(n===3){
+        G.tournament.bracket.final={third:{teamA:ranked[2].id,winner:ranked[2].id,auto:true,loser:null},first:{teamA:ranked[0].id,teamB:ranked[1].id,winner:null,loser:null}};
         hostBroadcast({type:'rank_update',teamId:ranked[2].id,rank:3});
-        showBracketResult(ranked, ()=>runFinalMatch('championship', ranked[0].id, ranked[1].id));
+        showBracketResult(ranked,()=>runFinalMatch('championship',ranked[0].id,ranked[1].id));
+      } else if(n===4){
+        G.tournament.bracket.semi=[{id:'semi1',teamA:ranked[0].id,teamB:ranked[3].id,winner:null,loser:null},{id:'semi2',teamA:ranked[1].id,teamB:ranked[2].id,winner:null,loser:null}];
+        showBracketResult(ranked,()=>runSemiMatch('semi1'));
       }
-      else if(n===4){
-        G.tournament.bracket.semi=[
-          {id:'semi1',teamA:ranked[0].id,teamB:ranked[3].id,winner:null,loser:null},
-          {id:'semi2',teamA:ranked[1].id,teamB:ranked[2].id,winner:null,loser:null}
-        ];
-        showBracketResult(ranked, ()=>runSemiMatch('semi1'));
-      }
-    }
-    else if(G.tournament.matchId==='semi1'||G.tournament.matchId==='semi2'){
+    } else if(G.tournament.matchId==='semi1'||G.tournament.matchId==='semi2'){
       const w=determineMatchWinner();
       const m=G.tournament.bracket.semi.find(x=>x.id===G.tournament.matchId);
       m.winner=w.winner;m.loser=w.loser;
-      if(G.tournament.matchId==='semi1'){
-        setTimeout(()=>runSemiMatch('semi2'), 2500);
-      } else {
-        setTimeout(()=>runFinalMatches(), 2500);
-      }
-    }
-    else if(G.tournament.matchId==='third'){
+      if(G.tournament.matchId==='semi1'){setTimeout(()=>runSemiMatch('semi2'),2500);}
+      else{setTimeout(()=>runFinalMatches(),2500);}
+    } else if(G.tournament.matchId==='third'){
       const w=determineMatchWinner();
       G.tournament.bracket.final.third.winner=w.winner;
       G.tournament.bracket.final.third.loser=w.loser;
       hostBroadcast({type:'rank_update',teamId:w.winner,rank:3});
       hostBroadcast({type:'rank_update',teamId:w.loser,rank:4});
-      toast('🥉 ชิงที่ 3 จบ · ที่ 3 vs ที่ 4 ประกาศแล้ว',2000);
+      toast('🥉 ชิงที่ 3 จบ',2000);
       checkAllMatchesDone();
-    }
-    else if(G.tournament.matchId==='championship'){
+    } else if(G.tournament.matchId==='championship'){
       const w=determineMatchWinner();
       G.tournament.bracket.final.first.winner=w.winner;
       G.tournament.bracket.final.first.loser=w.loser;
       hostBroadcast({type:'rank_update',teamId:w.winner,rank:1});
       hostBroadcast({type:'rank_update',teamId:w.loser,rank:2});
-      toast('🏆 ชิงชนะเลิศจบ! ที่ 1 vs ที่ 2 ประกาศแล้ว',2000);
+      toast('🏆 ชิงชนะเลิศจบ!',2000);
       checkAllMatchesDone();
     }
-  }, 3000);
+  },3000);
 }
-
-function determineMatchWinner(){
-  const tidA=G.tournament.currentMatchTeamA;
-  const tidB=G.tournament.currentMatchTeamB;
-  const tA=G.tournament.teams.find(t=>t.id===tidA);
-  const tB=G.tournament.teams.find(t=>t.id===tidB);
-  if(!tA||!tB)return{winner:tidA,loser:tidB};
-  if(tA.score>tB.score)return{winner:tA.id,loser:tB.id};
-  if(tB.score>tA.score)return{winner:tB.id,loser:tA.id};
-  if((tA.totalCorrect||0)>(tB.totalCorrect||0))return{winner:tA.id,loser:tB.id};
-  if((tB.totalCorrect||0)>(tA.totalCorrect||0))return{winner:tB.id,loser:tA.id};
-  return Math.random()<0.5?{winner:tA.id,loser:tB.id}:{winner:tB.id,loser:tA.id};
-}
+function determineMatchWinner(){const tidA=G.tournament.currentMatchTeamA;const tidB=G.tournament.currentMatchTeamB;const tA=G.tournament.teams.find(t=>t.id===tidA);const tB=G.tournament.teams.find(t=>t.id===tidB);if(!tA||!tB)return{winner:tidA,loser:tidB};if(tA.score>tB.score)return{winner:tA.id,loser:tB.id};if(tB.score>tA.score)return{winner:tB.id,loser:tA.id};if((tA.totalCorrect||0)>(tB.totalCorrect||0))return{winner:tA.id,loser:tB.id};if((tB.totalCorrect||0)>(tA.totalCorrect||0))return{winner:tB.id,loser:tA.id};return Math.random()<0.5?{winner:tA.id,loser:tB.id}:{winner:tB.id,loser:tA.id};}
 function rankTeams(teams){return teams.sort((a,b)=>{if(b.score!==a.score)return b.score-a.score;if((b.totalCorrect||0)!==(a.totalCorrect||0))return (b.totalCorrect||0)-(a.totalCorrect||0);if((a.avgTime||0)!==(b.avgTime||0))return (a.avgTime||0)-(b.avgTime||0);return Math.random()-0.5;});}
-
-function checkAllMatchesDone(){
-  const n=G.tournament.teams.length;
-  const f=G.tournament.bracket.final;
-  if(!f.first||!f.first.winner)return;
-  if(n===2){setTimeout(()=>endTournament(),1500);return;}
-  if(n===3){setTimeout(()=>endTournament(),1500);return;}
-  if(n===4){
-    if(!f.third||!f.third.winner)return;
-    setTimeout(()=>endTournament(),1500);
-    return;
-  }
-}
-
+function checkAllMatchesDone(){const n=G.tournament.teams.length;const f=G.tournament.bracket.final;if(!f.first||!f.first.winner)return;if(n===2){setTimeout(()=>endTournament(),1500);return;}if(n===3){setTimeout(()=>endTournament(),1500);return;}if(n===4){if(!f.third||!f.third.winner)return;setTimeout(()=>endTournament(),1500);return;}}
 function runSemiMatch(matchId){
   const m=G.tournament.bracket.semi.find(x=>x.id===matchId);
   G.tournament.activeTeamIds=[m.teamA,m.teamB];
@@ -1234,18 +1155,11 @@ function runSemiMatch(matchId){
   pool.forEach(w=>{if(G.selectedWords.has(w.en))sel.push(w)});
   G.questions=bQ(sel);
   const publicQs=G.questions.map(q=>({text:q.text,sub:q.sub,options:q.options.map(o=>o.text),correct:q.correct,timeLimit:q.timeLimit}));
-
   const teamA=G.tournament.teams.find(t=>t.id===m.teamA);
   const teamB=G.tournament.teams.find(t=>t.id===m.teamB);
   const roundName=matchId==='semi1'?'SEMI 1':'SEMI 2';
   $('hostRoundLabel').textContent='ROUND 2 · '+roundName;
-  hostBroadcast({
-    type:'match_start',matchId,roundName,
-    teamA:{id:teamA.id,name:teamA.name,emoji:teamA.emoji,cls:teamA.cls},
-    teamB:{id:teamB.id,name:teamB.name,emoji:teamB.emoji,cls:teamB.cls},
-    setDuration:G.config.setDuration,theme:G.config.theme,
-    questions:publicQs,playersEffectOn:G.playersEffectOn,playersBgmOn:G.playersBgmOn
-  });
+  hostBroadcast({type:'match_start',matchId,roundName,teamA:{id:teamA.id,name:teamA.name,emoji:teamA.emoji,cls:teamA.cls},teamB:{id:teamB.id,name:teamB.name,emoji:teamB.emoji,cls:teamB.cls},setDuration:G.config.setDuration,theme:G.config.theme,questions:publicQs,playersEffectOn:G.playersEffectOn,playersBgmOn:G.playersBgmOn});
   renderArena();rLB();
   clearInterval(G.totalTimerId);
   G.totalTimerId=setInterval(()=>{
@@ -1257,7 +1171,6 @@ function runSemiMatch(matchId){
   },500);
   showHostCountdown(roundName+' · '+teamA.name+' vs '+teamB.name,()=>{toast('🚀',1500);});
 }
-
 function runFinalMatches(){
   const semi=G.tournament.bracket.semi;
   const winA=semi[0].winner,winB=semi[1].winner;
@@ -1267,7 +1180,6 @@ function runFinalMatches(){
   G.tournament.matchId='third';
   runFinalMatch('third',loseA,loseB);
 }
-
 function runFinalMatch(kind,tidA,tidB){
   G.tournament.activeTeamIds=[tidA,tidB];
   G.tournament.currentRound=2;G.tournament.phase='playing';G.gameState='playing';
@@ -1283,14 +1195,7 @@ function runFinalMatch(kind,tidA,tidB){
   const teamB=G.tournament.teams.find(t=>t.id===tidB);
   const label=kind==='third'?'🥉 ชิงที่ 3':'🏆 ชิงชนะเลิศ';
   $('hostRoundLabel').textContent='ROUND 3 · '+(kind==='third'?'3rd PLACE':'FINAL');
-  hostBroadcast({
-    type:'match_start',matchId:kind,
-    roundName:kind==='third'?'THIRD':'FINAL',
-    teamA:{id:teamA.id,name:teamA.name,emoji:teamA.emoji,cls:teamA.cls},
-    teamB:{id:teamB.id,name:teamB.name,emoji:teamB.emoji,cls:teamB.cls},
-    setDuration:G.config.setDuration,theme:G.config.theme,
-    questions:publicQs,playersEffectOn:G.playersEffectOn,playersBgmOn:G.playersBgmOn
-  });
+  hostBroadcast({type:'match_start',matchId:kind,roundName:kind==='third'?'THIRD':'FINAL',teamA:{id:teamA.id,name:teamA.name,emoji:teamA.emoji,cls:teamA.cls},teamB:{id:teamB.id,name:teamB.name,emoji:teamB.emoji,cls:teamB.cls},setDuration:G.config.setDuration,theme:G.config.theme,questions:publicQs,playersEffectOn:G.playersEffectOn,playersBgmOn:G.playersBgmOn});
   renderArena();rLB();
   clearInterval(G.totalTimerId);
   G.totalTimerId=setInterval(()=>{
@@ -1302,36 +1207,16 @@ function runFinalMatch(kind,tidA,tidB){
   },500);
   showHostCountdown(label+' · '+teamA.name+' vs '+teamB.name,()=>{toast(label,2000);});
 }
-
 function endTournament(){
   G.gameState='ended';
-  clearInterval(G.totalTimerId);
-  clearInterval(G.rankTimerId);
-  stopBGM();
-
+  clearInterval(G.totalTimerId);clearInterval(G.rankTimerId);stopBGM();
   const teams=G.tournament.teams;
   const n=teams.length;
   const f=G.tournament.bracket.final;
   let ranks=[];
-
-  if(n===2){
-    const ranked=rankTeams([...teams]);
-    ranks=ranked.map((t,i)=>({id:t.id,name:t.name,emoji:t.emoji,cls:t.cls,score:t.score,rank:i+1}));
-  }
-  else if(n===3){
-    const first=teams.find(t=>t.id===f.first.winner);
-    const second=teams.find(t=>t.id===f.first.loser);
-    const third=teams.find(t=>t.id===f.third.teamA);
-    ranks=[first,second,third].filter(Boolean).map((t,i)=>({id:t.id,name:t.name,emoji:t.emoji,cls:t.cls,score:t.score,rank:i+1}));
-  }
-  else if(n===4){
-    const first=teams.find(t=>t.id===f.first.winner);
-    const second=teams.find(t=>t.id===f.first.loser);
-    const third=teams.find(t=>t.id===f.third.winner);
-    const fourth=teams.find(t=>t.id===f.third.loser);
-    ranks=[first,second,third,fourth].filter(Boolean).map((t,i)=>({id:t.id,name:t.name,emoji:t.emoji,cls:t.cls,score:t.score,rank:i+1}));
-  }
-
+  if(n===2){const ranked=rankTeams([...teams]);ranks=ranked.map((t,i)=>({id:t.id,name:t.name,emoji:t.emoji,cls:t.cls,score:t.score,rank:i+1}));}
+  else if(n===3){const first=teams.find(t=>t.id===f.first.winner);const second=teams.find(t=>t.id===f.first.loser);const third=teams.find(t=>t.id===f.third.teamA);ranks=[first,second,third].filter(Boolean).map((t,i)=>({id:t.id,name:t.name,emoji:t.emoji,cls:t.cls,score:t.score,rank:i+1}));}
+  else if(n===4){const first=teams.find(t=>t.id===f.first.winner);const second=teams.find(t=>t.id===f.first.loser);const third=teams.find(t=>t.id===f.third.winner);const fourth=teams.find(t=>t.id===f.third.loser);ranks=[first,second,third,fourth].filter(Boolean).map((t,i)=>({id:t.id,name:t.name,emoji:t.emoji,cls:t.cls,score:t.score,rank:i+1}));}
   hostBroadcast({type:'tournament_end',ranks,stats:buildStats()});
   rPodium(ranks);
   go('scHostPodium');
@@ -1339,41 +1224,23 @@ function endTournament(){
   sFin();
   if(ranks[0])launchCelebration(TEAMS_DEF.find(d=>d.id===ranks[0].id)?.color||'#f97316');
 }
-
 function buildStats(){const wrongCount={};G.replayLog.forEach(e=>{if(!e.correct)wrongCount[e.qIdx]=(wrongCount[e.qIdx]||0)+1;});return{totalAnswers:G.replayLog.length,totalCorrect:G.replayLog.filter(e=>e.correct).length,totalWrong:G.replayLog.filter(e=>!e.correct).length};}
 function showBracketResult(ranked,cb){const ov=$('hostCountdown');ov.classList.add('on');const num=$('hostCountdownNum'),txt=$('hostCountdownText'),sub=$('hostCountdownSub');num.textContent='🏆';num.style.fontSize='5rem';txt.textContent='ผลรอบคัดเลือก';sub.innerHTML=ranked.map((t,i)=>`<div style="margin:4px 0">${['🥇','🥈','🥉','4️⃣'][i]||'#'} ${t.emoji} ${t.name} — ${t.score}</div>`).join('');setTimeout(()=>{ov.classList.remove('on');num.style.fontSize='9rem';cb();},3500);}
 function showHostCountdown(subtitle,cb){const ov=$('hostCountdown'),el=$('hostCountdownNum'),txt=$('hostCountdownText'),sub=$('hostCountdownSub');ov.classList.add('on');txt.textContent='เตรียมตัว...';sub.textContent=subtitle||'';el.style.fontSize='9rem';let c=5;el.textContent=c;el.style.animation='none';void el.offsetWidth;el.style.animation='cp 1s infinite';sCd();const timer=setInterval(()=>{c--;if(c<=0){clearInterval(timer);sCdGo();ov.classList.remove('on');if(cb)cb();}else{el.textContent=c;sCd();el.style.animation='none';void el.offsetWidth;el.style.animation='cp 1s infinite';}},1000);}
 function bQ(pool){if(pool.length<4)return[];const qTarget=Math.max(80,Math.min(300,Math.ceil(G.config.setDuration/2)+40));const qs=[];let bag=shuf(pool),bi=0;for(let k=0;k<qTarget;k++){if(bi>=bag.length){bag=shuf(pool);bi=0}const t=bag[bi++];const rv=Math.random()<0.5;const oth=pool.filter(w=>w.en!==t.en&&w.th!==t.th);const dis=shuf(oth).slice(0,3);if(dis.length<3){k--;continue}const opts=rv?shuf([t,...dis]).map(w=>({text:w.en,ok:w.en===t.en})):shuf([t,...dis]).map(w=>({text:w.th,ok:w.th===t.th}));const ci=opts.findIndex(o=>o.ok);qs.push({text:rv?t.th:t.en,sub:rv?'คำภาษาอังกฤษคือ?':'คำนี้แปลว่าอะไร?',options:opts,correct:ci,timeLimit:G.config.timeLimit});}return qs;}
-
-function hostPause(){
-  sc();const pb=$('pauseBtn');
-  if(G.gameState==='paused'){G.gameState='playing';G.totalDeadline=Date.now()+(G.remainingMs||0);pb.innerHTML='⏸';if(G.hostBgmOn)startBGM();HostTugArena.resume();}
-  else{G.remainingMs=Math.max(0,G.totalDeadline-Date.now());G.gameState='paused';pb.innerHTML='▶';stopBGM();HostTugArena.pause();}
-  hostBroadcast({type:'pause',paused:G.gameState==='paused'});
-}
+function hostPause(){sc();const pb=$('pauseBtn');if(G.gameState==='paused'){G.gameState='playing';G.totalDeadline=Date.now()+(G.remainingMs||0);pb.innerHTML='⏸';if(G.hostBgmOn)startBGM();HostTugArena.resume();}else{G.remainingMs=Math.max(0,G.totalDeadline-Date.now());G.gameState='paused';pb.innerHTML='▶';stopBGM();HostTugArena.pause();}hostBroadcast({type:'pause',paused:G.gameState==='paused'});}
 function hostAddT(s){sc();const ms=s*1000;if(G.gameState==='paused'){G.remainingMs=Math.max(0,(G.remainingMs||0)+ms);}else{G.totalDeadline=G.totalDeadline+ms;}hostBroadcast({type:'addTime',ms,paused:G.gameState==='paused'});toast(`⏱️ ${ms>0?'+':'-'}${Math.abs(ms)/1000} วิ`,1500);if(G.gameState!=='paused'){const remain=Math.max(0,Math.ceil((G.totalDeadline-Date.now())/1000));const el=$('hostTotalTimer');if(el)el.textContent=fmtTime(remain);}}
 function hostStop(){if(!confirm('หยุด?'))return;clearInterval(G.rankTimerId);stopBGM();G.gameState='ended';endTournament();}
 function hostBackToMain(){if(!confirm('กลับ?'))return;hostBroadcast({type:'silent'});stopBGM();setTimeout(()=>location.reload(),300);}
 
 /* ═══ HOST ARENA ═══ */
-const HostTugArena={
-  mounted:false,els:null,_raf:null,_lastTs:0,_current:50,_target:50,_paused:false,_lerpRate:0.0006,
+const HostTugArena={mounted:false,els:null,_raf:null,_lastTs:0,_current:50,_target:50,_paused:false,_lerpRate:0.0006,
   build(container){container.innerHTML=`<div class="tug-arena"><div id="hostArenaContent"></div></div>`;this.els={content:container.querySelector('#hostArenaContent')};this.mounted=true;this.startRaf();},
   startRaf(){if(this._raf)cancelAnimationFrame(this._raf);const loop=(ts)=>{this._raf=requestAnimationFrame(loop);if(!this.mounted||document.hidden||this._paused){this._lastTs=0;return;}if(!this._lastTs)this._lastTs=ts;let dt=ts-this._lastTs;this._lastTs=ts;if(dt>100)dt=100;const knot=this.els&&this.els.content?this.els.content.querySelector('.tug-knot'):null;if(!knot)return;const diff=this._target-this._current;if(Math.abs(diff)>0.01){const k=1-Math.exp(-this._lerpRate*dt);this._current+=diff*k;knot.style.left=this._current.toFixed(3)+'%';}};this._raf=requestAnimationFrame(loop);},
   update(){const container=$('arenaWrap');if(!container)return;if(!this.mounted)this.build(container);const c=this.els.content;
-    if(G.tournament.activeTeamIds.length>=3){
-      const teams=G.tournament.teams.filter(t=>G.tournament.activeTeamIds.includes(t.id));
-      const maxScore=Math.max(100,...teams.map(t=>t.score));
-      const leader=teams.reduce((a,b)=>a.score>=b.score?a:b,teams[0]);
-      c.innerHTML=`<h3 style="text-align:center;color:#fb923c;margin-bottom:12px">🏆 รอบคัดเลือก — ${teams.length} ทีมแข่งพร้อมกัน</h3><div class="scoreboard-4">${teams.map(t=>`<div class="sb-card ${t.cls} ${t.id===leader.id&&leader.score>0?'leader':''}"><div class="sb-header"><span class="sb-emoji">${esc(t.emoji)}</span><span class="sb-name">${esc(t.name)}</span><span class="sb-score">${t.score}</span></div><div class="sb-bar"><div class="sb-bar-fill" style="width:${Math.min(100,(t.score/maxScore)*100)}%"></div></div><div class="sb-members">${t.members.slice(0,8).map(m=>`<span>${esc(m.avatar)}</span>`).join('')}</div><div style="font-size:.72rem;color:#c4b5fd;margin-top:4px">👥 ${t.members.length} · ✅ ${t.totalCorrect||0}</div></div>`).join('')}</div>`;
-    } else if(G.tournament.activeTeamIds.length===2){
-      const [tidA,tidB]=G.tournament.activeTeamIds;
-      const a=G.tournament.teams.find(t=>t.id===tidA),b=G.tournament.teams.find(t=>t.id===tidB);
-      const total=Math.max(1,a.score+b.score);const ratio=(b.score-a.score)/total;
-      this._target=Math.max(12,Math.min(88,50+ratio*42));
-      const sizeA=pickTugFontSize(a.members.length,false),sizeB=pickTugFontSize(b.members.length,false);
-      c.innerHTML=`<div class="tug-header"><div class="tug-team-info left"><span>${esc(a.emoji)}</span><span class="tname">${esc(a.name)}</span><span class="score">${a.score}</span></div><div class="tug-team-info right"><span class="score">${b.score}</span><span class="tname">${esc(b.name)}</span><span>${esc(b.emoji)}</span></div></div><div class="tug-stage"><div class="tug-center-line"></div><div class="tug-rope"></div><div class="tug-knot" style="left:${this._current}%"></div><div class="tug-players left" id="hostTugLeft" style="font-size:${sizeA}">${a.members.map(m=>`<span class="tug-player" data-pid="${esc(m.id)}">${esc(m.avatar)}</span>`).join('')}</div><div class="tug-players right" id="hostTugRight" style="font-size:${sizeB}">${b.members.map(m=>`<span class="tug-player" data-pid="${esc(m.id)}">${esc(m.avatar)}</span>`).join('')}</div></div><div class="tug-power-bars"><div class="tug-power-bar left"><div class="tug-power-fill" style="width:${(a.score/total)*100}%"></div></div><div class="tug-power-bar right"><div class="tug-power-fill" style="width:${(b.score/total)*100}%"></div></div></div><div class="tug-status-text">${Math.abs(ratio)<0.12?'⚖️ สูสี':ratio>0?'💪 '+esc(b.name)+' กำลังชนะ':'💪 '+esc(a.name)+' กำลังชนะ'}</div>`;
-    } else {c.innerHTML='<p style="text-align:center;color:#7c6fa8;padding:20px">รอทีม...</p>';}
+    if(G.tournament.activeTeamIds.length>=3){const teams=G.tournament.teams.filter(t=>G.tournament.activeTeamIds.includes(t.id));const maxScore=Math.max(100,...teams.map(t=>t.score));const leader=teams.reduce((a,b)=>a.score>=b.score?a:b,teams[0]);c.innerHTML=`<h3 style="text-align:center;color:#fb923c;margin-bottom:12px">🏆 รอบคัดเลือก — ${teams.length} ทีมแข่งพร้อมกัน</h3><div class="scoreboard-4">${teams.map(t=>`<div class="sb-card ${t.cls} ${t.id===leader.id&&leader.score>0?'leader':''}"><div class="sb-header"><span class="sb-emoji">${esc(t.emoji)}</span><span class="sb-name">${esc(t.name)}</span><span class="sb-score">${t.score}</span></div><div class="sb-bar"><div class="sb-bar-fill" style="width:${Math.min(100,(t.score/maxScore)*100)}%"></div></div><div class="sb-members">${t.members.slice(0,8).map(m=>`<span>${esc(m.avatar)}</span>`).join('')}</div><div style="font-size:.72rem;color:#c4b5fd;margin-top:4px">👥 ${t.members.length} · ✅ ${t.totalCorrect||0}</div></div>`).join('')}</div>`;}
+    else if(G.tournament.activeTeamIds.length===2){const [tidA,tidB]=G.tournament.activeTeamIds;const a=G.tournament.teams.find(t=>t.id===tidA),b=G.tournament.teams.find(t=>t.id===tidB);const total=Math.max(1,a.score+b.score);const ratio=(b.score-a.score)/total;this._target=Math.max(12,Math.min(88,50+ratio*42));const sizeA=pickTugFontSize(a.members.length,false),sizeB=pickTugFontSize(b.members.length,false);c.innerHTML=`<div class="tug-header"><div class="tug-team-info left"><span>${esc(a.emoji)}</span><span class="tname">${esc(a.name)}</span><span class="score">${a.score}</span></div><div class="tug-team-info right"><span class="score">${b.score}</span><span class="tname">${esc(b.name)}</span><span>${esc(b.emoji)}</span></div></div><div class="tug-stage"><div class="tug-center-line"></div><div class="tug-rope"></div><div class="tug-knot" style="left:${this._current}%"></div><div class="tug-players left" id="hostTugLeft" style="font-size:${sizeA}">${a.members.map(m=>`<span class="tug-player" data-pid="${esc(m.id)}">${esc(m.avatar)}</span>`).join('')}</div><div class="tug-players right" id="hostTugRight" style="font-size:${sizeB}">${b.members.map(m=>`<span class="tug-player" data-pid="${esc(m.id)}">${esc(m.avatar)}</span>`).join('')}</div></div><div class="tug-power-bars"><div class="tug-power-bar left"><div class="tug-power-fill" style="width:${(a.score/total)*100}%"></div></div><div class="tug-power-bar right"><div class="tug-power-fill" style="width:${(b.score/total)*100}%"></div></div></div><div class="tug-status-text">${Math.abs(ratio)<0.12?'⚖️ สูสี':ratio>0?'💪 '+esc(b.name)+' กำลังชนะ':'💪 '+esc(a.name)+' กำลังชนะ'}</div>`;}
+    else{c.innerHTML='<p style="text-align:center;color:#7c6fa8;padding:20px">รอทีม...</p>';}
   },
   animateAnswer(teamId,isCorrect){if(!this.els)return;const left=this.els.content.querySelector('#hostTugLeft');const right=this.els.content.querySelector('#hostTugRight');const target=(G.tournament.activeTeamIds[0]===teamId)?left:right;if(!target)return;target.querySelectorAll('.tug-player').forEach(a=>{a.classList.remove('pulling','stumble');void a.offsetWidth;a.classList.add(isCorrect?'pulling':'stumble');setTimeout(()=>a.classList.remove('pulling','stumble'),550);});},
   pause(){this._paused=true;},resume(){this._paused=false;this._lastTs=0;}
@@ -1383,17 +1250,7 @@ function renderArena(){HostTugArena.update();}
 function rLB(){const w=$('hostLeaderboard');if(!w)return;const activeTeams=G.tournament.teams.filter(t=>G.tournament.activeTeamIds.includes(t.id));const l=[...activeTeams].sort((a,b)=>b.score-a.score);w.innerHTML=l.map((t,i)=>{const r=i+1;const c=r===1?'top1':'';const m=['🥇','🥈','🥉','4️⃣'][i]||`${r}.`;return `<div class="lb-row ${c}" style="border-left-color:${t.color}"><span class="lb-rank">${m}</span><span class="lb-av">${esc(t.emoji)}</span><span class="lb-name">${esc(t.name)} <span style="color:#86efac;font-size:.75rem">(${t.members.length} คน)</span></span><span class="lb-score">${t.score}</span></div>`;}).join('');}
 
 /* ═══ PODIUM ═══ */
-function rPodium(ranks){
-  const st=$('podiumStage');if(!st)return;
-  const t3=ranks.slice(0,3);
-  const ord=[1,0,2],cl=['p2','p1','p3'],md=['2','1','3'];
-  let html=ord.map((idx,i)=>{const p=t3[idx];if(!p)return `<div class="podium-place ${cl[i]}"><span class="podium-avatar">❓</span><div class="podium-name">-</div><div class="podium-score">0</div><div class="podium-base">${md[i]}</div></div>`;return `<div class="podium-place ${cl[i]}"><span class="podium-avatar">${esc(p.emoji)}</span><div class="podium-name">${esc(p.name)}</div><div class="podium-score">${p.score}</div><div class="podium-base">${md[i]}</div></div>`;}).join('');
-  const p4=ranks[3];
-  if(p4)html+=`<div class="podium-place p4"><span class="podium-avatar">${esc(p4.emoji)}</span><div class="podium-name">${esc(p4.name)}</div><div class="podium-score">${p4.score}</div><div class="podium-base">4</div></div>`;
-  st.innerHTML=html;
-  const s=buildStats();
-  $('podiumStats').innerHTML=`<div>📝 คำตอบรวม: <b style="color:#fbbf24">${s.totalAnswers}</b></div><div>✅ ตอบถูก: <b style="color:#4ade80">${s.totalCorrect}</b></div><div>❌ ตอบผิด: <b style="color:#f87171">${s.totalWrong}</b></div><div style="margin-top:8px">${G.tournament.teams.map(t=>`<div>${t.emoji} <b>${esc(t.name)}</b>: ${t.score} คะแนน</div>`).join('')}</div>`;
-}
+function rPodium(ranks){const st=$('podiumStage');if(!st)return;const t3=ranks.slice(0,3);const ord=[1,0,2],cl=['p2','p1','p3'],md=['2','1','3'];let html=ord.map((idx,i)=>{const p=t3[idx];if(!p)return `<div class="podium-place ${cl[i]}"><span class="podium-avatar">❓</span><div class="podium-name">-</div><div class="podium-score">0</div><div class="podium-base">${md[i]}</div></div>`;return `<div class="podium-place ${cl[i]}"><span class="podium-avatar">${esc(p.emoji)}</span><div class="podium-name">${esc(p.name)}</div><div class="podium-score">${p.score}</div><div class="podium-base">${md[i]}</div></div>`;}).join('');const p4=ranks[3];if(p4)html+=`<div class="podium-place p4"><span class="podium-avatar">${esc(p4.emoji)}</span><div class="podium-name">${esc(p4.name)}</div><div class="podium-score">${p4.score}</div><div class="podium-base">4</div></div>`;st.innerHTML=html;const s=buildStats();$('podiumStats').innerHTML=`<div>📝 คำตอบรวม: <b style="color:#fbbf24">${s.totalAnswers}</b></div><div>✅ ตอบถูก: <b style="color:#4ade80">${s.totalCorrect}</b></div><div>❌ ตอบผิด: <b style="color:#f87171">${s.totalWrong}</b></div><div style="margin-top:8px">${G.tournament.teams.map(t=>`<div>${t.emoji} <b>${esc(t.name)}</b>: ${t.score} คะแนน</div>`).join('')}</div>`;}
 
 /* ═══ PLAYER JOIN ═══ */
 function renderAv(){const g=$('avatarGrid');if(!g)return;g.innerHTML=AV.map((a,i)=>`<button class="avatar-btn${i===0?' active':''}" data-a="${a}" onclick="selAv(this)">${a}</button>`).join('');}
@@ -1407,211 +1264,108 @@ function playerJoin(){
   G.myPlayerId='p_'+Date.now()+'_'+Math.random().toString(36).slice(2,8);
   $('joinBtn').disabled=true;$('joinMsg').textContent='⏳ เชื่อมต่อ...';$('joinMsg').style.color='#c4b5fd';
   go('scPlayerWait');
-  $('waitName').textContent=name;
-  $('waitTeam').textContent='🎲 กำลังรอสุ่มทีม...';
-  $('waitAvatar').textContent=G.myAvatar;
-  $('waitHint').textContent='📡 กำลังเชื่อมต่อ...';
+  $('waitName').textContent=name;$('waitTeam').textContent='🎲 กำลังรอสุ่มทีม...';
+  $('waitAvatar').textContent=G.myAvatar;$('waitHint').textContent='📡 กำลังเชื่อมต่อ...';
   const wantVoice=$('joinVoiceToggle').checked;
   if(wantVoice){requestMicPermission().then(ok=>{$('waitVoice').textContent=ok?'🎤 ไมค์เปิดแล้ว':'⚠️ ไมค์ถูกปฏิเสธ';$('waitVoice').style.color=ok?'#4ade80':'#f87171';if(ok)G.voiceEnabled=true;});}
   connectMQTT(()=>{
-    sub(`tug_kv10/${code}/broadcast`,(topic,data)=>{
-      if(data.playerId&&data.playerId!==G.myPlayerId&&(data.type==='blocked'||data.type==='unblocked'))return;
-      pOnBroadcast(data);
-    });
-    sub(`tug_kv10/${code}/player/${G.myPlayerId}/assigned`,(topic,data)=>{
-      if(!data)return;
-      G.myTeamId=data.teamId;G.myTeam=data.teamName;G.myTeamEmoji=data.teamEmoji||'🎃';
-      const wt=$('waitTeam');
-      if(wt){wt.textContent=`🎲 ทีมของคุณ: ${G.myTeamEmoji} ${G.myTeam}`;wt.style.color='#fbbf24';}
-      toast(`🎲 คุณอยู่ทีม ${G.myTeamEmoji} ${G.myTeam}`,3000);
-    });
+    sub(`tug_kv10/${code}/broadcast`,(topic,data)=>{if(data.playerId&&data.playerId!==G.myPlayerId&&(data.type==='blocked'||data.type==='unblocked'))return;pOnBroadcast(data);});
+    sub(`tug_kv10/${code}/player/${G.myPlayerId}/assigned`,(topic,data)=>{if(!data)return;G.myTeamId=data.teamId;G.myTeam=data.teamName;G.myTeamEmoji=data.teamEmoji||'🎃';const wt=$('waitTeam');if(wt){wt.textContent=`🎲 ทีมของคุณ: ${G.myTeamEmoji} ${G.myTeam}`;wt.style.color='#fbbf24';}toast(`🎲 คุณอยู่ทีม ${G.myTeamEmoji} ${G.myTeam}`,3000);});
     const joinPayload={playerId:G.myPlayerId,name,avatar:G.myAvatar};
     const announce=()=>{if(G.myGameActive)return;pub(`tug_kv10/${code}/join`,joinPayload,1);G.myJoinTimerId=setTimeout(announce,2000);};
     announce();
     $('joinMsg').textContent='';sJoin();
   },()=>{$('joinMsg').textContent='❌ MQTT ไม่ได้';$('joinBtn').disabled=false;});
 }
-
 function pOnBroadcast(d){
   if(!d)return;
   switch(d.type){
     case 'blocked':toast('🚫 ครูล็อก');break;
     case 'unblocked':toast('✅ ปลดล็อก');break;
-    case 'ranking':
-      TugArenaPlayer.update(d.list);
-      updatePlayerRanking(d.list);
-      if(G.isSpectator)SpectatorArena.updateFromRanking(d.teams);
-      renderSpecLb();
-      break;
+    case 'ranking':TugArenaPlayer.update(d.list);updatePlayerRanking(d.list);if(G.isSpectator)SpectatorArena.updateFromRanking(d.teams);renderSpecLb();break;
     case 'sound':G.playersEffectOn=d.playersEffectOn!==false;G.playersBgmOn=d.playersBgmOn!==false;break;
-    case 'addTime':{
-      const ms=d.ms||0;
-      if(G.paused||d.paused){G.myTotalRemain=Math.max(0,(G.myTotalRemain||0)+ms);}
-      else{G.totalDeadline+=ms;pStartTimer();}
-      toast(`⏱️ ${ms>0?'+':'-'}${Math.abs(ms)/1000} วิ`,1500);
-      break;
-    }
-    case 'rank_update':{
-      if(d.teamId===G.myTeamId){
-        G.myFinalRank=d.rank;
-        if($('specTitle'))$('specTitle').textContent=`คุณได้ที่ ${d.rank} แล้ว!`;
-        if($('specEmoji'))$('specEmoji').textContent=['','🏆','🥈','🥉','🪑'][d.rank]||'🪑';
-        toast(`🏆 ทีมคุณได้ที่ ${d.rank}`, 3000);
-      }
-      break;
-    }
+    case 'addTime':{const ms=d.ms||0;if(G.paused||d.paused){G.myTotalRemain=Math.max(0,(G.myTotalRemain||0)+ms);}else{G.totalDeadline+=ms;pStartTimer();}toast(`⏱️ ${ms>0?'+':'-'}${Math.abs(ms)/1000} วิ`,1500);break;}
+    case 'rank_update':{if(d.teamId===G.myTeamId){G.myFinalRank=d.rank;if($('specTitle'))$('specTitle').textContent=`คุณได้ที่ ${d.rank} แล้ว!`;if($('specEmoji'))$('specEmoji').textContent=['','🏆','🥈','🥉','🪑'][d.rank]||'🪑';toast(`🏆 ทีมคุณได้ที่ ${d.rank}`,3000);}break;}
     case 'tournament_start':
       if(G.myJoinTimerId){clearTimeout(G.myJoinTimerId);G.myJoinTimerId=null;}
-      G.isSpectator=false;G.myFinalRank=null;
-      hideSpectatorOverlay();
-      G.tournament.teams=d.teams;G.tournament.activeTeamIds=d.activeTeamIds;
-      G.questions=d.questions;
-      G.myCurrentQ=0;G.myScore=0;G.myStreak=0;
-      G.totalDeadline=Date.now()+d.setDuration*1000;
-      G.myGameActive=true;G.paused=false;
-      G.playersEffectOn=d.playersEffectOn!==false;G.playersBgmOn=d.playersBgmOn!==false;
-      G.hint.points=3;
-      applyTheme(d.theme||'halloween');
-      $('pauseOverlay').classList.remove('on');
-      pCnt('เตรียมตัว...',()=>{
-        go('scPlayerQ');
-        $('pAnswersGrid').style.opacity='1';
-        $('pAnswersGrid').style.pointerEvents='auto';
-        TugArenaPlayer.init($('pArenaContainer'));
-        pStartTimer();pQ();
-        if(G.voiceEnabled)startVoiceRecognition();
-      });
+      G.isSpectator=false;G.myFinalRank=null;hideSpectatorOverlay();
+      G.tournament.teams=d.teams;G.tournament.activeTeamIds=d.activeTeamIds;G.questions=d.questions;
+      G.myCurrentQ=0;G.myScore=0;G.myStreak=0;G.totalDeadline=Date.now()+d.setDuration*1000;
+      G.myGameActive=true;G.paused=false;G.playersEffectOn=d.playersEffectOn!==false;G.playersBgmOn=d.playersBgmOn!==false;G.hint.points=3;
+      applyTheme(d.theme||'halloween');$('pauseOverlay').classList.remove('on');
+      pCnt('เตรียมตัว...',()=>{go('scPlayerQ');$('pAnswersGrid').style.opacity='1';$('pAnswersGrid').style.pointerEvents='auto';TugArenaPlayer.init($('pArenaContainer'));pStartTimer();pQ();if(G.voiceEnabled)startVoiceRecognition();});
       break;
     case 'match_start':{
       if(G.myJoinTimerId){clearTimeout(G.myJoinTimerId);G.myJoinTimerId=null;}
       G.tournament.activeTeamIds=[d.teamA.id,d.teamB.id];
       const isMyTeam=(d.teamA.id===G.myTeamId||d.teamB.id===G.myTeamId);
-
       if(!isMyTeam){
         G.isSpectator=true;G.myGameActive=false;G.paused=false;
         if(G.myQTimerId){clearInterval(G.myQTimerId);G.myQTimerId=null;}
         if(G.myTotalTimerId){clearInterval(G.myTotalTimerId);G.myTotalTimerId=null;}
-        stopBGM();
-        go('scPlayerQ');
-        $('pAnswersGrid').style.opacity='.2';
-        $('pAnswersGrid').style.pointerEvents='none';
-        $('pQText').textContent='🪑 นั่งดูเพื่อนแข่ง';
-        $('pQSub').textContent=d.roundName+' · '+d.teamA.name+' vs '+d.teamB.name;
-        showSpectatorOverlay(d.teamA, d.teamB);
-        toast('🪑 ทีมคุณไม่ได้แข่ง — นั่งดู',2500);
-        return;
+        stopBGM();go('scPlayerQ');$('pAnswersGrid').style.opacity='.2';$('pAnswersGrid').style.pointerEvents='none';
+        $('pQText').textContent='🪑 นั่งดูเพื่อนแข่ง';$('pQSub').textContent=d.roundName+' · '+d.teamA.name+' vs '+d.teamB.name;
+        showSpectatorOverlay(d.teamA,d.teamB);toast('🪑 ทีมคุณไม่ได้แข่ง — นั่งดู',2500);return;
       }
-
-      G.isSpectator=false;
-      hideSpectatorOverlay();
-      $('pAnswersGrid').style.opacity='1';
-      $('pAnswersGrid').style.pointerEvents='auto';
-
-      G.questions=d.questions;
-      G.myCurrentQ=0;G.myScore=0;G.myStreak=0;
-      G.totalDeadline=Date.now()+d.setDuration*1000;
-      G.myGameActive=true;G.paused=false;
-      G.playersEffectOn=d.playersEffectOn!==false;G.playersBgmOn=d.playersBgmOn!==false;
-      G.hint.points=3;
-      applyTheme(d.theme||'halloween');
-      $('pauseOverlay').classList.remove('on');
-      pCnt(d.roundName+' · '+d.teamA.name+' vs '+d.teamB.name,()=>{
-        go('scPlayerQ');
-        TugArenaPlayer.init($('pArenaContainer'));
-        pStartTimer();pQ();
-        if(G.voiceEnabled)startVoiceRecognition();
-      });
+      G.isSpectator=false;hideSpectatorOverlay();$('pAnswersGrid').style.opacity='1';$('pAnswersGrid').style.pointerEvents='auto';
+      G.questions=d.questions;G.myCurrentQ=0;G.myScore=0;G.myStreak=0;
+      G.totalDeadline=Date.now()+d.setDuration*1000;G.myGameActive=true;G.paused=false;
+      G.playersEffectOn=d.playersEffectOn!==false;G.playersBgmOn=d.playersBgmOn!==false;G.hint.points=3;
+      applyTheme(d.theme||'halloween');$('pauseOverlay').classList.remove('on');
+      pCnt(d.roundName+' · '+d.teamA.name+' vs '+d.teamB.name,()=>{go('scPlayerQ');TugArenaPlayer.init($('pArenaContainer'));pStartTimer();pQ();if(G.voiceEnabled)startVoiceRecognition();});
       break;
     }
     case 'pause':
       G.paused=!!d.paused;
-      if(d.paused){
-        if(G.myQTimerId){clearInterval(G.myQTimerId);G.myQTimerId=null}
-        G.myQRemain=Math.max(0,G.myQDeadline-Date.now());
-        G.myTotalRemain=Math.max(0,G.totalDeadline-Date.now());
-        stopBGM();
-        $('pauseOverlay').classList.add('on');
-        TugArenaPlayer.pause();
-      } else {
-        G.paused=false;
-        $('pauseOverlay').classList.remove('on');
-        G.totalDeadline=Date.now()+(G.myTotalRemain||0);
-        if(G.myGameActive && G.questions && G.myCurrentQ<G.questions.length){
-          G.myQDeadline=Date.now()+(G.myQRemain||0);
-          G.myQRemain=0;
-          if(G.myQTimerId)clearInterval(G.myQTimerId);
-          G.myQTimerId=setInterval(qTimerTick,200);
-        }
-        pStartTimer();TugArenaPlayer.resume();
-      }
+      if(d.paused){if(G.myQTimerId){clearInterval(G.myQTimerId);G.myQTimerId=null}G.myQRemain=Math.max(0,G.myQDeadline-Date.now());G.myTotalRemain=Math.max(0,G.totalDeadline-Date.now());stopBGM();$('pauseOverlay').classList.add('on');TugArenaPlayer.pause();}
+      else{G.paused=false;$('pauseOverlay').classList.remove('on');G.totalDeadline=Date.now()+(G.myTotalRemain||0);if(G.myGameActive&&G.questions&&G.myCurrentQ<G.questions.length){G.myQDeadline=Date.now()+(G.myQRemain||0);G.myQRemain=0;if(G.myQTimerId)clearInterval(G.myQTimerId);G.myQTimerId=setInterval(qTimerTick,200);}pStartTimer();TugArenaPlayer.resume();}
       break;
     case 'match_end':
       G.myGameActive=false;G.paused=false;
       if(G.myQTimerId){clearInterval(G.myQTimerId);G.myQTimerId=null}
       if(G.myTotalTimerId){clearInterval(G.myTotalTimerId);G.myTotalTimerId=null}
-      stopBGM();
-      toast('⏱️ จบเซ็ต! รอผล...',3000);
+      stopBGM();toast('⏱️ จบเซ็ต! รอผล...',3000);
       break;
     case 'tournament_end':
       G.myGameActive=false;G.paused=false;
       if(G.myQTimerId){clearInterval(G.myQTimerId);G.myQTimerId=null}
       if(G.myTotalTimerId){clearInterval(G.myTotalTimerId);G.myTotalTimerId=null}
       if(G.myJoinTimerId){clearTimeout(G.myJoinTimerId);G.myJoinTimerId=null}
-      stopBGM();
-      TugArenaPlayer.destroy();
-      hideSpectatorOverlay();
+      stopBGM();TugArenaPlayer.destroy();hideSpectatorOverlay();
       if(G.voiceRecognition){try{G.voiceRecognition.stop()}catch(e){}}
       if(G.voiceStream){G.voiceStream.getTracks().forEach(tr=>tr.stop());}
       pEnd(d.ranks);
       break;
-    case 'sticker':{
-      if(d.targetTeamId&&d.targetTeamId!==G.myTeamId)break;
-      showStickerFloat(d.emoji);
-      break;
-    }
+    case 'sticker':{if(d.targetTeamId&&d.targetTeamId!==G.myTeamId)break;showStickerFloat(d.emoji);break;}
     case 'silent':stopBGM();break;
   }
 }
-
 function startVoiceRecognition(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return;try{const r=new SR();r.continuous=true;r.interimResults=false;r.lang='en-US';r.onresult=(e)=>{const last=e.results[e.results.length-1][0].transcript;handleVoiceTranscript(last);};r.start();G.voiceRecognition=r;}catch(e){}}
 function handleVoiceTranscript(text){if(!G.myGameActive)return;const q=G.questions[G.myCurrentQ];if(!q)return;const clean=text.toLowerCase().trim().replace(/\s+/g,' ');const idx=q.options.findIndex(o=>o.toLowerCase().trim().replace(/\s+/g,' ')===clean);if(idx>=0)pAns(idx,null);}
-
-/* ═══ PLAYER TIMERS ═══ */
 function pCnt(subtitle,cb){go('scPlayerCountdown');const el=$('countdownNum'),sub=$('countdownSub');if(sub)sub.textContent=subtitle||'';let c=5;el.textContent=c;sCd();el.style.animation='none';void el.offsetWidth;el.style.animation='cp 1s infinite';const t=setInterval(()=>{c--;if(c<=0){clearInterval(t);sCdGo();cb();}else{el.textContent=c;sCd();el.style.animation='none';void el.offsetWidth;el.style.animation='cp 1s infinite';}},1000);}
 function pStartTimer(){if(G.myTotalTimerId)clearInterval(G.myTotalTimerId);G.myTotalTimerId=setInterval(()=>{if(!G.myGameActive){clearInterval(G.myTotalTimerId);return;}if(G.paused)return;const r=Math.max(0,Math.ceil((G.totalDeadline-Date.now())/1000));const el=$('pTotalTimer');if(el)el.textContent=fmtTime(r);},500);}
 function qTimerTick(){if(!G.myGameActive){if(G.myQTimerId)clearInterval(G.myQTimerId);G.myQTimerId=null;return;}if(G.paused)return;const r=Math.max(0,Math.ceil((G.myQDeadline-Date.now())/1000));if(r<=0){if(G.myQTimerId)clearInterval(G.myQTimerId);G.myQTimerId=null;pAns(-1,null);}}
 function startQTimer(){if(!G.myGameActive)return;const q=G.questions[G.myCurrentQ];if(!q)return;G.myQStart=Date.now();G.myQDeadline=Date.now()+q.timeLimit*1000;if(G.myQTimerId)clearInterval(G.myQTimerId);G.myQTimerId=setInterval(qTimerTick,200);}
 function pQ(){
-  if(!G.myGameActive)return;
-  if(G.isSpectator)return;
-  if(!G.questions||G.myCurrentQ>=G.questions.length){
-    $('pQText').textContent='🎉 ตอบครบ!';$('pQSub').textContent='รอจบเซ็ต...';$('pAnswersGrid').innerHTML='';$('pQNum').textContent='—';return;
-  }
+  if(!G.myGameActive)return;if(G.isSpectator)return;
+  if(!G.questions||G.myCurrentQ>=G.questions.length){$('pQText').textContent='🎉 ตอบครบ!';$('pQSub').textContent='รอจบเซ็ต...';$('pAnswersGrid').innerHTML='';$('pQNum').textContent='—';return;}
   const q=G.questions[G.myCurrentQ];
-  $('pQNum').textContent=G.myCurrentQ+1;
-  $('pQText').textContent=q.text;$('pQSub').textContent=q.sub||'';
+  $('pQNum').textContent=G.myCurrentQ+1;$('pQText').textContent=q.text;$('pQSub').textContent=q.sub||'';
   $('pScore').textContent=G.myScore;$('pStreak').textContent=G.myStreak;
-  $('pFeedback').classList.remove('show','correct','wrong');
-  $('hintBtn').disabled=G.hint.points<=0;
-  $('hintPoints').textContent=G.hint.points;
+  $('pFeedback').classList.remove('show','correct','wrong');$('hintBtn').disabled=G.hint.points<=0;$('hintPoints').textContent=G.hint.points;
   const g=$('pAnswersGrid');const sy=['▲','◆','●','■'],cl=['a0','a1','a2','a3'];
   g.innerHTML=q.options.map((o,i)=>`<button class="ans-btn ${cl[i]}" data-i="${i}" onclick="pAns(${i},this)"><span class="symbol">${sy[i]}</span><span>${esc(o)}</span></button>`).join('');
-  g.style.opacity='1';g.style.pointerEvents='auto';
-  startQTimer();
+  g.style.opacity='1';g.style.pointerEvents='auto';startQTimer();
   if(G.myStreak>=4&&!G.ultReady){G.ultReady=true;$('ultReadyBanner').hidden=false;}
 }
 function pAns(choice,btn){
-  if(!G.myGameActive)return;
-  if(G.paused)return;
+  if(!G.myGameActive)return;if(G.paused)return;
   const q=G.questions[G.myCurrentQ];if(!q)return;
   if(G.myQTimerId){clearInterval(G.myQTimerId);G.myQTimerId=null;}
-  const isCorrect=choice===q.correct;
-  const timeLeft=Math.max(0,G.myQDeadline-Date.now());
-  let pts=0;
+  const isCorrect=choice===q.correct;const timeLeft=Math.max(0,G.myQDeadline-Date.now());let pts=0;
   if(isCorrect){pts=500+Math.round((timeLeft/(q.timeLimit*1000))*500);G.myStreak++;if(G.myStreak>=3)pts+=100;if(G.myStreak>=5)pts+=200;G.sessionProg.totalCorrect++;}
   else{G.myStreak=0;G.sessionProg.totalWrong++;}
-  if(G.myStreak>G.sessionProg.bestStreak)G.sessionProg.bestStreak=G.myStreak;
-  G.myScore+=pts;
+  if(G.myStreak>G.sessionProg.bestStreak)G.sessionProg.bestStreak=G.myStreak;G.myScore+=pts;
   const btns=document.querySelectorAll('#pAnswersGrid .ans-btn');
   btns.forEach((b,i)=>{b.disabled=true;if(i===q.correct)b.classList.add('correct');else if(i===choice)b.classList.add('wrong');else b.classList.add('fade');});
   const fb=$('pFeedback');fb.classList.remove('correct','wrong');void fb.offsetWidth;
@@ -1623,33 +1377,22 @@ function pAns(choice,btn){
 }
 function showComboCounter(text){const el=$('comboCounter');el.textContent=text;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1200);}
 function useUlt(){if(!G.ultReady)return;G.ultReady=false;$('ultReadyBanner').hidden=true;sUlt();screenShake(500,20);launchConfetti(80,'#fbbf24');toast('🔥 ท่าไม้ตาย!',1500);}
-
-/* ═══ HINTS ═══ */
 function openHintModal(){if(G.hint.points<=0)return;$('hintModalPoints').textContent=G.hint.points;$('hintCutBtn').disabled=G.hint.points<1;$('hintLetterBtn').disabled=G.hint.points<2;$('hintModal').hidden=false;}
 function closeHintModal(){$('hintModal').hidden=true;}
 function useHint(type){const q=G.questions[G.myCurrentQ];if(!q)return;if(type==='cut'&&G.hint.points>=1){G.hint.points-=1;const wrongIdxs=q.options.map((o,i)=>i).filter(i=>i!==q.correct);const toCut=wrongIdxs[Math.floor(Math.random()*wrongIdxs.length)];const el=document.querySelector(`#pAnswersGrid .ans-btn[data-i="${toCut}"]`);if(el)el.classList.add('hinted-out');toast('✂️ ตัด 1');}else if(type==='letter'&&G.hint.points>=2){G.hint.points-=2;const correctOpt=q.options[q.correct];toast(`🔤 ขึ้นต้นด้วย "${correctOpt.charAt(0).toUpperCase()}"`,3000);}closeHintModal();$('hintPoints').textContent=G.hint.points;$('hintBtn').disabled=G.hint.points<=0;}
-
-/* ═══ STICKERS ═══ */
 const STICKER_LIST=['👏','❤️','⭐','🔥','🎉','💪','🌟','🎯','🚀','🏆','😍','🤩','💖','✨','👍','🎊','🌈','💯','🦸‍♀️','🥳'];
 function openStickerPanel(){const sel=$('stickerTeamSelect');sel.innerHTML=G.tournament.teams.map(t=>`<option value="${t.id}">${t.emoji} ${esc(t.name)}</option>`).join('');$('stickerGrid').innerHTML=STICKER_LIST.map(s=>`<button class="sticker-opt" onclick="sendSticker('${s}')">${s}</button>`).join('');$('stickerPanel').hidden=false;}
 function closeStickerPanel(){$('stickerPanel').hidden=true;}
 function sendSticker(emoji){const targetTeamId=$('stickerTeamSelect').value;pub(`tug_kv10/${G.roomCode}/broadcast`,{type:'sticker',emoji,targetTeamId,fromHost:true});toast('🎁 ส่งแล้ว!',1500);closeStickerPanel();}
 function showStickerFloat(emoji){const el=document.createElement('div');el.className='sticker-float';el.textContent=emoji;el.style.left=(10+Math.random()*80)+'%';el.style.setProperty('--dx',(Math.random()*80-40)+'px');document.body.appendChild(el);setTimeout(()=>el.remove(),2600);}
-
-/* ═══ WEATHER ═══ */
 function checkWeatherIntensity(){const teams=G.tournament.teams.filter(t=>G.tournament.activeTeamIds.includes(t.id));if(teams.length<2)return;const sorted=[...teams].sort((a,b)=>b.score-a.score);const total=Math.max(1,teams.reduce((s,t)=>s+t.score,0));const intensity=Math.abs((sorted[0].score-sorted[sorted.length-1].score)/total);if(intensity>0.5){if(!$('weatherLayer').dataset.on){$('weatherLayer').dataset.on='1';startRain();}}else{if($('weatherLayer').dataset.on){$('weatherLayer').dataset.on='';$('weatherLayer').innerHTML='';}}if(intensity>0.7&&Math.random()<0.15)triggerLightning();}
 function startRain(){const w=$('weatherLayer');w.innerHTML='';for(let i=0;i<60;i++){const d=document.createElement('div');d.className='rain-drop';d.style.left=Math.random()*100+'%';d.style.animationDuration=(0.4+Math.random()*0.5)+'s';d.style.animationDelay=(Math.random()*1)+'s';w.appendChild(d);}}
 function triggerLightning(){const lf=$('lightningFlash');lf.classList.add('on');org(80,0,0.6,0.3);setTimeout(()=>lf.classList.remove('on'),150);setTimeout(()=>{lf.classList.add('on');setTimeout(()=>lf.classList.remove('on'),80);},250);}
 function screenShake(duration,intensity){if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;const el=document.body;const start=performance.now();const loop=(now)=>{const t=(now-start)/duration;if(t>=1){el.style.transform='';return;}const decay=1-t;const dx=(Math.random()-0.5)*intensity*decay;const dy=(Math.random()-0.5)*intensity*decay;el.style.transform=`translate(${dx}px, ${dy}px)`;requestAnimationFrame(loop);};requestAnimationFrame(loop);}
-
-/* ═══ CELEBRATION ═══ */
 function launchCelebration(color){launchConfetti(200,color);launchFireworks();}
 function launchConfetti(count,baseColor){const colors=[baseColor||'#f97316','#fbbf24','#a855f7','#22c55e','#dc2626','#3b82f6'];for(let i=0;i<count;i++){const c=document.createElement('div');c.className='confetti-piece';c.style.left=Math.random()*100+'%';c.style.background=colors[Math.floor(Math.random()*colors.length)];c.style.width=(6+Math.random()*8)+'px';c.style.height=(8+Math.random()*10)+'px';c.style.borderRadius=Math.random()<0.4?'50%':'2px';c.style.animationDuration=(2.5+Math.random()*2)+'s';c.style.animationDelay=(Math.random()*0.6)+'s';c.style.transform=`rotate(${Math.random()*360}deg)`;document.body.appendChild(c);setTimeout(()=>c.remove(),5000);}}
 function launchFireworks(){const canvas=$('fireworksCanvas');canvas.classList.add('on');canvas.width=window.innerWidth;canvas.height=window.innerHeight;const ctx=canvas.getContext('2d');const parts=[];const colors=['#f97316','#fbbf24','#a855f7','#22c55e','#dc2626','#3b82f6','#ec4899'];function burst(x,y){const color=colors[Math.floor(Math.random()*colors.length)];for(let i=0;i<50;i++){const a=Math.random()*Math.PI*2;const sp=2+Math.random()*5;parts.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:1,color});}}let raf=null;function loop(){ctx.fillStyle='rgba(0,0,0,0.15)';ctx.fillRect(0,0,canvas.width,canvas.height);parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=0.08;p.vx*=0.985;p.vy*=0.985;p.life-=0.012;ctx.fillStyle=p.color;ctx.globalAlpha=Math.max(0,p.life);ctx.beginPath();ctx.arc(p.x,p.y,2.5,0,Math.PI*2);ctx.fill();});for(let i=parts.length-1;i>=0;i--)if(parts[i].life<=0)parts.splice(i,1);if(parts.length>0)raf=requestAnimationFrame(loop);else{canvas.classList.remove('on');ctx.clearRect(0,0,canvas.width,canvas.height);}}for(let i=0;i<6;i++){setTimeout(()=>{burst(canvas.width*(0.15+Math.random()*0.7),canvas.height*(0.2+Math.random()*0.4));if(!raf)raf=requestAnimationFrame(loop);},i*600);}}
-
-/* ═══ PLAYER ARENA ═══ */
-const TugArenaPlayer={
-  mounted:false,els:null,_raf:null,_lastTs:0,_current:50,_target:50,_paused:false,_lerpRate:0.0007,
+const TugArenaPlayer={mounted:false,els:null,_raf:null,_lastTs:0,_current:50,_target:50,_paused:false,_lerpRate:0.0007,
   init(container){if(!container)return;if(this.mounted)this.destroy();this.build(container);},
   build(container){container.innerHTML=`<div class="ptug-arena"><div class="ptug-header"><div class="ptug-team-info left"><span class="ptug-tname">ทีมคุณ</span><span class="ptug-score">0</span></div><div class="ptug-team-info right"><span class="ptug-score">0</span><span class="ptug-tname">คู่แข่ง</span></div></div><div class="ptug-stage"><div class="ptug-center-line"></div><div class="ptug-rope"></div><div class="ptug-knot" style="left:50%"></div><div class="ptug-players left" id="ptugLeft"></div><div class="ptug-players right" id="ptugRight"></div></div><div class="ptug-status" id="ptugStatus">⚖️ สูสี</div></div>`;
     this.els={leftName:container.querySelector('.ptug-team-info.left .ptug-tname'),leftScore:container.querySelector('.ptug-team-info.left .ptug-score'),rightName:container.querySelector('.ptug-team-info.right .ptug-tname'),rightScore:container.querySelector('.ptug-team-info.right .ptug-score'),knot:container.querySelector('.ptug-knot'),leftPlayers:container.querySelector('#ptugLeft'),rightPlayers:container.querySelector('#ptugRight'),status:container.querySelector('#ptugStatus')};
@@ -1662,149 +1405,20 @@ const TugArenaPlayer={
   pause(){this._paused=true;},resume(){this._paused=false;this._lastTs=0;},
   destroy(){if(this._raf)cancelAnimationFrame(this._raf);this._raf=null;this.mounted=false;this.els=null;const c=$('pArenaContainer');if(c)c.innerHTML='';}
 };
-
-/* ═══ SPECTATOR ARENA ═══ */
-const SpectatorArena={
-  mounted:false,els:null,_raf:null,_lastTs:0,_current:50,_target:50,_teams:null,
-  init(container,teamA,teamB){
-    if(!container)return;
-    if(this.mounted)this.destroy();
-    this.els={
-      teamA:container.querySelector('#specTeamA'),
-      teamB:container.querySelector('#specTeamB'),
-      knot:container.querySelector('#specKnot'),
-      playersA:container.querySelector('#specPlayersA'),
-      playersB:container.querySelector('#specPlayersB'),
-      scoreA:container.querySelector('#specScoreA'),
-      scoreB:container.querySelector('#specScoreB')
-    };
-    this.els.teamA.textContent=teamA.emoji+' '+teamA.name;
-    this.els.teamB.textContent=teamB.emoji+' '+teamB.name;
-    this._teams={A:teamA.id,B:teamB.id};
-    this._current=50;this._target=50;this._lastTs=0;
-    this.mounted=true;
-    this.startRaf();
-  },
-  startRaf(){
-    if(this._raf)cancelAnimationFrame(this._raf);
-    const loop=(ts)=>{
-      this._raf=requestAnimationFrame(loop);
-      if(!this.mounted||document.hidden){this._lastTs=0;return;}
-      if(!this._lastTs)this._lastTs=ts;
-      let dt=ts-this._lastTs;this._lastTs=ts;
-      if(dt>100)dt=100;
-      const diff=this._target-this._current;
-      if(Math.abs(diff)>0.01){
-        const k=1-Math.exp(-0.0007*dt);
-        this._current+=diff*k;
-        if(this.els&&this.els.knot)this.els.knot.style.left=this._current.toFixed(3)+'%';
-      }
-    };
-    this._raf=requestAnimationFrame(loop);
-  },
-  updateFromRanking(teamsData){
-    if(!this.mounted||!this.els||!this._teams)return;
-    if(!Array.isArray(teamsData))return;
-    const tA=teamsData.find(t=>t.id===this._teams.A);
-    const tB=teamsData.find(t=>t.id===this._teams.B);
-    if(!tA||!tB)return;
-    const sA=tA.score||0,sB=tB.score||0;
-    this.els.scoreA.textContent=sA;
-    this.els.scoreB.textContent=sB;
-    const total=Math.max(1,sA+sB);
-    const ratio=(sB-sA)/total;
-    this._target=Math.max(12,Math.min(88,50+ratio*42));
-    const memA=tA.members||[],memB=tB.members||[];
-    const sigA=memA.map(m=>m.id+m.avatar).join('|');
-    const sigB=memB.map(m=>m.id+m.avatar).join('|');
-    if(this.els.playersA.dataset.sig!==sigA){
-      this.els.playersA.innerHTML=memA.map(m=>`<span class="spec-player">${esc(m.avatar)}</span>`).join('');
-      this.els.playersA.dataset.sig=sigA;
-    }
-    if(this.els.playersB.dataset.sig!==sigB){
-      this.els.playersB.innerHTML=memB.map(m=>`<span class="spec-player">${esc(m.avatar)}</span>`).join('');
-      this.els.playersB.dataset.sig=sigB;
-    }
-  },
+const SpectatorArena={mounted:false,els:null,_raf:null,_lastTs:0,_current:50,_target:50,_teams:null,
+  init(container,teamA,teamB){if(!container)return;if(this.mounted)this.destroy();this.els={teamA:container.querySelector('#specTeamA'),teamB:container.querySelector('#specTeamB'),knot:container.querySelector('#specKnot'),playersA:container.querySelector('#specPlayersA'),playersB:container.querySelector('#specPlayersB'),scoreA:container.querySelector('#specScoreA'),scoreB:container.querySelector('#specScoreB')};this.els.teamA.textContent=teamA.emoji+' '+teamA.name;this.els.teamB.textContent=teamB.emoji+' '+teamB.name;this._teams={A:teamA.id,B:teamB.id};this._current=50;this._target=50;this._lastTs=0;this.mounted=true;this.startRaf();},
+  startRaf(){if(this._raf)cancelAnimationFrame(this._raf);const loop=(ts)=>{this._raf=requestAnimationFrame(loop);if(!this.mounted||document.hidden){this._lastTs=0;return;}if(!this._lastTs)this._lastTs=ts;let dt=ts-this._lastTs;this._lastTs=ts;if(dt>100)dt=100;const diff=this._target-this._current;if(Math.abs(diff)>0.01){const k=1-Math.exp(-0.0007*dt);this._current+=diff*k;if(this.els&&this.els.knot)this.els.knot.style.left=this._current.toFixed(3)+'%';}};this._raf=requestAnimationFrame(loop);},
+  updateFromRanking(teamsData){if(!this.mounted||!this.els||!this._teams)return;if(!Array.isArray(teamsData))return;const tA=teamsData.find(t=>t.id===this._teams.A);const tB=teamsData.find(t=>t.id===this._teams.B);if(!tA||!tB)return;const sA=tA.score||0,sB=tB.score||0;this.els.scoreA.textContent=sA;this.els.scoreB.textContent=sB;const total=Math.max(1,sA+sB);const ratio=(sB-sA)/total;this._target=Math.max(12,Math.min(88,50+ratio*42));const memA=tA.members||[],memB=tB.members||[];const sigA=memA.map(m=>m.id+m.avatar).join('|');const sigB=memB.map(m=>m.id+m.avatar).join('|');if(this.els.playersA.dataset.sig!==sigA){this.els.playersA.innerHTML=memA.map(m=>`<span class="spec-player">${esc(m.avatar)}</span>`).join('');this.els.playersA.dataset.sig=sigA;}if(this.els.playersB.dataset.sig!==sigB){this.els.playersB.innerHTML=memB.map(m=>`<span class="spec-player">${esc(m.avatar)}</span>`).join('');this.els.playersB.dataset.sig=sigB;}},
   destroy(){if(this._raf)cancelAnimationFrame(this._raf);this._raf=null;this.mounted=false;this.els=null;this._teams=null;}
 };
-
-function showSpectatorOverlay(teamA,teamB){
-  const ov=$('spectatorOverlay');
-  ov.hidden=false;
-  if(G.myFinalRank){
-    $('specTitle').textContent=`คุณได้ที่ ${G.myFinalRank} แล้ว!`;
-    $('specEmoji').textContent=['','🏆','🥈','🥉','🪑'][G.myFinalRank]||'🪑';
-  }else{
-    $('specTitle').textContent='นั่งดูเพื่อนแข่ง';
-    $('specEmoji').textContent='🪑';
-  }
-  $('specSub').textContent='รอลุ้นผลไปพร้อมกัน!';
-  SpectatorArena.init($('spectatorTug'),teamA,teamB);
-  renderSpecLb();
-}
-function hideSpectatorOverlay(){
-  $('spectatorOverlay').hidden=true;
-  SpectatorArena.destroy();
-}
-function renderSpecLb(){
-  const el=$('specLbBody');
-  if(!el)return;
-  const activeTeams=G.tournament.teams.filter(t=>G.tournament.activeTeamIds.includes(t.id));
-  const sorted=[...activeTeams].sort((a,b)=>b.score-a.score);
-  el.innerHTML=sorted.map((t,i)=>{
-    const m=['🥇','🥈','🥉','4️⃣'][i]||`${i+1}.`;
-    return `<div class="spec-lb-row"><span style="min-width:22px">${m}</span><span>${t.emoji}</span><span class="n">${esc(t.name)}</span><span class="s">${t.score}</span></div>`;
-  }).join('');
-}
-
-/* ═══ PLAYER RANK + END ═══ */
-function updatePlayerRanking(list){
-  if(!list||!$('pRankList'))return;
-  const myIdx=list.findIndex(p=>p.id===G.myPlayerId);
-  const myRank=myIdx>=0?myIdx+1:0;
-  $('pMyRank').textContent=myRank?`${myRank} / ${list.length}`:'-';
-  const slice=list.slice(0,10);
-  const rows=slice.map((p,i)=>{
-    const r=i+1;
-    const isMe=p.id===G.myPlayerId;
-    const bg=isMe?'background:linear-gradient(90deg,rgba(251,191,36,.35),rgba(251,191,36,.18));border:1.5px solid #fbbf24':'background:rgba(0,0,0,.2);border:1.5px solid transparent';
-    return `<div style="display:flex;gap:8px;padding:5px 10px;border-radius:8px;${bg};margin:3px 0;align-items:center"><span style="min-width:28px;color:#fb923c;font-weight:900;font-size:.82rem">#${r}</span><span style="font-size:1.05rem">${esc(p.avatar)}</span><span style="flex:1;font-weight:700;font-size:.82rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(p.name)}${p.team?` <span style="color:#86efac;font-size:.7rem">[${esc(p.team)}]</span>`:''}</span><span style="color:#4ade80;font-weight:900;font-family:monospace;font-size:.88rem">${p.score}</span>${isMe?'<span style="font-size:1rem">⭐</span>':''}</div>`;
-  }).join('');
-  $('pRankList').innerHTML=rows||'<p style="color:#7c6fa8;text-align:center;font-size:.8rem;padding:8px">-</p>';
-}
-
-function pEnd(ranks){
-  go('scPlayerEnd');
-  const myTeam=ranks.find(r=>r.id===G.myTeamId);
-  $('pFinalScore').textContent=G.myScore;
-  $('pFinalRank').textContent=myTeam?`ทีมอันดับ #${myTeam.rank}`:'ขอบคุณที่เล่น!';
-  const st=$('podiumStagePlayer');
-  const t3=ranks.slice(0,3);
-  const ord=[1,0,2],cl=['p2','p1','p3'],md=['2','1','3'];
-  st.innerHTML=ord.map((idx,i)=>{const p=t3[idx];if(!p)return '';return `<div class="podium-place ${cl[i]}"><span class="podium-avatar">${esc(p.emoji)}</span><div class="podium-name">${esc(p.name)}</div><div class="podium-score">${p.score}</div><div class="podium-base">${md[i]}</div></div>`;}).join('');
-  const badges=[{id:'first_blood',emoji:'🎯',label:'First Blood',got:G.sessionProg.totalCorrect>0},{id:'on_fire',emoji:'🔥',label:'On Fire',got:G.sessionProg.bestStreak>=3},{id:'sniper',emoji:'🎖️',label:'Sniper',got:G.sessionProg.bestStreak>=5},{id:'speed',emoji:'⚡',label:'Speed',got:true}];
-  $('pPlayerBadges').innerHTML=badges.map(b=>`<div class="badge-item ${b.got?'unlocked':''}"><div class="bi-emoji">${b.emoji}</div><div>${b.label}</div></div>`).join('');
-  sFin();
-}
-
-/* ═══ PDF ═══ */
-async function exportPDF(){
-  try{
-    const {jsPDF}=window.jspdf;
-    const el=document.querySelector('.screen.active');if(!el)return;
-    toast('📄 กำลังสร้าง PDF...',2000);
-    const canvas=await html2canvas(el,{backgroundColor:'#0a0612',scale:2,useCORS:true});
-    const img=canvas.toDataURL('image/png');
-    const pdf=new jsPDF({orientation:canvas.width>canvas.height?'l':'p',unit:'px',format:[canvas.width,canvas.height]});
-    pdf.addImage(img,'PNG',0,0,canvas.width,canvas.height);
-    pdf.save('tug-report-'+(G.roomCode||'session')+'-'+new Date().toISOString().slice(0,10)+'.pdf');
-    toast('✅ ส่งออกแล้ว!',2000);
-  }catch(e){toast('❌ PDF ไม่สำเร็จ',2500);}
-}
+function showSpectatorOverlay(teamA,teamB){const ov=$('spectatorOverlay');ov.hidden=false;if(G.myFinalRank){$('specTitle').textContent=`คุณได้ที่ ${G.myFinalRank} แล้ว!`;$('specEmoji').textContent=['','🏆','🥈','🥉','🪑'][G.myFinalRank]||'🪑';}else{$('specTitle').textContent='นั่งดูเพื่อนแข่ง';$('specEmoji').textContent='🪑';}$('specSub').textContent='รอลุ้นผลไปพร้อมกัน!';SpectatorArena.init($('spectatorTug'),teamA,teamB);renderSpecLb();}
+function hideSpectatorOverlay(){$('spectatorOverlay').hidden=true;SpectatorArena.destroy();}
+function renderSpecLb(){const el=$('specLbBody');if(!el)return;const activeTeams=G.tournament.teams.filter(t=>G.tournament.activeTeamIds.includes(t.id));const sorted=[...activeTeams].sort((a,b)=>b.score-a.score);el.innerHTML=sorted.map((t,i)=>{const m=['🥇','🥈','🥉','4️⃣'][i]||`${i+1}.`;return `<div class="spec-lb-row"><span style="min-width:22px">${m}</span><span>${t.emoji}</span><span class="n">${esc(t.name)}</span><span class="s">${t.score}</span></div>`;}).join('');}
+function updatePlayerRanking(list){if(!list||!$('pRankList'))return;const myIdx=list.findIndex(p=>p.id===G.myPlayerId);const myRank=myIdx>=0?myIdx+1:0;$('pMyRank').textContent=myRank?`${myRank} / ${list.length}`:'-';const slice=list.slice(0,10);const rows=slice.map((p,i)=>{const r=i+1;const isMe=p.id===G.myPlayerId;const bg=isMe?'background:linear-gradient(90deg,rgba(251,191,36,.35),rgba(251,191,36,.18));border:1.5px solid #fbbf24':'background:rgba(0,0,0,.2);border:1.5px solid transparent';return `<div style="display:flex;gap:8px;padding:5px 10px;border-radius:8px;${bg};margin:3px 0;align-items:center"><span style="min-width:28px;color:#fb923c;font-weight:900;font-size:.82rem">#${r}</span><span style="font-size:1.05rem">${esc(p.avatar)}</span><span style="flex:1;font-weight:700;font-size:.82rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(p.name)}${p.team?` <span style="color:#86efac;font-size:.7rem">[${esc(p.team)}]</span>`:''}</span><span style="color:#4ade80;font-weight:900;font-family:monospace;font-size:.88rem">${p.score}</span>${isMe?'<span style="font-size:1rem">⭐</span>':''}</div>`;}).join('');$('pRankList').innerHTML=rows||'<p style="color:#7c6fa8;text-align:center;font-size:.8rem;padding:8px">-</p>';}
+function pEnd(ranks){go('scPlayerEnd');const myTeam=ranks.find(r=>r.id===G.myTeamId);$('pFinalScore').textContent=G.myScore;$('pFinalRank').textContent=myTeam?`ทีมอันดับ #${myTeam.rank}`:'ขอบคุณที่เล่น!';const st=$('podiumStagePlayer');const t3=ranks.slice(0,3);const ord=[1,0,2],cl=['p2','p1','p3'],md=['2','1','3'];st.innerHTML=ord.map((idx,i)=>{const p=t3[idx];if(!p)return '';return `<div class="podium-place ${cl[i]}"><span class="podium-avatar">${esc(p.emoji)}</span><div class="podium-name">${esc(p.name)}</div><div class="podium-score">${p.score}</div><div class="podium-base">${md[i]}</div></div>`;}).join('');const badges=[{id:'first_blood',emoji:'🎯',label:'First Blood',got:G.sessionProg.totalCorrect>0},{id:'on_fire',emoji:'🔥',label:'On Fire',got:G.sessionProg.bestStreak>=3},{id:'sniper',emoji:'🎖️',label:'Sniper',got:G.sessionProg.bestStreak>=5},{id:'speed',emoji:'⚡',label:'Speed',got:true}];$('pPlayerBadges').innerHTML=badges.map(b=>`<div class="badge-item ${b.got?'unlocked':''}"><div class="bi-emoji">${b.emoji}</div><div>${b.label}</div></div>`).join('');sFin();}
+async function exportPDF(){try{const {jsPDF}=window.jspdf;const el=document.querySelector('.screen.active');if(!el)return;toast('📄 กำลังสร้าง PDF...',2000);const canvas=await html2canvas(el,{backgroundColor:'#0a0612',scale:2,useCORS:true});const img=canvas.toDataURL('image/png');const pdf=new jsPDF({orientation:canvas.width>canvas.height?'l':'p',unit:'px',format:[canvas.width,canvas.height]});pdf.addImage(img,'PNG',0,0,canvas.width,canvas.height);pdf.save('tug-report-'+(G.roomCode||'session')+'-'+new Date().toISOString().slice(0,10)+'.pdf');toast('✅ ส่งออกแล้ว!',2000);}catch(e){toast('❌ PDF ไม่สำเร็จ',2500);}}
 function exportHostReport(){exportPDF();}
 function exportPlayerReport(){exportPDF();}
-
 function toggleLang(){G.lang=G.lang==='th'?'en':'th';$('langToggle').textContent='🌐 '+G.lang.toUpperCase();}
 
 /* ═══ INIT ═══ */
@@ -1820,7 +1434,7 @@ document.addEventListener('touchstart',()=>{iA();},{once:true,passive:true});
 document.addEventListener('click',()=>{iA();},{once:true});
 (function(){const corner=$('hostBackCorner');if(!corner)return;corner.addEventListener('touchstart',function(e){if(e.target.tagName!=='BUTTON'){this.classList.add('show');setTimeout(()=>this.classList.remove('show'),4000);}},{passive:true});})();
 window.addEventListener('resize',()=>{const c=$('fireworksCanvas');if(c){c.width=window.innerWidth;c.height=window.innerHeight;}});
-console.log('🎃 Tug of War v16.3.3 · Custom image for tug mode');
+console.log('🎃 Tug of War v16.3.4 · Tug image as full background');
 </script>
 </body>
 </html>
