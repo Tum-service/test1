@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>🎃 ชักกะเย่อคำศัพท์ · Tournament v16.3.3</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@500;700;800;900&family=Creepster&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Kanit',sans-serif;font-weight:600;min-height:100vh;background:radial-gradient(circle at 20% 20%,rgba(107,33,168,.35),transparent 55%),radial-gradient(circle at 80% 80%,rgba(249,115,22,.25),transparent 55%),linear-gradient(180deg,#0a0612,#1a0b2e 50%,#2d1b4e);color:#f5e6d3;overflow-x:hidden;padding:14px;-webkit-tap-highlight-color:transparent}
+body.theme-space{background:radial-gradient(circle at 20% 20%,rgba(30,58,138,.4),transparent 55%),linear-gradient(180deg,#01040f,#0a1230 50%,#1e1b4b)}
+body.theme-underwater{background:radial-gradient(circle at 20% 20%,rgba(6,182,212,.3),transparent 55%),linear-gradient(180deg,#031a2c,#075985 50%,#082f49)}
+body.theme-desert{background:radial-gradient(circle at 20% 20%,rgba(251,146,60,.35),transparent 55%),linear-gradient(180deg,#2d1a05,#7c2d12 50%,#451a03)}
+.screen{display:none;min-height:100vh;max-width:1200px;margin:0 auto;padding:10px}
+.screen.active{display:block}
+h1{font-family:'Creepster',cursive;font-size:2.4rem;text-align:center;background:linear-gradient(135deg,#ffedd5,#fb923c,#a855f7);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 20px rgba(249,115,22,.7));letter-spacing:2px;margin-bottom:8px}
+h2{font-size:1.4rem;text-align:center;color:#fb923c;margin-bottom:14px}
+h3{font-size:1.05rem;color:#c4b5fd;margin-bottom:10px;font-weight:800}
+.card{background:linear-gradient(180deg,rgba(30,15,55,.88),rgba(15,7,30,.94));border-radius:22px;padding:20px;box-shadow:0 0 0 1.5px rgba(168,85,247,.35) inset;border:1px solid rgba(168,85,247,.3);margin-bottom:16px}
+.btn{display:block;width:100%;padding:18px;margin:10px 0;border:none;border-radius:18px;font-family:inherit;font-size:1.15rem;font-weight:800;cursor:pointer;color:#fff;transition:.2s;box-shadow:0 12px 26px -8px rgba(0,0,0,.5),inset 0 -4px 0 rgba(0,0,0,.25)}
+.btn:hover{transform:translateY(-2px)}.btn:active{transform:scale(.97)}
+.btn-primary{background:linear-gradient(135deg,#f97316,#ea580c)}
+.btn-secondary{background:linear-gradient(135deg,#a855f7,#7c3aed)}
+.btn-success{background:linear-gradient(135deg,#22c55e,#15803d)}
+.btn-danger{background:linear-gradient(135deg,#dc2626,#991b1b)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn-small{padding:9px 16px;font-size:.88rem;margin:0 4px;display:inline-block;width:auto;border-radius:11px}
+input,select{width:100%;padding:14px;border-radius:13px;border:2px solid rgba(168,85,247,.4);background:rgba(10,6,18,.85);color:#f5e6d3;font-family:inherit;font-size:1.05rem;outline:none;margin-bottom:10px;font-weight:700}
+input:focus,select:focus{border-color:#f97316}
+input.code{text-align:center;letter-spacing:12px;font-size:1.8rem;font-weight:900;color:#fb923c;text-transform:uppercase;font-family:monospace}
+label{display:block;color:#c4b5fd;font-size:.88rem;margin-bottom:5px;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.chip{padding:11px 14px;border:2px solid rgba(168,85,247,.4);border-radius:13px;background:rgba(30,15,55,.6);color:#c4b5fd;cursor:pointer;text-align:center;font-weight:700;transition:.2s;font-family:inherit;font-size:.9rem}
+.chip.active,.chip:hover{border-color:#f97316;background:rgba(249,115,22,.25);color:#fff;transform:translateY(-2px)}
+
+/* ⭐ [v16.3.2] Mode selection cards */
+.mode-section-title{font-size:1.05rem;color:#c4b5fd;font-weight:800;margin-bottom:12px;text-align:center}
+.mode-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:22px}
+.mode-card{padding:18px 12px 14px;border:2px solid rgba(168,85,247,.4);border-radius:16px;background:linear-gradient(180deg,rgba(45,27,78,.7),rgba(20,10,40,.9));color:#fff;font-family:inherit;font-weight:800;cursor:pointer;text-align:center;transition:.2s;position:relative;overflow:hidden}
+.mode-card:hover{transform:translateY(-3px);border-color:#f97316}
+.mode-card.active{border-color:#22c55e;background:linear-gradient(180deg,rgba(34,197,94,.3),rgba(20,83,45,.5));box-shadow:0 0 24px rgba(34,197,94,.5)}
+.mode-card.active::before{content:"✓";position:absolute;top:6px;right:8px;background:#22c55e;color:#fff;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:900}
+.mode-card.locked{opacity:.55;cursor:not-allowed;filter:grayscale(.4)}
+.mode-card.locked:hover{transform:none;border-color:rgba(168,85,247,.4)}
+.mode-card .mode-emoji{font-size:2.4rem;margin-bottom:6px;display:block;line-height:1}
+/* ⭐ [v16.3.3] Custom image instead of emoji */
+.mode-card .mode-emoji-img{width:2.4rem;height:2.4rem;margin:0 auto 6px;display:block;object-fit:contain;filter:drop-shadow(0 3px 6px rgba(0,0,0,.5));border-radius:6px}
+.mode-emoji-img-inline{width:1.4rem;height:1.4rem;display:inline-block;object-fit:contain;vertical-align:-.3em;border-radius:4px}
+.mode-card .mode-name{font-size:1rem;color:#ffedd5;margin-bottom:8px;line-height:1.2}
+.mode-card .mode-badge{display:inline-block;font-size:.68rem;padding:3px 10px;border-radius:999px;font-weight:900;letter-spacing:.3px}
+.mode-card .mode-badge.ready{background:#22c55e;color:#fff}
+.mode-card .mode-badge.coming{background:rgba(251,191,36,.25);color:#fbbf24;border:1px solid rgba(251,191,36,.5)}
+.mode-selected-info{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.35);border-radius:12px;padding:10px 14px;margin-bottom:14px;color:#bbf7d0;font-size:.85rem;text-align:center;font-weight:800}
+.mode-selected-info span{color:#fbbf24}
+@media(max-width:520px){.mode-grid{grid-template-columns:repeat(2,1fr);gap:8px}.mode-card{padding:14px 8px 10px}.mode-card .mode-emoji{font-size:1.9rem}.mode-card .mode-emoji-img{width:1.9rem;height:1.9rem}.mode-card .mode-name{font-size:.85rem}}
+
+.grades{display:flex;flex-direction:column;gap:14px;margin-top:6px}
+.grade-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.grade{flex:0 0 178px;width:178px;min-height:110px;border-radius:50% 50% 46% 46%/42% 42% 30% 30%;border:none;cursor:pointer;font-family:inherit;color:#fff;position:relative;padding:20px 18px 16px;display:flex;flex-direction:column;justify-content:center;gap:5px;text-align:center;transition:.22s;background:radial-gradient(ellipse at 30% 22%,#fb923c,#ea580c 45%,#9a3412)}
+.grade::after{content:"";position:absolute;top:-16px;left:50%;transform:translateX(-50%);width:20px;height:14px;background:linear-gradient(180deg,#22c55e,#15803d);border-radius:6px 8px 4px 4px}
+.grade:hover{transform:translateY(-5px) scale(1.03)}
+.g-name{font-size:1.5rem;font-weight:900;color:#ffedd5}
+.g-count{font-size:.78rem;font-weight:700;align-self:center;background:rgba(0,0,0,.35);padding:3px 12px;border-radius:999px;color:#ffedd5}
+.g1{background:radial-gradient(ellipse at 30% 22%,#fdba74,#ea580c 45%,#7c2d12)!important}
+.g2{background:radial-gradient(ellipse at 30% 22%,#86efac,#16a34a 45%,#14532d)!important}
+.g3{background:radial-gradient(ellipse at 30% 22%,#fde047,#eab308 45%,#854d0e)!important}
+.g4{background:radial-gradient(ellipse at 30% 22%,#93c5fd,#2563eb 45%,#1e3a8a)!important}
+.g5{background:radial-gradient(ellipse at 30% 22%,#f9a8d4,#db2777 45%,#831843)!important}
+.g6{background:radial-gradient(ellipse at 30% 22%,#c4b5fd,#7c3aed 45%,#3b0764)!important}
+.g7{background:radial-gradient(ellipse at 30% 22%,#fda4af,#e11d48 45%,#4c0519)!important}
+.g-all{background:radial-gradient(ellipse at 30% 22%,#fb923c,#ea580c 45%,#7c2d12)!important;flex:0 0 380px;width:380px;max-width:100%}
+.wp-actions{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;justify-content:center}
+.wp-chip{min-width:52px;height:52px;border-radius:50%;border:none;cursor:pointer;font-family:inherit;font-weight:900;font-size:1.2rem;color:#fff;display:flex;align-items:center;justify-content:center;padding:0 12px;background:radial-gradient(circle at 32% 24%,#86efac,#16a34a 45%,#14532d);transition:.15s}
+.wp-chip:hover{transform:translateY(-3px) scale(1.08)}
+.wp-chip.all{min-width:auto;height:48px;padding:0 20px;border-radius:999px;font-size:.9rem;background:radial-gradient(circle at 32% 24%,#67e8f9,#06b6d4 45%,#0e7490)}
+.wp-chip.clear{min-width:48px;height:48px;padding:0;background:radial-gradient(circle at 32% 24%,#fca5a5,#dc2626 45%,#7f1d1d);font-size:1.3rem}
+.wp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;max-height:52vh;overflow-y:auto;padding:6px}
+.wp-card{background:rgba(30,15,55,.55);border:2px solid rgba(168,85,247,.4);border-radius:12px;padding:10px 8px;cursor:pointer;position:relative;transition:.15s;text-align:center;font-family:inherit;color:#f5e6d3}
+.wp-card.selected{border-color:#22c55e;background:rgba(34,197,94,.18)}
+.wp-card.selected::after{content:"✓";position:absolute;top:3px;right:5px;color:#16a34a;font-weight:900;font-size:13px;background:#fff;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center}
+.wp-en{font-weight:800;color:#ffedd5;font-size:.9rem;word-break:break-word}
+.wp-th{font-size:.75rem;color:#c4b5fd;margin-top:3px;word-break:break-word}
+.wp-bottom{position:sticky;bottom:0;background:rgba(10,6,18,.9);padding:12px;margin-top:10px;border-radius:14px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.wp-count{font-weight:800;color:#fb923c;font-size:1rem}.wp-count.warn{color:#f87171}
+.wp-add{display:block;margin:0 auto 14px;border:none;background:linear-gradient(135deg,#a855f7,#7c3aed);color:#fff;border-radius:999px;padding:12px 26px;font-family:inherit;font-weight:800;font-size:.92rem;cursor:pointer}
+.modal-ov{position:fixed;inset:0;background:rgba(5,2,15,.85);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;z-index:1000;padding:20px;overflow-y:auto}
+.modal-ov[hidden]{display:none!important}
+.modal-box{background:linear-gradient(180deg,#1e0f38,#0f0518);border-radius:22px;padding:24px;max-width:500px;width:100%;border:1.5px solid rgba(168,85,247,.5)}
+.avatar-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.avatar-btn{aspect-ratio:1;border:2px solid rgba(168,85,247,.35);border-radius:10px;background:rgba(15,5,24,.6);font-size:1.6rem;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;padding:0;font-family:inherit}
+.avatar-btn.active{border-color:#22c55e;background:rgba(34,197,94,.25);transform:scale(1.1)}
+.room-box{text-align:center;padding:20px;background:linear-gradient(180deg,#1e0f38,#0f0518);border-radius:20px;margin-bottom:16px}
+.room-code{font-size:3.8rem;font-weight:900;color:#fb923c;letter-spacing:12px;font-family:monospace;line-height:1;text-shadow:0 0 30px rgba(249,115,22,.8);margin:12px 0}
+.room-url{font-size:.85rem;color:#c4b5fd;word-break:break-all;background:rgba(0,0,0,.3);padding:8px;border-radius:8px;margin-top:8px}
+#qrcode{display:inline-block;padding:10px;background:#fff;border-radius:12px;margin:10px 0}
+#qrcode img{display:block;width:180px;height:180px}
+.players-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;max-height:320px;overflow-y:auto;padding:6px}
+.player-card{background:rgba(45,27,78,.7);padding:10px;border-radius:12px;border:2px solid rgba(168,85,247,.35);display:flex;align-items:center;gap:8px;position:relative}
+.player-card.blocked{opacity:.4;border-color:#dc2626}
+.player-card .av{font-size:1.5rem}
+.player-card .name{font-weight:800;font-size:.88rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.block-btn{position:absolute;top:3px;right:3px;width:22px;height:22px;border-radius:50%;border:none;background:rgba(220,38,38,.7);color:#fff;font-size:.7rem;cursor:pointer;padding:0;line-height:1}
+.team-group{margin-bottom:14px;padding:10px;background:rgba(45,27,78,.4);border-radius:14px;border-left:4px solid #a855f7}
+.team-group h4{color:#fb923c;font-size:1rem;margin-bottom:8px;font-weight:900}
+.host-topbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding:10px 12px;background:rgba(20,10,40,.75);border-radius:18px;border:1px solid rgba(168,85,247,.3);margin-bottom:14px}
+.topbar-left{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.topbar-sep{width:1px;height:36px;background:rgba(168,85,247,.35);margin:0 4px}
+.ctrl-circle{width:48px;height:48px;border-radius:50%;border:none;cursor:pointer;font-family:inherit;font-weight:900;font-size:1.3rem;color:#fff;display:flex;align-items:center;justify-content:center;padding:0;transition:.15s;box-shadow:0 4px 10px -3px rgba(0,0,0,.5)}
+.ctrl-circle:hover{transform:translateY(-2px) scale(1.06)}
+.ctrl-stop{background:linear-gradient(135deg,#dc2626,#991b1b)}
+.ctrl-pause{background:linear-gradient(135deg,#eab308,#ca8a04)}
+.ctrl-plus{background:linear-gradient(135deg,#22c55e,#15803d);font-size:1.6rem}
+.ctrl-minus{background:linear-gradient(135deg,#3b82f6,#1e40af);font-size:1.6rem}
+.ctrl-sticker{background:linear-gradient(135deg,#ec4899,#be185d)}
+.snd-circle{width:52px;height:52px;border-radius:50%;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2px;transition:.15s;color:#fff;font-family:inherit;line-height:1}
+.snd-circle .snd-ico{font-size:.95rem}
+.snd-circle .snd-lbl{font-size:.46rem;font-weight:900;margin-top:1px}
+.snd-circle.on{background:linear-gradient(135deg,#22c55e,#15803d)}
+.snd-circle.off{background:linear-gradient(135deg,#4b5563,#374151);opacity:.75}
+.snd-group{display:flex;gap:6px;align-items:center;padding:5px 10px;border-radius:14px}
+.snd-group-label{font-size:.62rem;font-weight:900;margin-right:4px;display:flex;flex-direction:column;align-items:center;gap:1px}
+.snd-group.host-group{background:rgba(168,85,247,.14);border:1.5px solid rgba(168,85,247,.4)}
+.snd-group.player-group{background:rgba(34,197,94,.14);border:1.5px solid rgba(34,197,94,.4)}
+.timer-big{font-size:2.2rem;font-weight:900;color:#fb923c;font-family:monospace;padding:4px 14px;background:rgba(249,115,22,.15);border-radius:14px;border:2px solid rgba(249,115,22,.5);min-width:110px;text-align:center}
+.timer-big.warn{color:#f87171;border-color:rgba(220,38,38,.7);animation:tp .5s infinite}
+@keyframes tp{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.answered-info{color:#86efac;font-weight:800;font-size:.9rem;text-align:right;min-width:100px}
+.leaderboard{background:rgba(30,15,55,.7);border-radius:18px;padding:14px}
+.lb-row{display:flex;align-items:center;gap:10px;padding:8px 12px;margin:5px 0;background:rgba(45,27,78,.6);border-radius:11px;border-left:4px solid transparent;font-size:.95rem}
+.lb-row.top1{border-left-color:#f1c40f;background:rgba(241,196,15,.12)}
+.lb-rank{font-weight:900;color:#fb923c;min-width:28px;text-align:center}
+.lb-av{font-size:1.5rem}
+.lb-name{flex:1;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb-score{font-family:monospace;font-weight:900;color:#4ade80;font-size:1rem}
+.question-box{background:linear-gradient(180deg,#2d1b4e,#1a0b2e);padding:24px 18px;border-radius:20px;text-align:center;margin-bottom:14px;position:relative}
+.question-text{font-size:1.6rem;font-weight:900;color:#ffedd5;line-height:1.35}
+.question-sub{color:#c4b5fd;font-size:.9rem;margin-top:6px}
+.answers-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+@media(max-width:520px){.answers-grid{grid-template-columns:1fr}}
+.ans-btn{padding:20px;border:none;border-radius:16px;font-family:inherit;font-weight:800;font-size:1.05rem;color:#fff;cursor:pointer;text-align:left;display:flex;align-items:center;gap:10px;min-height:68px;transition:opacity .4s}
+.ans-btn .symbol{font-size:1.4rem}
+.ans-btn:disabled{cursor:default;opacity:.75}
+.ans-btn.a0{background:linear-gradient(135deg,#e74c3c,#c0392b)}
+.ans-btn.a1{background:linear-gradient(135deg,#3498db,#2471a3)}
+.ans-btn.a2{background:linear-gradient(135deg,#f1c40f,#d4ac0d);color:#333}
+.ans-btn.a3{background:linear-gradient(135deg,#27ae60,#1e8449)}
+.ans-btn.correct{box-shadow:0 0 40px #22c55e}
+.ans-btn.wrong{background:linear-gradient(135deg,#7f1d1d,#450a0a)!important}
+.ans-btn.fade{opacity:.25;filter:grayscale(.7)}
+.ans-btn.hinted-out{opacity:.15;filter:grayscale(1);pointer-events:none;text-decoration:line-through}
+.feedback-big{text-align:center;padding:24px 18px;border-radius:20px;margin-bottom:14px;display:none}
+.feedback-big.show{display:block}
+.feedback-big.correct{background:linear-gradient(135deg,rgba(34,197,94,.4),rgba(20,83,45,.6))}
+.feedback-big.wrong{background:linear-gradient(135deg,rgba(220,38,38,.4),rgba(127,29,29,.6))}
+.feedback-big .emoji{font-size:4rem;display:block}
+.feedback-big .txt{font-size:1.3rem;font-weight:900}
+.feedback-big .pts{font-size:1.6rem;font-family:monospace;color:#fbbf24;margin-top:6px}
+.podium-screen{text-align:center;padding:14px}
+.podium-title{font-family:'Creepster',cursive;font-size:3rem;color:#fb923c;margin-bottom:24px;letter-spacing:3px}
+.podium-stage{display:flex;justify-content:center;align-items:flex-end;gap:16px;margin:30px 0;min-height:360px;flex-wrap:wrap}
+.podium-place{display:flex;flex-direction:column;align-items:center;animation:ru 1.2s ease forwards;opacity:0;transform:translateY(80px)}
+.podium-place.p1{animation-delay:.8s}.podium-place.p2{animation-delay:.2s}.podium-place.p3{animation-delay:1.4s}.podium-place.p4{animation-delay:1s}
+@keyframes ru{to{opacity:1;transform:translateY(0)}}
+.podium-avatar{font-size:4rem;margin-bottom:8px;display:block;animation:dance 1.5s infinite;transform-origin:center bottom}
+@keyframes dance{0%,100%{transform:rotate(-8deg) scale(1)}50%{transform:rotate(8deg) scale(1.12)}}
+.podium-name{font-size:1rem;font-weight:800;color:#ffedd5;margin-bottom:3px;max-width:180px}
+.podium-score{font-size:1.2rem;font-weight:900;color:#4ade80;font-family:monospace;margin-bottom:10px}
+.podium-base{border-radius:14px 14px 0 0;padding:12px;display:flex;align-items:flex-start;justify-content:center;font-size:1.8rem;font-weight:900}
+.podium-place.p1 .podium-base{width:160px;height:200px;background:linear-gradient(180deg,#fbbf24,#d97706);color:#7c2d12}
+.podium-place.p2 .podium-base{width:140px;height:140px;background:linear-gradient(180deg,#cbd5e1,#94a3b8);color:#334155}
+.podium-place.p3 .podium-base{width:130px;height:100px;background:linear-gradient(180deg,#d97706,#92400e);color:#fef3c7}
+.podium-place.p4 .podium-base{width:120px;height:70px;background:linear-gradient(180deg,#78716c,#57534e);color:#e7e5e4}
+.toast{position:fixed;top:20px;left:50%;transform:translate(-50%,-100px);background:rgba(10,6,18,.95);color:#ffedd5;padding:12px 20px;border-radius:12px;font-weight:700;z-index:9999;transition:transform .4s;border:2px solid rgba(249,115,22,.6);max-width:90vw;text-align:center}
+.toast.show{transform:translate(-50%,0)}
+.spinner{display:inline-block;width:44px;height:44px;border:5px solid rgba(168,85,247,.3);border-top-color:#f97316;border-radius:50%;animation:spin 1s linear infinite;margin:16px auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+.waiting-big{text-align:center;padding:50px 20px}
+.countdown{font-family:monospace;font-size:7rem;font-weight:900;color:#fb923c;text-align:center;text-shadow:0 0 60px rgba(249,115,22,.9);animation:cp 1s infinite}
+@keyframes cp{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+#hostCountdown{position:fixed;inset:0;background:rgba(10,6,18,.96);z-index:9998;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;padding:20px}
+#hostCountdown.on{display:flex}
+#hostCountdown .cd-num{font-family:monospace;font-size:9rem;font-weight:900;color:#fb923c;text-shadow:0 0 80px rgba(249,115,22,.9);animation:cp 1s infinite;line-height:1}
+#hostCountdown .cd-txt{color:#c4b5fd;font-size:1.3rem;font-weight:800}
+#hostCountdown .cd-sub{color:#86efac;font-size:1.05rem;font-weight:800;margin-top:6px;text-align:center;max-height:60vh;overflow-y:auto}
+.host-back-corner{position:fixed;top:0;right:0;width:130px;height:66px;z-index:1000;padding:8px;display:none;align-items:flex-start;justify-content:flex-end}
+.host-back-corner.on{display:flex}
+.host-back-corner button{opacity:0;pointer-events:none;transform:translateY(-10px);transition:opacity .25s,transform .25s;padding:10px 14px;font-size:.82rem;border-radius:11px;background:linear-gradient(135deg,#dc2626,#991b1b);color:#fff;border:none;font-family:inherit;font-weight:800;cursor:pointer}
+.host-back-corner:hover button,.host-back-corner.show button{opacity:1;pointer-events:auto;transform:translateY(0)}
+.pause-overlay{position:fixed;inset:0;z-index:900;background:rgba(5,2,15,.78);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px}
+.pause-overlay.on{display:flex}
+.pause-overlay .ic{font-size:5rem;animation:pausePulse 1.4s infinite}
+@keyframes pausePulse{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.12);opacity:1}}
+.pause-overlay .tx{font-size:1.8rem;font-weight:900;color:#fbbf24}
+.conn-status{text-align:center;font-size:.85rem;font-weight:800;margin:8px 0;padding:8px;border-radius:10px}
+.conn-status.ok{color:#4ade80;background:rgba(34,197,94,.1)}
+.conn-status.wait{color:#fbbf24;background:rgba(234,179,8,.1)}
+.conn-status.err{color:#f87171;background:rgba(220,38,38,.12)}
+.invite-actions{display:flex;gap:8px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+.invite-btn{padding:11px 20px;border:none;border-radius:12px;font-family:inherit;font-weight:800;font-size:.9rem;color:#fff;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.invite-btn.copy{background:linear-gradient(135deg,#f97316,#ea580c)}
+.invite-btn.save{background:linear-gradient(135deg,#22c55e,#15803d)}
+.lang-toggle{position:fixed;top:14px;right:14px;z-index:999;padding:8px 14px;border-radius:999px;border:2px solid rgba(168,85,247,.55);background:rgba(20,10,40,.9);color:#fff;font-family:inherit;font-weight:900;font-size:.85rem;cursor:pointer}
+.team-count-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.team-count-btn{flex:1;min-width:60px;padding:18px 10px;border:2px solid rgba(168,85,247,.4);border-radius:14px;background:rgba(30,15,55,.6);color:#c4b5fd;cursor:pointer;font-family:inherit;font-weight:900;font-size:1.5rem;transition:.2s}
+.team-count-btn.active{border-color:#f97316;background:linear-gradient(135deg,rgba(249,115,22,.4),rgba(234,88,12,.25));color:#fff;transform:scale(1.05);box-shadow:0 0 20px rgba(249,115,22,.5)}
+.team-count-btn .lbl{display:block;font-size:.7rem;font-weight:700;margin-top:2px}
+.team-input-row{display:grid;grid-template-columns:60px 1fr;gap:10px;align-items:center;margin-bottom:10px;padding:10px;background:rgba(45,27,78,.4);border-radius:14px;border-left:4px solid #a855f7}
+.team-input-row input{margin-bottom:0}
+.team-color-dot{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem}
+.team-color-dot.t1{background:radial-gradient(circle at 35% 35%,#fca5a5,#dc2626)}
+.team-color-dot.t2{background:radial-gradient(circle at 35% 35%,#93c5fd,#2563eb)}
+.team-color-dot.t3{background:radial-gradient(circle at 35% 35%,#86efac,#16a34a)}
+.team-color-dot.t4{background:radial-gradient(circle at 35% 35%,#fde047,#eab308)}
+.bracket-wrap{background:rgba(30,15,55,.5);border-radius:20px;padding:16px;margin-bottom:16px;overflow-x:auto}
+.bracket-grid{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:20px;min-width:640px;align-items:center}
+.bracket-col{display:flex;flex-direction:column;gap:14px;justify-content:space-around}
+.bracket-match{background:linear-gradient(180deg,rgba(45,27,78,.8),rgba(30,15,55,.9));border:2px solid rgba(168,85,247,.45);border-radius:14px;padding:8px;min-width:160px}
+.bracket-team{display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:8px;font-weight:800;font-size:.82rem;background:rgba(0,0,0,.25);margin:2px 0}
+.bracket-team .bt-emoji{font-size:1.1rem}
+.bracket-team .bt-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bracket-col-title{text-align:center;color:#fb923c;font-weight:900;font-size:.85rem;margin-bottom:8px;text-transform:uppercase}
+.bracket-vs{color:#7c6fa8;text-align:center;font-size:.7rem;font-weight:900;margin:2px 0}
+.scoreboard-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:14px}
+.sb-card{background:linear-gradient(180deg,rgba(45,27,78,.9),rgba(20,10,40,.95));border-radius:16px;padding:14px;border:2px solid rgba(168,85,247,.4);position:relative}
+.sb-card.leader{border-color:#fbbf24;box-shadow:0 0 24px rgba(251,191,36,.5)}
+.sb-card.leader::before{content:"👑";position:absolute;top:6px;right:8px;font-size:1.4rem;animation:dance 1.5s infinite}
+.sb-card.t1{border-left:4px solid #dc2626}.sb-card.t2{border-left:4px solid #2563eb}
+.sb-card.t3{border-left:4px solid #16a34a}.sb-card.t4{border-left:4px solid #eab308}
+.sb-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.sb-emoji{font-size:1.8rem}
+.sb-name{flex:1;font-weight:900;font-size:.95rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sb-score{font-family:monospace;font-size:1.6rem;font-weight:900;color:#fbbf24}
+.sb-bar{height:10px;border-radius:5px;background:rgba(0,0,0,.5);overflow:hidden;margin-top:6px}
+.sb-bar-fill{height:100%;border-radius:5px;transition:width .6s}
+.sb-card.t1 .sb-bar-fill{background:linear-gradient(90deg,#dc2626,#f87171)}
+.sb-card.t2 .sb-bar-fill{background:linear-gradient(90deg,#2563eb,#60a5fa)}
+.sb-card.t3 .sb-bar-fill{background:linear-gradient(90deg,#16a34a,#4ade80)}
+.sb-card.t4 .sb-bar-fill{background:linear-gradient(90deg,#eab308,#fbbf24)}
+.sb-members{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px;font-size:1rem}
+.sb-members span{animation:tugIdle 2.2s ease-in-out infinite}
+.tug-arena{position:relative;background:linear-gradient(180deg,#1a0b2e 0%,#2d1b4e 35%,#0f0518 100%);border-radius:22px;padding:16px 18px;margin-bottom:14px;overflow:hidden;box-shadow:inset 0 0 60px rgba(0,0,0,.65)}
+.tug-header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.tug-team-info{display:flex;align-items:center;gap:8px;padding:7px 14px;border-radius:12px;font-weight:900;font-size:.95rem;white-space:nowrap;max-width:45%}
+.tug-team-info.left{background:linear-gradient(135deg,rgba(220,38,38,.4),rgba(127,29,29,.25));color:#fecaca;border:1.5px solid rgba(220,38,38,.65)}
+.tug-team-info.right{background:linear-gradient(135deg,rgba(37,99,235,.4),rgba(30,58,138,.25));color:#bfdbfe;border:1.5px solid rgba(37,99,235,.65)}
+.tug-team-info .tname{overflow:hidden;text-overflow:ellipsis;max-width:180px}
+.tug-team-info .score{font-family:monospace;font-size:1.15rem;color:#fbbf24}
+.tug-stage{position:relative;height:130px;margin:12px 0 8px;border-radius:16px;overflow:hidden}
+.tug-center-line{position:absolute;left:50%;top:0;bottom:0;width:3px;background:linear-gradient(180deg,transparent,rgba(251,191,36,.85),transparent);transform:translateX(-50%);z-index:2}
+.tug-rope{position:absolute;left:6%;right:6%;top:50%;height:14px;transform:translateY(-50%);background:repeating-linear-gradient(90deg,#92400e 0,#92400e 5px,#78350f 5px,#78350f 10px);border-radius:8px;z-index:1}
+.tug-knot{position:absolute;top:50%;left:50%;width:28px;height:28px;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 35%,#fbbf24,#ea580c 60%,#7c2d12);border-radius:50%;box-shadow:0 0 22px rgba(251,191,36,.95);z-index:6;pointer-events:none;will-change:left}
+.tug-players{position:absolute;top:50%;transform:translateY(-50%);display:flex;gap:.18em;z-index:4;pointer-events:none;max-width:44%;font-size:2.1rem;flex-wrap:nowrap}
+.tug-players.left{left:2%}
+.tug-players.right{right:2%;flex-direction:row-reverse}
+.tug-player{font-size:inherit;display:inline-block;animation:tugIdle 2.2s ease-in-out infinite;line-height:1}
+@keyframes tugIdle{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-3px) rotate(2deg)}}
+.tug-power-bars{display:flex;gap:6px;margin-top:8px;height:12px}
+.tug-power-bar{flex:1;border-radius:6px;overflow:hidden;background:rgba(0,0,0,.55)}
+.tug-power-bar.left{transform:scaleX(-1)}
+.tug-power-fill{height:100%;transition:width .55s;border-radius:6px}
+.tug-power-bar.left .tug-power-fill{background:linear-gradient(90deg,#dc2626,#f97316);transform:scaleX(-1)}
+.tug-power-bar.right .tug-power-fill{background:linear-gradient(90deg,#2563eb,#7c3aed)}
+.tug-status-text{text-align:center;margin-top:10px;font-weight:900;font-size:1rem;color:#c4b5fd;min-height:24px}
+#pArenaContainer{margin-bottom:10px}
+.ptug-arena{position:relative;background:linear-gradient(180deg,#1a0b2e,#2d1b4e);border-radius:14px;padding:8px 10px 10px;border:1.5px solid rgba(168,85,247,.35);overflow:hidden}
+.ptug-header{display:flex;justify-content:space-between;gap:8px;margin-bottom:6px}
+.ptug-team-info{display:flex;align-items:center;gap:6px;padding:3px 9px;border-radius:8px;font-weight:900;font-size:.76rem;white-space:nowrap;max-width:46%;overflow:hidden}
+.ptug-team-info.left{background:rgba(220,38,38,.25);color:#fca5a5;border:1px solid rgba(220,38,38,.55)}
+.ptug-team-info.right{background:rgba(37,99,235,.25);color:#93c5fd;border:1px solid rgba(37,99,235,.55)}
+.ptug-tname{overflow:hidden;text-overflow:ellipsis;max-width:110px}
+.ptug-score{font-family:monospace;color:#fbbf24;font-size:.9rem}
+.ptug-stage{position:relative;height:62px;margin:4px 0;border-radius:10px;overflow:hidden}
+.ptug-center-line{position:absolute;left:50%;top:10%;bottom:10%;width:2px;background:rgba(251,191,36,.7);transform:translateX(-50%);z-index:2}
+.ptug-rope{position:absolute;left:6%;right:6%;top:50%;height:9px;transform:translateY(-50%);background:repeating-linear-gradient(90deg,#92400e 0,#92400e 3px,#78350f 3px,#78350f 6px);border-radius:5px;z-index:1}
+.ptug-knot{position:absolute;top:50%;left:50%;width:18px;height:18px;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 35%,#fbbf24,#ea580c 60%,#7c2d12);border-radius:50%;box-shadow:0 0 14px rgba(251,191,36,.95);z-index:5;pointer-events:none;will-change:left}
+.ptug-players{position:absolute;top:50%;transform:translateY(-50%);display:flex;gap:.18em;z-index:3;pointer-events:none;max-width:44%;font-size:1.5rem;flex-wrap:nowrap}
+.ptug-players.left{left:3%}
+.ptug-players.right{right:3%;flex-direction:row-reverse}
+.ptug-player{font-size:inherit;display:inline-block;animation:tugIdle 2.2s ease-in-out infinite;line-height:1}
+.ptug-status{text-align:center;font-weight:900;font-size:.82rem;color:#c4b5fd;margin-top:5px;min-height:18px}
+.ptug-status.advantage{color:#4ade80}
+.ptug-status.disadvantage{color:#f87171}
+.spectator-overlay{position:fixed;inset:0;z-index:800;background:rgba(5,2,15,.82);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:16px;overflow-y:auto}
+.spectator-overlay[hidden]{display:none!important}
+.spectator-badge{background:linear-gradient(180deg,#1e0f38,#0f0518);border:2px solid rgba(251,191,36,.5);border-radius:22px;padding:20px;max-width:700px;width:100%;box-shadow:0 0 60px rgba(251,191,36,.35),inset 0 0 30px rgba(0,0,0,.5);text-align:center;position:relative}
+.spec-emoji{font-size:4rem;display:block;animation:dance 2s infinite;margin-bottom:6px}
+.spec-title{font-family:'Creepster',cursive;font-size:2.4rem;color:#fbbf24;letter-spacing:2px;text-shadow:0 0 20px rgba(251,191,36,.8);line-height:1.1}
+.spec-sub{color:#c4b5fd;font-size:1rem;margin:8px 0 16px;font-weight:800}
+.spec-tug{margin:14px 0;background:rgba(30,15,55,.7);border-radius:14px;padding:10px;border:1.5px solid rgba(168,85,247,.4)}
+.spec-tug-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:900;font-size:.88rem}
+.spec-tug-head .spec-tA{color:#fca5a5}
+.spec-tug-head .spec-tB{color:#93c5fd}
+.spec-tug-head .spec-vs{color:#fb923c;font-family:'Creepster',cursive;font-size:1.3rem;letter-spacing:2px}
+.spec-stage{position:relative;height:70px;background:radial-gradient(ellipse at 50% 100%,rgba(120,53,15,.4),transparent 65%);border-radius:10px;overflow:hidden}
+.spec-center{position:absolute;left:50%;top:10%;bottom:10%;width:2px;background:rgba(251,191,36,.7);transform:translateX(-50%);z-index:2}
+.spec-rope{position:absolute;left:6%;right:6%;top:50%;height:10px;transform:translateY(-50%);background:repeating-linear-gradient(90deg,#92400e 0,#92400e 4px,#78350f 4px,#78350f 8px);border-radius:5px;z-index:1}
+.spec-knot{position:absolute;top:50%;left:50%;width:20px;height:20px;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 35%,#fbbf24,#ea580c 60%,#7c2d12);border-radius:50%;box-shadow:0 0 14px rgba(251,191,36,.95);z-index:5;pointer-events:none;will-change:left}
+.spec-players{position:absolute;top:50%;transform:translateY(-50%);display:flex;gap:.15em;z-index:3;pointer-events:none;max-width:42%;font-size:1.6rem}
+.spec-players.left{left:3%}
+.spec-players.right{right:3%;flex-direction:row-reverse}
+.spec-player{display:inline-block;animation:tugIdle 2.2s ease-in-out infinite;line-height:1}
+.spec-scores{display:flex;justify-content:space-between;margin-top:8px;font-family:monospace;font-weight:900;font-size:1.1rem}
+.spec-scores .a{color:#fca5a5}
+.spec-scores .b{color:#93c5fd}
+.spec-lb{margin-top:12px;background:rgba(45,27,78,.5);border-radius:10px;padding:10px;text-align:left}
+.spec-lb h4{color:#fb923c;font-weight:900;font-size:.85rem;margin-bottom:6px;text-align:center}
+.spec-lb-row{display:flex;gap:8px;padding:5px 8px;border-radius:6px;margin:3px 0;align-items:center;background:rgba(0,0,0,.25);font-size:.82rem}
+.spec-lb-row .n{flex:1;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.spec-lb-row .s{font-family:monospace;font-weight:900;color:#4ade80}
+.combo-counter{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);z-index:200;pointer-events:none;transition:transform .3s;font-family:'Creepster',cursive;font-size:6rem;background:linear-gradient(135deg,#fbbf24,#f97316,#dc2626);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 30px rgba(249,115,22,1))}
+.combo-counter.show{transform:translate(-50%,-50%) scale(1)}
+.ult-ready-banner{position:fixed;bottom:20%;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#fbbf24,#dc2626);color:#fff;font-weight:900;font-size:1.1rem;padding:10px 22px;border-radius:999px;box-shadow:0 0 30px rgba(251,191,36,.9);z-index:150;cursor:pointer;border:none;font-family:inherit}
+.ult-ready-banner[hidden]{display:none}
+.hint-btn{background:linear-gradient(135deg,#eab308,#ca8a04);border:none;color:#fff;font-family:inherit;font-weight:900;font-size:.9rem;padding:10px 14px;border-radius:12px;cursor:pointer;display:flex;align-items:center;gap:6px;margin:8px auto 0}
+.hint-btn:disabled{opacity:.4;cursor:not-allowed}
+.hint-modal-grid{display:grid;gap:10px;margin-top:12px}
+.hint-opt{padding:14px;border-radius:12px;background:rgba(45,27,78,.6);border:2px solid rgba(168,85,247,.4);cursor:pointer;color:#fff;font-family:inherit;font-weight:800;font-size:1rem;display:flex;align-items:center;gap:10px;text-align:left}
+.sticker-modal-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:14px 0}
+.sticker-opt{aspect-ratio:1;border:2px solid rgba(168,85,247,.4);border-radius:12px;background:rgba(30,15,55,.6);font-size:1.8rem;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;font-family:inherit}
+.sticker-float{position:fixed;bottom:-100px;font-size:3rem;z-index:9998;pointer-events:none;animation:stickerUp 2.5s ease-out forwards}
+@keyframes stickerUp{0%{bottom:-100px;transform:translateX(0) scale(.3);opacity:0}20%{opacity:1;transform:translateX(0) scale(1.2)}80%{opacity:1;transform:translateX(var(--dx,30px)) scale(1)}100%{bottom:110vh;transform:translateX(var(--dx,-30px)) scale(.6);opacity:0}}
+.weather-layer{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.rain-drop{position:absolute;top:-20px;width:2px;height:18px;background:linear-gradient(180deg,rgba(147,197,253,0),rgba(147,197,253,.8));animation:rainFall linear infinite}
+@keyframes rainFall{to{transform:translateY(110vh)}}
+.lightning-flash{position:fixed;inset:0;background:rgba(255,255,255,.7);z-index:5;pointer-events:none;opacity:0;transition:opacity .1s}
+.lightning-flash.on{opacity:1}
+#fireworksCanvas{position:fixed;inset:0;z-index:9996;pointer-events:none;display:none}
+#fireworksCanvas.on{display:block}
+.confetti-piece{position:fixed;top:-20px;width:10px;height:14px;z-index:9997;pointer-events:none;animation:confFall linear forwards}
+@keyframes confFall{to{transform:translateY(110vh) rotate(720deg);opacity:.7}}
+.badge-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:8px;margin-top:10px}
+.badge-item{aspect-ratio:1;border-radius:12px;background:rgba(45,27,78,.5);border:2px solid rgba(168,85,247,.3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:.65rem;color:#c4b5fd;font-weight:800;text-align:center;padding:4px}
+.badge-item .bi-emoji{font-size:1.6rem}
+.badge-item.unlocked{background:linear-gradient(135deg,rgba(251,191,36,.25),rgba(249,115,22,.15));border-color:rgba(251,191,36,.7);color:#fbbf24}
+.theme-particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.theme-particle{position:absolute;pointer-events:none}
+@media(max-width:640px){
+h1{font-size:1.7rem}.room-code{font-size:2.6rem}.timer-big{font-size:1.6rem;min-width:88px;padding:3px 10px}
+.ctrl-circle{width:42px;height:42px;font-size:1.15rem}.snd-circle{width:46px;height:46px}
+.grade{flex:0 0 150px;width:150px}
+.tug-stage{height:100px}.tug-players{font-size:1.6rem;max-width:42%}
+.ptug-stage{height:52px}.ptug-players{font-size:1.25rem;max-width:42%}
+.bracket-grid{grid-template-columns:1fr;gap:12px;min-width:auto}
+.combo-counter{font-size:4rem}
+.scoreboard-4{grid-template-columns:1fr}
+.spec-title{font-size:1.8rem}.spec-emoji{font-size:3rem}
+}
+</style>
+</head>
+<body>
+
+<button class="lang-toggle" id="langToggle" onclick="toggleLang()">🌐 TH</button>
+<div class="weather-layer" id="weatherLayer"></div>
+<div class="lightning-flash" id="lightningFlash"></div>
+<canvas id="fireworksCanvas"></canvas>
+<div class="theme-particles" id="themeParticles"></div>
+
+<div class="screen active" id="scLanding">
+  <div style="max-width:520px;margin:30px auto">
+    <h1>🎃 ชักกะเย่อคำศัพท์ 🦇</h1>
+    <p style="text-align:center;color:#fb923c;font-weight:900;font-size:.95rem;margin-bottom:20px">Tournament v16.3.3 · หลายโหมด</p>
+    <div class="card" style="margin-top:24px">
+      <button class="btn btn-primary" onclick="go('scGradeSelect')" style="margin-bottom:12px">🎤 สร้างห้อง (Host)</button>
+      <button class="btn btn-success" onclick="go('scPlayerJoin')">🎮 เข้าร่วมเกม (Player)</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="scGradeSelect">
+  <div style="max-width:900px;margin:20px auto">
+    <button class="btn-small btn-secondary" onclick="go('scLanding')">← กลับ</button>
+    <h1>🎮 เลือกโหมดและระดับชั้น</h1>
+
+    <!-- ⭐ [v16.3.3] Mode selection with custom image for tug -->
+    <div class="card">
+      <div class="mode-section-title">🎯 เลือกโหมดเกม</div>
+      <div class="mode-grid">
+        <button class="mode-card active" data-mode="tug" onclick="selectGameMode('tug')">
+          <img class="mode-emoji-img" src="https://tum-service.github.io/1111/tug%20of%20war.jpg" alt="ชักกะเย่อ" onerror="this.outerHTML='<span class=\'mode-emoji\'>🎯</span>'">
+          <div class="mode-name">ชักกะเย่อ</div>
+          <span class="mode-badge ready">พร้อมเล่น</span>
+        </button>
+        <button class="mode-card locked" data-mode="attack" onclick="selectGameMode('attack')">
+          <span class="mode-emoji">🏰</span>
+          <div class="mode-name">โจมตี-ป้องกัน</div>
+          <span class="mode-badge coming">🚧 เร็วๆ นี้</span>
+        </button>
+        <button class="mode-card locked" data-mode="boss" onclick="selectGameMode('boss')">
+          <span class="mode-emoji">👹</span>
+          <div class="mode-name">สู้บอส</div>
+          <span class="mode-badge coming">🚧 เร็วๆ นี้</span>
+        </button>
+        <button class="mode-card locked" data-mode="other" onclick="selectGameMode('other')">
+          <span class="mode-emoji">🎮</span>
+          <div class="mode-name">อื่นๆ</div>
+          <span class="mode-badge coming">🚧 เร็วๆ นี้</span>
+        </button>
+      </div>
+      <div class="mode-selected-info" id="modeSelectedInfo">
+        <img class="mode-emoji-img-inline" src="https://tum-service.github.io/1111/tug%20of%20war.jpg" alt="" onerror="this.outerHTML='🎯'"> โหมดที่เลือก: <span>ชักกะเย่อ</span> · ทีมแข่งดึงเชือกคำศัพท์
+      </div>
+    </div>
+
+    <h3 style="text-align:center;color:#fb923c;margin:16px 0 12px">📖 เลือกระดับชั้น</h3>
+    <div class="grades" id="gradeList"></div>
+  </div>
+</div>
+
+<div class="screen" id="scWordPicker">
+  <div style="max-width:1000px;margin:20px auto">
+    <button class="btn-small btn-secondary" onclick="go('scGradeSelect')">← กลับ</button>
+    <h1 id="wpTitle">ป.1</h1>
+    <p style="text-align:center;color:#c4b5fd;margin-bottom:14px;font-size:.9rem">เลือกอย่างน้อย 4 คำ · ทั้งหมด <span id="wpTotal">0</span> คำ · เลือกแล้ว <b id="wpSel">0</b> คำ</p>
+    <div style="text-align:center"><button class="wp-add" onclick="openAdd()">➕ เพิ่มคำศัพท์</button></div>
+    <div class="wp-actions" id="wpActions"></div>
+    <div class="wp-grid" id="wpGrid"></div>
+    <div class="wp-bottom">
+      <span class="wp-count" id="wpCount">เลือกแล้ว 0 คำ</span>
+      <button class="wp-chip all" id="wpNext" onclick="go('scTournamentConfig')" disabled>ถัดไป ▶</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="scTournamentConfig">
+  <div style="max-width:800px;margin:20px auto">
+    <button class="btn-small btn-secondary" onclick="go('scWordPicker')">← กลับ</button>
+    <h1>⚙️ ตั้งค่าทัวร์นาเมนต์</h1>
+
+    <div class="card" style="text-align:center;background:linear-gradient(180deg,rgba(34,197,94,.15),rgba(20,83,45,.3));border-color:rgba(34,197,94,.4)">
+      <div style="line-height:1" id="configModeEmoji">
+        <img src="https://tum-service.github.io/1111/tug%20of%20war.jpg" alt="" style="width:3rem;height:3rem;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,.5));border-radius:8px" onerror="this.outerHTML='<span style=\'font-size:2.2rem\'>🎯</span>'">
+      </div>
+      <div style="font-weight:900;color:#4ade80;font-size:1.1rem;margin-top:4px" id="configModeName">ชักกะเย่อ</div>
+    </div>
+
+    <div class="card">
+      <h3>👥 จำนวนทีม</h3>
+      <div class="team-count-row">
+        <button class="team-count-btn" data-n="1" onclick="setTeamCount(1)">1<span class="lbl">ทีม</span></button>
+        <button class="team-count-btn" data-n="2" onclick="setTeamCount(2)">2<span class="lbl">ทีม</span></button>
+        <button class="team-count-btn" data-n="3" onclick="setTeamCount(3)">3<span class="lbl">ทีม</span></button>
+        <button class="team-count-btn active" data-n="4" onclick="setTeamCount(4)">4<span class="lbl">ทีม</span></button>
+      </div>
+      <div style="background:rgba(34,197,94,.12);padding:12px;border-radius:12px;border:1px solid rgba(34,197,94,.35);color:#bbf7d0;font-size:.85rem;line-height:1.6">
+        💡 <b>ระบบสุ่มทีมอัตโนมัติ:</b> นักเรียนพิมพ์แค่ชื่อ · ระบบจะหารเท่าๆกัน
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🏷️ ชื่อทีม</h3>
+      <div id="teamInputsWrap"></div>
+    </div>
+
+    <div class="card">
+      <h3>⏱️ เวลาต่อเซ็ต</h3>
+      <div style="display:flex;gap:10px;align-items:center">
+        <button class="btn-small btn-danger" onclick="adjSetTime(-1)">− 1</button>
+        <input type="number" id="setTimeInput" value="3" min="1" max="30" style="text-align:center;font-size:1.4rem;font-weight:900;margin-bottom:0">
+        <button class="btn-small btn-success" onclick="adjSetTime(1)">+ 1</button>
+        <span style="color:#c4b5fd">นาที / เซ็ต</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🎨 ธีมสนาม</h3>
+      <div class="grid">
+        <button class="chip theme-chip active" data-t="halloween" onclick="setTheme('halloween')">🎃 Halloween</button>
+        <button class="chip theme-chip" data-t="space" onclick="setTheme('space')">🌌 อวกาศ</button>
+        <button class="chip theme-chip" data-t="underwater" onclick="setTheme('underwater')">🌊 ใต้น้ำ</button>
+        <button class="chip theme-chip" data-t="desert" onclick="setTheme('desert')">🏜️ ทะเลทราย</button>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="createRoom()" style="font-size:1.3rem;padding:22px">🚀 สร้างห้องทัวร์นาเมนต์!</button>
+  </div>
+</div>
+
+<div class="screen" id="scHostLobby">
+  <div style="max-width:1000px;margin:20px auto">
+    <h1>🎤 ห้องของคุณ</h1>
+    <div class="room-box">
+      <div style="color:#c4b5fd;font-size:.95rem">🔑 รหัสห้อง</div>
+      <div class="room-code" id="roomCodeDisplay">----</div>
+      <div class="conn-status wait" id="hostConnStatus">⏳ กำลังเชื่อมต่อ...</div>
+      <div id="qrcode"></div>
+      <div class="room-url" id="roomUrlDisplay"></div>
+      <div class="invite-actions">
+        <button class="invite-btn copy" onclick="copyJoinLink()">📋 คัดลอกลิงก์</button>
+        <button class="invite-btn save" onclick="saveQRCode()">💾 บันทึก QR Code</button>
+      </div>
+    </div>
+    <div class="card">
+      <h3>👥 ผู้เล่น (<span id="playerCount">0</span>) · <span id="teamCountInfo">4 ทีม</span></h3>
+      <div style="background:rgba(34,197,94,.1);padding:10px;border-radius:10px;border:1px solid rgba(34,197,94,.3);font-size:.83rem;color:#bbf7d0;margin-bottom:10px">
+        🎲 ระบบจะสุ่มทีมให้อัตโนมัติ · หารเท่าๆกัน
+      </div>
+      <div class="players-grid" id="playersGrid"><p style="color:#7c6fa8;text-align:center;grid-column:1/-1;padding:16px">รอผู้เล่น...</p></div>
+    </div>
+    <button class="btn btn-secondary" onclick="rebalanceTeams();toast('🔀 สุ่มทีมใหม่แล้ว!',2000)" style="margin-bottom:10px">🔀 สุ่มทีมใหม่ (หารเท่าๆกัน)</button>
+    <button class="btn btn-success" id="hostStartBtn" onclick="hostStartTournament()" disabled style="font-size:1.3rem;padding:22px">▶ เริ่มทัวร์นาเมนต์!</button>
+    <button class="btn btn-secondary" onclick="location.reload()">🔄 ยกเลิก</button>
+  </div>
+</div>
+
+<div class="screen" id="scHostBracket">
+  <div style="max-width:1200px;margin:20px auto">
+    <h1>🏆 สายการแข่งขัน</h1>
+    <p style="text-align:center;color:#c4b5fd;margin-bottom:14px;font-size:.9rem" id="bracketDesc">รอบคัดเลือกแข่งพร้อมกัน · จัดอันดับแล้วจับคู่ไขว้</p>
+    <div class="bracket-wrap">
+      <div class="bracket-grid" id="bracketGrid"></div>
+    </div>
+    <div class="card" style="text-align:center">
+      <h3>✅ พร้อมเริ่ม?</h3>
+      <div id="bracketPlayerStatus" style="color:#86efac;font-weight:800;font-size:.9rem;margin:12px 0"></div>
+      <button class="btn btn-success" onclick="startQualifier()" style="font-size:1.2rem;padding:20px">🚀 เริ่มรอบคัดเลือก!</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="scHostGame">
+  <div style="max-width:1300px;margin:20px auto">
+    <div class="host-topbar">
+      <div class="topbar-left">
+        <button class="ctrl-circle ctrl-stop" onclick="hostStop()" title="หยุดเกม">⏹</button>
+        <button class="ctrl-circle ctrl-pause" id="pauseBtn" onclick="hostPause()" title="พัก/เล่นต่อ">⏸</button>
+        <button class="ctrl-circle ctrl-minus" onclick="hostAddT(-30)" title="ลบ 30 วิ">−</button>
+        <button class="ctrl-circle ctrl-plus" onclick="hostAddT(30)" title="เพิ่ม 30 วิ">+</button>
+        <button class="ctrl-circle ctrl-sticker" onclick="openStickerPanel()" title="ส่งสติ๊กเกอร์">🎁</button>
+        <div class="topbar-sep"></div>
+        <div class="snd-group host-group">
+          <div class="snd-group-label"><span class="ico">🎤</span><span>Host</span></div>
+          <button class="snd-circle on" id="btnHostFx" onclick="toggleHostFx()"><span class="snd-ico">📢</span><span class="snd-lbl">FX</span></button>
+          <button class="snd-circle on" id="btnHostBgm" onclick="toggleHostBgm()"><span class="snd-ico">📢</span><span class="snd-lbl">BGM</span></button>
+        </div>
+        <div class="snd-group player-group">
+          <div class="snd-group-label"><span class="ico">🎮</span><span>ผู้เล่น</span></div>
+          <button class="snd-circle on" id="btnPlayersFx" onclick="togglePlayersFx()"><span class="snd-ico">📢</span><span class="snd-lbl">FX</span></button>
+          <button class="snd-circle on" id="btnPlayersBgm" onclick="togglePlayersBgm()"><span class="snd-ico">📢</span><span class="snd-lbl">BGM</span></button>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+        <div style="font-size:.72rem;color:#fb923c;font-weight:900;letter-spacing:1px" id="hostRoundLabel">ROUND 1 · QUALIFIER</div>
+        <div class="timer-big" id="hostTotalTimer">3:00</div>
+      </div>
+      <div class="answered-info">📝 ตอบแล้ว <span id="hostTotalAnswers">0</span> ข้อ</div>
+    </div>
+    <div id="arenaWrap"></div>
+    <div class="leaderboard" style="margin-top:16px">
+      <h3 style="text-align:center">🏆 อันดับสด</h3>
+      <div id="hostLeaderboard"></div>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="scHostPodium">
+  <div style="max-width:1000px;margin:20px auto">
+    <div class="podium-screen">
+      <div class="podium-title">🏆 จบเกม! 🏆</div>
+      <div class="podium-stage" id="podiumStage"></div>
+      <h3 style="margin:24px 0 12px;text-align:center">📊 สรุปสถิติ</h3>
+      <div id="podiumStats" style="background:rgba(30,15,55,.7);border-radius:14px;padding:14px;font-size:.9rem;line-height:1.7"></div>
+      <div style="margin-top:24px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+        <button class="btn-small btn-primary" onclick="exportHostReport()" style="padding:12px 20px;font-size:.95rem">📄 ส่งออก PDF</button>
+        <button class="btn-small btn-secondary" onclick="location.reload()" style="padding:12px 20px;font-size:.95rem">🔄 เล่นใหม่</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="scPlayerJoin">
+  <div style="max-width:520px;margin:20px auto">
+    <button class="btn-small btn-secondary" onclick="go('scLanding')">← กลับ</button>
+    <h1>🎮 เข้าร่วมเกม</h1>
+    <div class="card">
+      <label>🔑 รหัสห้อง</label>
+      <input type="text" class="code" id="joinCode" maxlength="4" placeholder="XXXX">
+      <label>📝 ชื่อของคุณ</label>
+      <input type="text" id="joinName" maxlength="20" placeholder="เช่น สมชาย">
+      <label>🎭 Avatar</label>
+      <div class="avatar-grid" id="avatarGrid"></div>
+      <label style="margin-top:12px;display:flex;align-items:center;gap:8px;cursor:pointer;padding:10px;background:rgba(34,197,94,.1);border-radius:10px;border:1px solid rgba(34,197,94,.3)">
+        <input type="checkbox" id="joinVoiceToggle" style="width:20px;height:20px;margin:0;accent-color:#22c55e">
+        <span style="color:#bbf7d0;font-size:.88rem;font-weight:800">🎤 เปิดไมค์ตอบด้วยเสียง</span>
+      </label>
+      <div style="background:rgba(251,191,36,.12);padding:10px;border-radius:10px;border:1px solid rgba(251,191,36,.35);font-size:.82rem;color:#fde68a;margin-top:10px;line-height:1.5">
+        🎲 <b>ระบบจะสุ่มทีมให้อัตโนมัติ</b> · ไม่ต้องกรอกชื่อทีม
+      </div>
+    </div>
+    <button class="btn btn-success" id="joinBtn" onclick="playerJoin()" style="font-size:1.2rem;padding:20px">🚀 เข้าร่วม!</button>
+    <div id="joinMsg" style="text-align:center;color:#f87171;font-weight:700;min-height:22px;font-size:.9rem"></div>
+  </div>
+</div>
+
+<div class="screen" id="scPlayerWait">
+  <div class="waiting-big">
+    <div class="spinner"></div>
+    <h2>⏳ รอครูเริ่มทัวร์นาเมนต์...</h2>
+    <p>คุณ: <span id="waitName" style="color:#fb923c;font-weight:900">-</span></p>
+    <p style="font-size:1.1rem;color:#86efac;margin-top:6px;font-weight:900" id="waitTeam"></p>
+    <p style="font-size:2.5rem;margin-top:12px" id="waitAvatar">🎃</p>
+    <p style="font-size:.85rem;color:#c4b5fd;margin-top:14px;font-weight:800" id="waitHint">📡 กำลังเชื่อมต่อ...</p>
+    <p style="font-size:.8rem;color:#67e8f9;margin-top:8px;font-weight:800" id="waitVoice"></p>
+  </div>
+</div>
+
+<div class="screen" id="scPlayerCountdown">
+  <div style="padding:70px 20px">
+    <div class="countdown" id="countdownNum">3</div>
+    <p style="text-align:center;color:#c4b5fd;font-size:1.1rem;margin-top:18px" id="countdownSub">เตรียมตัว...</p>
+  </div>
+</div>
+
+<div class="screen" id="scPlayerQ">
+  <div style="max-width:720px;margin:20px auto">
+    <div class="host-topbar" style="margin-bottom:10px">
+      <div style="color:#fb923c;font-weight:900;font-size:.9rem">ข้อ <span id="pQNum">1</span></div>
+      <div style="color:#86efac;font-weight:900;font-size:.9rem">⭐ <span id="pScore">0</span></div>
+      <div style="color:#c4b5fd;font-weight:800;font-size:.9rem">⏱️ <span id="pTotalTimer">3:00</span></div>
+      <div style="color:#f87171;font-weight:900;font-size:.9rem">🔥 <span id="pStreak">0</span></div>
+    </div>
+    <div id="pArenaContainer"></div>
+    <div class="question-box">
+      <div class="question-text" id="pQText">...</div>
+      <div class="question-sub" id="pQSub"></div>
+    </div>
+    <div class="answers-grid" id="pAnswersGrid"></div>
+    <div class="feedback-big" id="pFeedback">
+      <span class="emoji" id="pFbEmoji">✅</span>
+      <div class="txt" id="pFbText">ถูกต้อง!</div>
+      <div class="pts" id="pFbPts">+100</div>
+    </div>
+    <div style="display:flex;justify-content:center;gap:8px;margin-top:10px">
+      <button class="hint-btn" id="hintBtn" onclick="openHintModal()">💡 คำใบ้ (<span id="hintPoints">3</span>)</button>
+    </div>
+    <div id="pRankPanel" style="margin-top:14px;background:linear-gradient(180deg,rgba(30,15,55,.85),rgba(15,7,30,.9));border-radius:14px;padding:10px 12px;border:1px solid rgba(168,85,247,.35)">
+      <div style="font-weight:900;color:#fb923c;margin-bottom:8px;font-size:.9rem;display:flex;justify-content:space-between;align-items:center">
+        <span>🏆 อันดับของคุณ</span>
+        <span id="pMyRank" style="font-family:monospace;color:#fbbf24;font-size:1.15rem">-</span>
+      </div>
+      <div id="pRankList"></div>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="scPlayerEnd">
+  <div style="max-width:1000px;margin:30px auto">
+    <div class="podium-screen">
+      <div class="podium-title">🏆 จบเกม! 🏆</div>
+      <div class="podium-stage" id="podiumStagePlayer"></div>
+      <div style="text-align:center;margin:24px 0 8px">
+        <div style="font-size:.95rem;color:#c4b5fd;font-weight:800;margin-bottom:4px">คะแนนของคุณ</div>
+        <div style="font-size:3rem;font-weight:900;color:#fb923c;font-family:monospace" id="pFinalScore">0</div>
+        <div style="font-size:1.15rem;color:#4ade80;font-weight:900;margin-top:6px" id="pFinalRank">-</div>
+      </div>
+      <h3 style="margin:24px 0 12px;text-align:center">🎖️ Badge ของคุณ</h3>
+      <div id="pPlayerBadges" class="badge-grid"></div>
+      <div style="margin-top:24px;text-align:center">
+        <button class="btn-small btn-primary" onclick="exportPlayerReport()" style="padding:12px 20px;font-size:.95rem">📄 ส่งออก PDF</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="spectator-overlay" id="spectatorOverlay" hidden>
+  <div class="spectator-badge">
+    <span class="spec-emoji" id="specEmoji">🪑</span>
+    <div class="spec-title" id="specTitle">คุณได้ที่ 3 แล้ว!</div>
+    <div class="spec-sub" id="specSub">นั่งดูเพื่อนแข่งกันน้าาา</div>
+    <div class="spec-tug" id="spectatorTug">
+      <div class="spec-tug-head">
+        <span class="spec-tA" id="specTeamA">ทีม A</span>
+        <span class="spec-vs">VS</span>
+        <span class="spec-tB" id="specTeamB">ทีม B</span>
+      </div>
+      <div class="spec-stage">
+        <div class="spec-center"></div>
+        <div class="spec-rope"></div>
+        <div class="spec-knot" id="specKnot" style="left:50%"></div>
+        <div class="spec-players left" id="specPlayersA"></div>
+        <div class="spec-players right" id="specPlayersB"></div>
+      </div>
+      <div class="spec-scores">
+        <span class="a" id="specScoreA">0</span>
+        <span class="b" id="specScoreB">0</span>
+      </div>
+    </div>
+    <div class="spec-lb">
+      <h4>🏆 อันดับสด</h4>
+      <div id="specLbBody"></div>
+    </div>
+  </div>
+</div>
+
+<div class="host-back-corner" id="hostBackCorner">
+  <button onclick="hostBackToMain()">🏠 กลับหน้าหลัก</button>
+</div>
+
+<div class="pause-overlay" id="pauseOverlay">
+  <div class="ic">⏸️</div>
+  <div class="tx">ครูกดพักชั่วคราว</div>
+  <div style="color:#c4b5fd;font-size:.95rem">รอสักครู่...</div>
+</div>
+
+<div id="hostCountdown">
+  <div class="cd-num" id="hostCountdownNum">3</div>
+  <div class="cd-txt" id="hostCountdownText">เตรียมตัว...</div>
+  <div class="cd-sub" id="hostCountdownSub"></div>
+</div>
+
+<div class="modal-ov" id="stickerPanel" hidden>
+  <div class="modal-box">
+    <h3 style="color:#ec4899;text-align:center;margin-bottom:10px">🎁 ส่งกำลังใจให้ทีม</h3>
+    <label>เลือกทีมเป้าหมาย</label>
+    <select id="stickerTeamSelect"></select>
+    <label style="margin-top:8px">เลือกสติ๊กเกอร์</label>
+    <div class="sticker-modal-grid" id="stickerGrid"></div>
+    <button class="btn-small btn-danger" onclick="closeStickerPanel()" style="width:100%;padding:12px">ปิด</button>
+  </div>
+</div>
+
+<div class="modal-ov" id="hintModal" hidden>
+  <div class="modal-box">
+    <h3 style="color:#eab308;text-align:center;margin-bottom:10px">💡 ใช้คำใบ้</h3>
+    <p style="text-align:center;color:#c4b5fd;font-size:.9rem;margin-bottom:12px">แต้มคงเหลือ: <b id="hintModalPoints" style="color:#fbbf24">3</b></p>
+    <div class="hint-modal-grid">
+      <button class="hint-opt" id="hintCutBtn" onclick="useHint('cut')"><span style="font-size:1.5rem">✂️</span><div><b>ตัดตัวเลือกผิด 1 ตัว</b><br><span style="font-size:.75rem;color:#c4b5fd">ใช้ 1 แต้ม</span></div></button>
+      <button class="hint-opt" id="hintLetterBtn" onclick="useHint('letter')"><span style="font-size:1.5rem">🔤</span><div><b>เผยตัวอักษรแรก</b><br><span style="font-size:.75rem;color:#c4b5fd">ใช้ 2 แต้ม</span></div></button>
+    </div>
+    <button class="btn-small btn-secondary" onclick="closeHintModal()" style="margin-top:14px;width:100%;padding:12px">ปิด</button>
+  </div>
+</div>
+
+<div class="modal-ov" id="addModal" hidden>
+  <div class="modal-box">
+    <h3 style="color:#fb923c;text-align:center;margin-bottom:14px">➕ เพิ่มคำศัพท์</h3>
+    <label>EN</label>
+    <input type="text" id="awEn" placeholder="apple">
+    <label>TH</label>
+    <input type="text" id="awTh" placeholder="แอ๊ปเปิ้ล">
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button class="btn-small btn-danger" onclick="closeAdd()" style="flex:1;padding:12px">ยกเลิก</button>
+      <button class="btn-small btn-success" onclick="saveAdd()" style="flex:1;padding:12px">บันทึก</button>
+    </div>
+  </div>
+</div>
+
+<div class="combo-counter" id="comboCounter">x3</div>
+<button class="ult-ready-banner" id="ultReadyBanner" hidden onclick="useUlt()">🔥 ท่าไม้ตายพร้อม! — แตะใช้</button>
+<div class="toast" id="toast"></div>
+
+<script src="https://unpkg.com/mqtt@4.3.7/dist/mqtt.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+/* ═══ VOCAB (compact) ═══ */
+const VOCAB_DATA={
+p1:`ant|มด,apple|แอ๊ปเปิ้ล,bag|กระเป๋า,ball|ลูกบอล,banana|กล้วย,bat|ค้างคาว,bear|หมี,bee|ผึ้ง,big|ใหญ่,bin|ถังขยะ,bird|นก,birthday|วันเกิด,book|หนังสือ,box|กล่อง,boy|เด็กชาย,bread|ขนมปัง,broom|ไม้กวาด,brother|พี่ชาย,bus|รถประจำทาง,cake|เค้ก,candle|เทียน,car|รถยนต์,cat|แมว,chair|เก้าอี้,class|ชั้นเรียน,close|ปิด,count|นับ,cry|ร้องไห้,crayon|สีเทียน,cup|ถ้วย,cut|ตัด,dad|พ่อ,dance|เต้น,desk|โต๊ะ,dog|หมา,door|ประตู,ear|หู,egg|ไข่,eraser|ยางลบ,eye|ตา,face|หน้า,fan|พัดลม,fish|ปลา,flower|ดอกไม้,food|อาหาร,foot|เท้า,fox|สุนัขจิ้งจอก,fruit|ผลไม้,fun|สนุก,giraffe|ยีราฟ,girl|เด็กหญิง,glass|แก้ว,go|ไป,goat|แพะ,good|ดี,goodbye|ลาก่อน,hair|ผม,ham|แฮม,happy|สุข,head|หัว,hello|หวัดดี,house|บ้าน,ice|น้ำแข็ง,ice cream|ไอศกรีม,jar|โอ่ง,key|กุญแจ,kick|เตะ,king|ราชา,kid|เด็ก,leg|ขา,lemon|มะนาว,line|เส้น,lion|สิงโต,listen|ฟัง,long|ยาว,look|ดู,love|รัก,man|ชาย,map|แผนที่,milk|นม,mom|แม่,monkey|ลิง,moon|จันทร์,mother|มารดา,mouth|ปาก,name|ชื่อ,nose|จมูก,open|เปิด,orange|ส้ม,owl|นกฮูก,pan|กระทะ,panda|แพนด้า,papaya|มะละกอ,park|สวน,pear|ลูกแพร์,pen|ปากกา,pencil|ดินสอ,pet|สัตว์เลี้ยง,play|เล่น,point|ชี้,pool|สระ,queen|ราชินี,rabbit|กระต่าย,rat|หนู,ring|แหวน,roof|หลังคา,room|ห้อง,ruler|ไม้บรรทัด,sad|เศร้า,salad|สลัด,say|พูด,school|โรงเรียน,see|เห็น,sheep|แกะ,ship|เรือ,short|สั้น,show|แสดง,sing|ร้อง,sister|พี่สาว,sit|นั่ง,small|เล็ก,smell|กลิ่น,snake|งู,song|เพลง,stand|ยืน,star|ดาว,start|เริ่ม,stop|หยุด,student|นักเรียน,sun|ตะวัน,tall|สูง,tea|ชา,teacher|ครู,thank you|ขอบคุณ,tomato|มะเขือเทศ,top|ข่าง,toy|ของเล่น,tree|ต้นไม้,ugly|น่าเกลียด,van|รถตู้,walk|เดิน,water|น้ำ,wig|ผมปลอม,woman|หญิง,zebra|ม้าลาย,zoo|สวนสัตว์`,
+p2:`again|อีก,animal|สัตว์,answer|ตอบ,arm|แขน,artist|ศิลปิน,ask|ถาม,aunt|ป้า,balloon|ลูกโป่ง,bank|ธนาคาร,bed|เตียง,board|กระดาน,boat|เรือ,bottle|ขวด,bowl|ชาม,butterfly|ผีเสื้อ,candy|ลูกอม,cap|หมวก,card|บัตร,cheese|ชีส,cherry|เชอร์รี่,chicken|ไก่,children|เด็กๆ,circle|วงกลม,clean|สะอาด,clock|นาฬิกา,cook|ทำอาหาร,cookie|ขนม,cool|เย็น,cow|วัว,dish|จาน,doctor|หมอ,donkey|ลา,elephant|ช้าง,family|ครอบครัว,far|ไกล,fat|อ้วน,finish|เสร็จ,floor|พื้น,fly|บิน,friend|เพื่อน,frog|กบ,garden|สวน,gloves|ถุงมือ,grape|องุ่น,group|กลุ่ม,hand|มือ,hat|หมวก,help|ช่วย,hen|ไก่,hot|ร้อน,hungry|หิว,juice|น้ำผลไม้,kite|ว่าว,knee|เข่า,knife|มีด,letter|จดหมาย,magic|มนตร์,mango|มะม่วง,music|ดนตรี,new|ใหม่,notebook|สมุด,number|เลข,old|แก่,page|หน้า,paint|สี,paper|กระดาษ,peach|พีช,people|คน,picture|รูป,pig|หมู,pillow|หมอน,pineapple|สัปปะรด,puppy|ลูกหมา,quiet|เงียบ,radio|วิทยุ,rain|ฝน,rice|ข้าว,right|ถูก,robot|หุ่นยนต์,rope|เชือก,round|กลม,socks|ถุงเท้า,spell|สะกด,story|เรื่อง,strawberry|สตรอเบอร์รี่,subject|วิชา,sweet|หวาน,tennis|เทนนิส,today|วันนี้,touch|สัมผัส,town|เมือง,umbrella|ร่ม,uncle|ลุง,video|วิดีโอ,watermelon|แตงโม,week|สัปดาห์,whale|วาฬ,window|หน้าต่าง,young|น้อย`,
+p3:`air|อากาศ,airplane|เครื่องบิน,around|รอบ,basket|ตะกร้า,bathroom|ห้องน้ำ,beautiful|สวย,bedroom|ห้องนอน,beef|เนื้อวัว,bell|กระดิ่ง,bicycle|จักรยาน,body|ร่างกาย,breakfast|อาหารเช้า,buy|ซื้อ,cabbage|กะหล่ำ,carrot|แครอท,castle|ปราสาท,chance|โอกาส,classroom|ห้องเรียน,coffee|กาแฟ,computer|คอมพิวเตอร์,correct|ถูก,cucumber|แตงกวา,daughter|ลูกสาว,dice|เต๋า,dinner|อาหารเย็น,dirty|สกปรก,double|สองเท่า,drink|ดื่ม,drum|กลอง,duck|เป็ด,durian|ทุเรียน,eat|กิน,English|อังกฤษ,finger|นิ้ว,fishing|ตกปลา,flag|ธง,give|ให้,goldfish|ปลาทอง,golf|กอล์ฟ,grandfather|ปู่,grandmother|ย่า,grass|หญ้า,guitar|กีตาร์,hippo|ฮิปโป,hit|ตี,homework|การบ้าน,honey|น้ำผึ้ง,horse|ม้า,hut|กระท่อม,jacket|แจ็คเก็ต,jeans|ยีนส์,join|เข้าร่วม,keep|เก็บ,kitten|ลูกแมว,lock|ล็อก,lunch|กลางวัน,math|คณิต,meat|เนื้อ,mirror|กระจก,month|เดือน,move|ขยับ,musician|นักดนตรี,neck|คอ,nest|รัง,noodle|ก๋วยเตี๋ยว,noon|เที่ยง,nurse|พยาบาล,pair|คู่,parrot|นกแก้ว,path|ทาง,penguin|เพนกวิน,photo|รูป,piano|เปียโน,pie|พาย,pizza|พิซซ่า,plastic|พลาสติก,pork|หมู,postman|ไปรษณีย์,potato|มันฝรั่ง,question|คำถาม,rainy|ฝนตก,read|อ่าน,river|แม่น้ำ,salt|เกลือ,sand|ทราย,sausage|ไส้กรอก,seal|แมวน้ำ,shampoo|แชมพู,shorts|กางเกงขาสั้น,shoulder|ไหล่,sleep|นอน,smile|ยิ้ม,snail|หอยทาก,soap|สบู่,sofa|โซฟา,son|ลูกชาย,soup|ซุป,speak|พูด,study|เรียน,swing|ชิงช้า,telephone|โทรศัพท์,thirsty|กระหาย,tiger|เสือ,toothbrush|แปรงสีฟัน,toothpaste|ยาสีฟัน,truck|รถบรรทุก,turtle|เต่า,use|ใช้,violin|ไวโอลิน,want|ต้องการ,wash|ซัก,watch|ดู,wing|ปีก,wolf|หมาป่า,wood|ไม้,write|เขียน,wrong|ผิด`,
+p4:`ache|ปวด,afternoon|บ่าย,airport|สนามบิน,autumn|ใบไม้ร่วง,clothes|เสื้อผ้า,cloudy|มีเมฆ,clown|ตัวตลก,coat|โค้ท,coconut|มะพร้าว,coin|เหรียญ,cold|หนาว,comb|หวี,copy|คัดลอก,cousin|ลูกพี่ลูกน้อง,cover|ปก,cupcake|คัพเค้ก,dark|มืด,deep|ลึก,dentist|หมอฟัน,diary|ไดอารี่,dictionary|พจนานุกรม,dolphin|โลมา,drive|ขับ,dust|ฝุ่น,earth|โลก,easy|ง่าย,evening|เย็น,example|ตัวอย่าง,exercise|ออกกำลังกาย,expensive|แพง,fall|ร่วง,feed|ให้อาหาร,feel|รู้สึก,female|หญิง,fence|รั้ว,festival|เทศกาล,fill|เติม,film|หนัง,find|หา,flash|แฟลช,flour|แป้ง,fork|ส้อม,funny|ตลก,game|เกม,garage|โรงรถ,ghost|ผี,gift|ของขวัญ,glasses|แว่น,grow|โต,gym|โรงยิม,hall|โถง,health|สุขภาพ,heart|หัวใจ,hill|เนิน,holiday|วันหยุด,hospital|โรงพยาบาล,hotel|โรงแรม,internet|เน็ต,jungle|ป่า,kangaroo|จิงโจ้,kitchen|ครัว,know|รู้,leaf|ใบไม้,lemonade|น้ำมะนาว,library|ห้องสมุด,life|ชีวิต,lips|ปาก,longan|ลำไย,lotus|บัว,mall|ห้าง,medicine|ยา,melon|แคนตาลูป,member|สมาชิก,midnight|เที่ยงคืน,monk|พระ,monster|มอน,morning|เช้า,mountain|ภูเขา,movie|หนัง,nail|เล็บ,nice|ดี,night|คืน,octopus|ปลาหมึก,office|ออฟฟิศ,omelet|ไข่เจียว,onion|หัวหอม,pants|กางเกง,parents|พ่อแม่,pepper|พริกไทย,pill|ยา,planet|ดาวเคราะห์,plant|พืช,playground|สนามเด็กเล่น,pocket|กระเป๋า,poem|กลอน,practice|ฝึก,prawn|กุ้ง,present|ของขวัญ,pretty|สวย,price|ราคา,print|พิมพ์,pull|ดึง,push|ผลัก,quick|เร็ว,rainbow|รุ้ง,rescue|ช่วย,restaurant|ร้านอาหาร,ride|ขี่,road|ถนน,rocket|จรวด,root|ราก,rose|กุหลาบ,satellite|ดาวเทียม,scarf|ผ้าพันคอ,science|วิทย์,sea|ทะเล,seed|เมล็ด,sell|ขาย,send|ส่ง,shelf|ชั้น,shop|ร้าน,sick|ป่วย,ski|สกี,slow|ช้า,smoke|ควัน,snack|ของว่าง,snowy|หิมะ,soda|โซดา,sore|เจ็บ,sour|เปรี้ยว,space|อวกาศ,special|พิเศษ,spend|จ่าย,spicy|เผ็ด,spoon|ช้อน,spring|ใบไม้ผลิ,square|สี่เหลี่ยม,station|สถานี,summer|ร้อน,sunny|แดด,sweater|กันหนาว,tail|หาง,talk|คุย,teach|สอน,team|ทีม,theater|ละคร,thin|ผอม,ticket|ตั๋ว,time|เวลา,tomorrow|พรุ่งนี้,tonight|คืนนี้,tour|ทัวร์,uniform|ชุด,vegetable|ผัก,wear|สวม,weather|อากาศ,wet|เปียก,wife|เมีย,windy|ลม,winter|หนาว,work|งาน,year|ปี,yesterday|เมื่อวาน,yogurt|โยเกิร์ต,yummy|อร่อย`,
+p5:`actor|นักแสดง,actress|ดาราหญิง,adventure|ผจญภัย,area|พื้นที่,author|นักเขียน,bridge|สะพาน,build|สร้าง,burn|เผา,busy|ยุ่ง,button|กระดุม,calculator|คิดเลข,calendar|ปฏิทิน,camera|กล้อง,canal|คลอง,careful|ระวัง,career|อาชีพ,carpet|พรม,carry|ถือ,center|กลาง,chopsticks|ตะเกียบ,clinic|คลินิก,collect|สะสม,company|บริษัท,complete|สมบูรณ์,container|ภาชนะ,control|ควบคุม,conversation|สนทนา,country|ประเทศ,crocodile|จระเข้,curly|หยิก,curry|แกง,curtain|ม่าน,dangerous|อันตราย,delicious|อร่อย,dialogue|บทสนทนา,diet|อาหาร,different|ต่าง,dinosaur|ไดโน,director|ผู้กำกับ,downstairs|ชั้นล่าง,dream|ฝัน,driver|คนขับ,eggplant|มะเขือยาว,envelope|ซอง,factory|โรงงาน,famous|ดัง,fitness|ฟิตเนส,float|ลอย,follow|ตาม,forest|ป่า,guava|ฝรั่ง,guide|ไกด์,habit|นิสัย,haircut|ตัดผม,half|ครึ่ง,heavy|หนัก,hero|ฮีโร่,history|ประวัติ,hobby|อดิเรก,hole|หลุม,iron|เหล็ก,jackfruit|ขนุน,jewelry|เครื่องประดับ,kind|ใจดี,kiwi|กีวี,knock|เคาะ,koala|โคอาลา,lake|ทะเลสาบ,laugh|หัวเราะ,law|กฎหมาย,learn|เรียน,leave|ออก,lend|ให้ยืม,light|แสง,magazine|นิตยสาร,marry|แต่งงาน,meal|มื้อ,menu|เมนู,meter|เมตร,minute|นาที,miss|คิดถึง,mix|ผสม,model|นางแบบ,money|เงิน,mosquito|ยุง,museum|พิพิธภัณฑ์,necklace|สร้อย,newspaper|หนังสือพิมพ์,noise|เสียง,ocean|มหาสมุทร,oven|เตาอบ,pajamas|ชุดนอน,parade|ขบวน,part|ส่วน,pay|จ่าย,peacock|นกยูง,pharmacy|ขายยา,picnic|ปิกนิก,pilot|นักบิน,plan|แผน,plate|จาน,poor|จน,popular|นิยม,poster|โปสเตอร์,pour|เท,power|พลัง,pray|สวด,purse|กระเป๋า,queue|คิว,rent|เช่า,reporter|ผู้สื่อข่าว,rest|พัก,return|กลับ,rich|รวย,roll|ม้วน,rug|พรม,safe|ปลอดภัย,sailor|กะลาสี,salon|ร้านเสริมสวย,scare|กลัว,season|ฤดู,seat|ที่นั่ง,secretary|เลขา,sharp|คม,shout|ตะโกน,shrimp|กุ้ง,silent|เงียบ,single|โสด,sink|อ่าง,skip|กระโดด,slippers|แตะ,slippery|ลื่น,smart|ฉลาด,sound|เสียง,staff|พนักงาน,storm|พายุ,stove|เตา,strange|แปลก,strong|แข็งแรง,sunflower|ทานตะวัน,sure|แน่,surname|นามสกุล,surprise|เซอร์ไพรส์,sweep|กวาด,take|เอา,tape|เทป,television|ทีวี,tent|เต็นท์,term|เทอม,thick|หนา,think|คิด,tissue|ทิชชู่,towel|ผ้าเช็ดตัว,trash|ขยะ,trip|เที่ยว,trouble|ปัญหา,upstairs|ชั้นบน,vacation|วันหยุด,value|คุณค่า,visit|เยี่ยม,voice|เสียง,wait|รอ,waiter|บริกร,waitress|บริกรหญิง,wallet|กระเป๋า,wave|คลื่น,weight|น้ำหนัก,win|ชนะ,wheel|ล้อ,world|โลก,yawn|หาว`,
+p6:`aeroplane|เครื่องบิน,afraid|กลัว,ancient|โบราณ,aquarium|อควาเรี่ยม,architect|สถาปนิก,arrive|ถึง,astronaut|นักบินอวกาศ,attraction|ท่องเที่ยว,backpack|เป้,biography|ชีวประวัติ,bracelet|กำไล,cash|เงินสด,catch|จับ,celebrate|ฉลอง,century|ศตวรรษ,ceremony|พิธี,character|ตัวละคร,charity|กุศล,classmate|เพื่อนร่วมชั้น,community|ชุมชน,competition|แข่ง,concert|คอนเสิร์ต,confident|มั่นใจ,contact|ติดต่อ,costume|เครื่องแต่งกาย,cough|ไอ,creative|สร้างสรรค์,crosswalk|ทางม้าลาย,crowd|ฝูงชน,crown|มงกุฎ,culture|วัฒนธรรม,decide|ตัดสินใจ,decorate|ตกแต่ง,difficult|ยาก,direction|ทิศ,discuss|อภิปราย,distance|ระยะ,donate|บริจาค,dragonfly|แมลงปอ,education|ศึกษา,electricity|ไฟ,energy|พลังงาน,engineer|วิศวกร,entrance|ทางเข้า,environment|สิ่งแวดล้อม,escape|หนี,excellent|เยี่ยม,exciting|ตื่นเต้น,exhibition|นิทรรศการ,exit|ออก,expect|คาด,explore|สำรวจ,fantastic|สุดยอด,fashion|แฟชั่น,feather|ขนนก,ferry|เรือข้ามฟาก,fever|ไข้,flood|น้ำท่วม,freeze|แช่แข็ง,fresh|สด,gallery|หอศิลป์,garbage|ขยะ,garlic|กระเทียม,geography|ภูมิศาสตร์,handsome|หล่อ,helmet|หมวกกันน็อค,honor|เกียรติ,important|สำคัญ,improve|ปรับปรุง,information|ข้อมูล,ingredient|ส่วนผสม,instruction|คำแนะนำ,interview|สัมภาษณ์,introduce|แนะนำ,invent|ประดิษฐ์,invite|เชิญ,journey|เดินทาง,kingdom|อาณาจักร,knowledge|ความรู้,language|ภาษา,leather|หนัง,liquid|ของเหลว,location|ที่ตั้ง,message|ข้อความ,mistake|ผิด,narrow|แคบ,neighbor|เพื่อนบ้าน,notice|สังเกต,opinion|คิด,opposite|ตรงข้าม,palace|วัง,paragraph|ย่อหน้า,passport|พาสปอร์ต,peace|สันติภาพ,personality|บุคลิก,photographer|ช่างภาพ,poison|พิษ,polite|สุภาพ,pollution|มลพิษ,president|ประธานาธิบดี,prince|เจ้าชาย,princess|เจ้าหญิง,prize|รางวัล,problem|ปัญหา,professional|มืออาชีพ,pronounce|ออกเสียง,publish|ตีพิมพ์,quiz|แบบทดสอบ,reason|เหตุผล,recipe|สูตร,reduce|ลด,refrigerator|ตู้เย็น,region|ภูมิภาค,regular|ปกติ,relative|ญาติ,remember|จำ,review|ทบทวน,route|เส้นทาง,rubbish|ขยะ,rule|กฎ,scream|กรีดร้อง,search|ค้น,situation|สถานการณ์,smooth|เรียบ,sneeze|จาม,soft|นุ่ม,soil|ดิน,solve|แก้,souvenir|ของที่ระลึก,sparrow|นกกระจอก,sponge|ฟองน้ำ,string|เชือก,survey|สำรวจ,thief|ขโมย,tidy|เรียบร้อย,timetable|ตารางเวลา,tongue|ลิ้น,tourist|ท่องเที่ยว,traffic|จราจร,transport|ขนส่ง,useful|มีประโยชน์,valuable|มีค่า,vehicle|ยานพาหนะ,vision|วิสัยทัศน์,volcano|ภูเขาไฟ,whisper|กระซิบ,wide|กว้าง,wonderful|ยอดเยี่ยม,worry|กังวล`,
+extra:`white|ขาว,green|เขียว,pink|ชมพู,black|ดำ,red|แดง,grey|เทา,blue|น้ำเงิน,brown|น้ำตาล,violet|ม่วง,orange|ส้ม,yellow|เหลือง,triangle|สามเหลี่ยม,rectangle|สี่เหลี่ยมผืนผ้า,oval|วงรี,crescent|เสี้ยว,diamond|ข้าวหลามตัด,Sunday|อาทิตย์,Monday|จันทร์,Tuesday|อังคาร,Wednesday|พุธ,Thursday|พฤหัสบดี,Friday|ศุกร์,Saturday|เสาร์,January|มกราคม,February|กุมภาพันธ์,March|มีนาคม,April|เมษายน,May|พฤษภาคม,June|มิถุนายน,July|กรกฎาคม,August|สิงหาคม,September|กันยายน,October|ตุลาคม,November|พฤศจิกายน,December|ธันวาคม,one|หนึ่ง,two|สอง,three|สาม,four|สี่,five|ห้า,six|หก,seven|เจ็ด,eight|แปด,nine|เก้า,ten|สิบ,eleven|สิบเอ็ด,twelve|สิบสอง,thirteen|สิบสาม,fourteen|สิบสี่,fifteen|สิบห้า,twenty|ยี่สิบ,thirty|สามสิบ,forty|สี่สิบ,fifty|ห้าสิบ,hundred|ร้อย,thousand|พัน,first|ที่หนึ่ง,second|ที่สอง,third|ที่สาม`
+};
+
+const POOLS={};
+for(const k in VOCAB_DATA){
+  const seen=new Set();
+  POOLS[k]=VOCAB_DATA[k].split(',').map(line=>{
+    const [en,th]=line.split('|').map(s=>(s||'').trim());
+    if(!en||!th||seen.has(en.toLowerCase()))return null;
+    seen.add(en.toLowerCase());return {en,th};
+  }).filter(Boolean);
+}
+POOLS.all=[];
+{const s=new Set();for(const k in POOLS){if(k==='all')continue;POOLS[k].forEach(w=>{if(!s.has(w.en.toLowerCase())){s.add(w.en.toLowerCase());POOLS.all.push(w)}})}}
+
+/* ═══ STATE ═══ */
+const G={
+  role:null,roomCode:'',
+  config:{gradeId:'p1',timeLimit:15,setDuration:180,theme:'halloween',teamCount:4,gameMode:'tug'},
+  selectedWords:new Set(),questions:[],
+  gameState:'lobby',totalDeadline:0,totalTimerId:null,remainingMs:0,
+  players:{},
+  tournament:{
+    teams:[],currentRound:0,phase:'idle',
+    bracket:{qualifier:{},semi:[],final:{}},
+    matchId:null,activeTeamIds:[],
+    currentMatchTeamA:null,currentMatchTeamB:null
+  },
+  myCurrentQ:0,myScore:0,myStreak:0,myAnswers:[],
+  myPlayerId:null,myName:'',myAvatar:'🎃',myTeam:'',myTeamId:null,
+  myQTimerId:null,myQDeadline:0,myQStart:0,myTotalTimerId:null,myGameActive:false,
+  myJoinTimerId:null,rankTimerId:null,
+  paused:false,myQRemain:0,myTotalRemain:0,
+  hostEffectOn:true,hostBgmOn:true,playersEffectOn:true,playersBgmOn:true,
+  lang:'th',theme:'halloween',hint:{points:3},
+  sessionProg:{totalCorrect:0,totalWrong:0,bestStreak:0},replayLog:[],
+  isSpectator:false,myFinalRank:null
+};
+const TEAMS_DEF=[
+  {id:'t1',name:'ทีมแดง',emoji:'🎃',color:'#dc2626',cls:'t1'},
+  {id:'t2',name:'ทีมน้ำเงิน',emoji:'👻',color:'#2563eb',cls:'t2'},
+  {id:'t3',name:'ทีมเขียว',emoji:'🦇',color:'#16a34a',cls:'t3'},
+  {id:'t4',name:'ทีมเหลือง',emoji:'🕷️',color:'#eab308',cls:'t4'}
+];
+/* ⭐ [v16.3.3] Custom image for tug mode */
+const TUG_IMG='https://tum-service.github.io/1111/tug%20of%20war.jpg';
+function shouldPlayEffect(){if(G.role==='host')return G.hostEffectOn;if(G.role==='player')return G.playersEffectOn;return true;}
+function shouldPlayBGM(){if(G.role==='host')return G.hostBgmOn;if(G.role==='player')return G.playersBgmOn;return true;}
+
+/* ═══ SOUND ENGINE ═══ */
+let ac=null;
+function iA(){try{if(!ac)ac=new(window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume()}catch(e){}}
+
+/* ⭐ [FIX v16.3.1] ปุ่ม click sound — ฟังก์ชันแยกอิสระ อยู่บนสุด */
+function sc(){if(!shouldPlayEffect())return;iA();if(!ac)return;const t0=ac.currentTime;const o=ac.createOscillator(),g=ac.createGain();o.type='square';o.frequency.setValueAtTime(1400,t0);o.frequency.exponentialRampToValueAtTime(650,t0+0.05);g.gain.setValueAtTime(0.14,t0);g.gain.exponentialRampToValueAtTime(0.0001,t0+0.06);o.connect(g);g.connect(ac.destination);o.start(t0);o.stop(t0+0.08)}
+
+function org(f,st,d,v){if(!shouldPlayEffect()||!ac)return;const t0=ac.currentTime+st;[1,2,3,4].forEach((m,i)=>{const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.setValueAtTime(f*m,t0);const vv=(v||0.16)*(1/(i+1.3));g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(vv,t0+0.05);g.gain.exponentialRampToValueAtTime(vv*0.55,t0+d*0.4);g.gain.exponentialRampToValueAtTime(0.0001,t0+d);o.connect(g);g.connect(ac.destination);o.start(t0);o.stop(t0+d+0.05)})}
+function bel(f,st,d,v){if(!shouldPlayEffect()||!ac)return;const t0=ac.currentTime+(st||0);[1,2.76,5.4,8.9].forEach((m,i)=>{const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.setValueAtTime(f*m,t0);const vv=(v||0.14)/Math.pow(1.9,i);g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(vv,t0+0.005);g.gain.exponentialRampToValueAtTime(0.0001,t0+d);o.connect(g);g.connect(ac.destination);o.start(t0);o.stop(t0+d+0.05)})}
+function gl(st,v){if(!shouldPlayEffect()||!ac)return;const t0=ac.currentTime+(st||0);for(let i=0;i<5;i++){const o=ac.createOscillator(),g=ac.createGain();o.type='sine';const b=400+Math.random()*80;o.frequency.setValueAtTime(b,t0+i*0.11);o.frequency.exponentialRampToValueAtTime(b*0.55,t0+i*0.11+0.14);g.gain.setValueAtTime(0.0001,t0+i*0.11);g.gain.exponentialRampToValueAtTime(v||0.12,t0+i*0.11+0.02);g.gain.exponentialRampToValueAtTime(0.0001,t0+i*0.11+0.14);o.connect(g);g.connect(ac.destination);o.start(t0+i*0.11);o.stop(t0+i*0.11+0.18)}}
+function thu(st,v){if(!shouldPlayEffect()||!ac)return;const t0=ac.currentTime+(st||0);const bs=ac.sampleRate*1.6;const buf=ac.createBuffer(1,bs,ac.sampleRate);const d=buf.getChannelData(0);for(let i=0;i<bs;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/bs,2);const sr=ac.createBufferSource();sr.buffer=buf;const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.setValueAtTime(220,t0);lp.frequency.exponentialRampToValueAtTime(60,t0+1.4);const g=ac.createGain();g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(v||0.28,t0+0.06);g.gain.exponentialRampToValueAtTime(0.0001,t0+1.5);sr.connect(lp);lp.connect(g);g.connect(ac.destination);sr.start(t0);sr.stop(t0+1.7)}
+function sCor(){if(!shouldPlayEffect())return;iA();[261.63,329.63,392,523.25].forEach((f,i)=>org(f,i*0.1,0.55,0.14));gl(0.55,0.12)}
+function sWr(){if(!shouldPlayEffect())return;iA();org(196,0,0.45,0.16);org(130.81,0.22,0.55,0.16)}
+function sFin(){if(!shouldPlayEffect())return;iA();[261.63,329.63,392,523.25,659.25].forEach((f,i)=>org(f,i*0.13,0.65,0.16));thu(0.55,0.28);gl(0.9,0.1)}
+function sCd(){if(!shouldPlayEffect())return;iA();bel(880,0,0.35,0.12)}
+function sCdGo(){if(!shouldPlayEffect())return;iA();bel(1320,0,0.5,0.16);org(440,0.05,0.4,0.14)}
+function sJoin(){if(!shouldPlayEffect())return;iA();bel(1760,0,0.4,0.1);bel(2093,0.08,0.35,0.08)}
+function sUlt(){if(!shouldPlayEffect())return;iA();const t0=ac.currentTime;const o=ac.createOscillator();o.type='sawtooth';o.frequency.setValueAtTime(80,t0);o.frequency.exponentialRampToValueAtTime(400,t0+0.8);const g=ac.createGain();g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(0.3,t0+0.1);g.gain.exponentialRampToValueAtTime(0.0001,t0+1.0);o.connect(g);g.connect(ac.destination);o.start(t0);o.stop(t0+1.05);thu(0.5,0.35)}
+
+const BT=[440,392,440,349.23,329.63,349.23,392,440,392,349.23,329.63,293.66,329.63,349.23,329.63,293.66,261.63,293.66,329.63,349.23,329.63,293.66,261.63,246.94,220,246.94,261.63,293.66,329.63,293.66,261.63,246.94];
+const BB=[110,87.31,98,82.41];
+let bgm=null,bgT=null,bgS=0,bgOn=false;
+function bgmTick(){if(!bgm||!ac)return;const t0=ac.currentTime+0.06;const n=BT[bgS%BT.length];[1,2,3,4].forEach((m,i)=>{const o=ac.createOscillator();o.type='sine';o.frequency.value=n*m;const g=ac.createGain();const v=0.06/(i+1.4);g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(v,t0+0.06);g.gain.exponentialRampToValueAtTime(v*0.5,t0+0.375);g.gain.exponentialRampToValueAtTime(0.0001,t0+0.75);o.connect(g);g.connect(bgm.master);o.start(t0);o.stop(t0+0.8)});if(bgS%8===0){const b=BB[(Math.floor(bgS/8))%BB.length];const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=b;g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(0.05,t0+0.08);g.gain.exponentialRampToValueAtTime(0.0001,t0+3);o.connect(g);g.connect(bgm.master);o.start(t0);o.stop(t0+3.1)}bgS++;}
+function startBGM(){if(!shouldPlayBGM())return;iA();if(!ac||bgOn)return;bgOn=true;try{const m=ac.createGain();m.gain.setValueAtTime(0.0001,ac.currentTime);m.gain.exponentialRampToValueAtTime(0.035,ac.currentTime+2.5);m.connect(ac.destination);bgm={master:m};bgS=0;bgT=setInterval(bgmTick,380);bgmTick();}catch(e){bgm=null;bgOn=false}}
+function stopBGM(){if(bgT){clearInterval(bgT);bgT=null}if(bgm&&ac){try{const now=ac.currentTime,g=bgm.master.gain;g.cancelScheduledValues(now);g.setValueAtTime(Math.max(0.0001,g.value),now);g.exponentialRampToValueAtTime(0.0001,now+0.35);}catch(e){}}bgm=null;bgOn=false}
+
+/* ═══ MQTT ═══ */
+const MQTT_BROKERS=['wss://broker.hivemq.com:8884/mqtt','wss://broker.emqx.io:8084/mqtt'];
+let currentBrokerIdx=0,mqttClient=null,mqttHandlers={},mqttConnected=false;
+const AV=['🎃','👻','🦇','🕷️','🕸️','💀','🧙‍♀️','🧛','🧟','🐺','🦉','🐈‍⬛','🐸','🦊','🐼','🐯','🦁','🐨','🐷','🐵','🐰','🐭','🐮','🐔','🦄','🐲','🦖','🤖','👽','🦈'];
+const $=(id)=>document.getElementById(id);
+const esc=(s)=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');window.scrollTo(0,0)}
+function toast(m,ms){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),ms||2500)}
+function gCode(){const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let r='';for(let i=0;i<4;i++)r+=c[Math.floor(Math.random()*c.length)];return r}
+function shuf(a){const r=a.slice();for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]]}return r}
+function fmtTime(sec){const m=Math.floor(sec/60),s=sec%60;return m+':'+String(s).padStart(2,'0')}
+
+function connectMQTT(onConnect,onFail){
+  if(mqttClient){try{mqttClient.end(true)}catch(e){}}
+  mqttHandlers={};mqttConnected=false;
+  const broker=MQTT_BROKERS[currentBrokerIdx%MQTT_BROKERS.length];
+  const cid='tug16_'+Date.now()+'_'+Math.random().toString(36).slice(2,8);
+  try{mqttClient=mqtt.connect(broker,{clientId:cid,clean:true,connectTimeout:20000,reconnectPeriod:2000,keepalive:30});}
+  catch(e){tryNextBroker(onConnect,onFail);return;}
+  let resolved=false;
+  mqttClient.on('connect',()=>{resolved=true;mqttConnected=true;Object.keys(mqttHandlers).forEach(topic=>{mqttClient.subscribe(topic,{qos:1},()=>{});});if(onConnect)onConnect();});
+  mqttClient.on('message',(topic,payload)=>{Object.keys(mqttHandlers).forEach(pattern=>{if(topicMatches(pattern,topic)){try{const d=JSON.parse(payload.toString());mqttHandlers[pattern](topic,d);}catch(e){}}});});
+  mqttClient.on('error',()=>{});
+  setTimeout(()=>{if(!resolved){try{mqttClient.end(true)}catch(e){}tryNextBroker(onConnect,onFail);}},20000);
+}
+function tryNextBroker(onConnect,onFail){currentBrokerIdx++;if(currentBrokerIdx>=MQTT_BROKERS.length*2){if(onFail)onFail();return;}connectMQTT(onConnect,onFail);}
+function topicMatches(pattern,topic){if(pattern===topic)return true;if(pattern.endsWith('/#'))return topic.startsWith(pattern.slice(0,-1));return false;}
+function pub(topic,data,qos){if(!mqttClient||!mqttConnected){setTimeout(()=>{if(mqttConnected)pub(topic,data,qos)},500);return;}try{mqttClient.publish(topic,JSON.stringify(data),{qos:qos!==undefined?qos:1})}catch(e){}}
+function sub(topic,handler){mqttHandlers[topic]=handler;if(!mqttClient)return;try{mqttClient.subscribe(topic,{qos:1},()=>{})}catch(e){}}
+function setConnStatus(txt,cls){const el=$('hostConnStatus');if(!el)return;el.textContent=txt;el.className='conn-status '+(cls||'');}
+
+/* ═══ THEME ═══ */
+const THEME_PARTICLES={halloween:['🎃','👻','🦇','🕷️'],space:['⭐','✨','🌠','🪐'],underwater:['🐠','🐟','🫧','🐙'],desert:['🌵','☀️','🏜️','🦂']};
+function applyTheme(theme){G.theme=theme;document.body.classList.remove('theme-space','theme-underwater','theme-desert');if(theme==='space')document.body.classList.add('theme-space');else if(theme==='underwater')document.body.classList.add('theme-underwater');else if(theme==='desert')document.body.classList.add('theme-desert');const layer=$('themeParticles');layer.innerHTML='';const list=THEME_PARTICLES[theme]||THEME_PARTICLES.halloween;for(let i=0;i<10;i++){const p=document.createElement('div');p.className='theme-particle';p.textContent=list[Math.floor(Math.random()*list.length)];p.style.left=Math.random()*100+'%';p.style.top=Math.random()*100+'%';p.style.fontSize=(1+Math.random()*1.2)+'rem';p.style.animation=`tugIdle ${2+Math.random()*3}s ease-in-out infinite`;p.style.opacity=0.15+Math.random()*0.2;layer.appendChild(p);}}
+
+/* ═══ SOUND BUTTONS ═══ */
+function updateSoundButtons(){const set=(id,on)=>{const el=$(id);if(!el)return;el.classList.toggle('on',on);el.classList.toggle('off',!on);};set('btnHostFx',G.hostEffectOn);set('btnHostBgm',G.hostBgmOn);set('btnPlayersFx',G.playersEffectOn);set('btnPlayersBgm',G.playersBgmOn);}
+function toggleHostFx(){G.hostEffectOn=!G.hostEffectOn;updateSoundButtons();}
+function toggleHostBgm(){G.hostBgmOn=!G.hostBgmOn;updateSoundButtons();if(!G.hostBgmOn)stopBGM();else if(G.gameState==='playing'&&!G.paused)startBGM();}
+function togglePlayersFx(){G.playersEffectOn=!G.playersEffectOn;broadcastSoundState();updateSoundButtons();}
+function togglePlayersBgm(){G.playersBgmOn=!G.playersBgmOn;broadcastSoundState();updateSoundButtons();}
+function broadcastSoundState(){hostBroadcast({type:'sound',playersEffectOn:G.playersEffectOn,playersBgmOn:G.playersBgmOn});}
+
+/* ═══ GRADE / WP ═══ */
+const GR=[{id:'p1',name:'ป.1',c:'g1'},{id:'p2',name:'ป.2',c:'g2'},{id:'p3',name:'ป.3',c:'g3'},{id:'p4',name:'ป.4',c:'g4'},{id:'p5',name:'ป.5',c:'g5'},{id:'p6',name:'ป.6',c:'g6'},{id:'extra',name:'พิเศษ',c:'g7'}];
+
+/* ⭐ [v16.3.3] GAME_MODES with html property */
+const GAME_MODES={
+  tug:    {name:'ชักกะเย่อ',      emoji:'🎯', html:`<img class="mode-emoji-img-inline" src="${TUG_IMG}" alt="" onerror="this.outerHTML='🎯'">`, ready:true,  desc:'ทีมแข่งดึงเชือกคำศัพท์'},
+  attack: {name:'โจมตี-ป้องกัน', emoji:'🏰', html:'🏰', ready:false, desc:'ทีมโจมตี vs ทีมป้องกัน'},
+  boss:   {name:'สู้บอส',        emoji:'👹', html:'👹', ready:false, desc:'รวมทีมสู้บอส'},
+  other:  {name:'อื่นๆ',          emoji:'🎮', html:'🎮', ready:false, desc:'โหมดอื่นๆ ที่กำลังจะมา'}
+};
+function selectGameMode(mode){
+  sc();
+  const info=GAME_MODES[mode];
+  if(!info) return;
+  if(!info.ready){ toast(`🚧 โหมด "${info.name}" กำลังพัฒนา`, 2500); return; }
+  G.config.gameMode=mode;
+  document.querySelectorAll('.mode-card').forEach(c=>{ c.classList.toggle('active', c.dataset.mode===mode); });
+  const infoEl=$('modeSelectedInfo');
+  if(infoEl){ infoEl.innerHTML=`${info.html} โหมดที่เลือก: <span>${info.name}</span> · ${info.desc}`; }
+  toast(`✅ เลือกโหมด: ${info.name}`, 1500);
+  updateConfigModeDisplay();
+}
+function updateConfigModeDisplay(){
+  const mode=G.config.gameMode;
+  const info=GAME_MODES[mode];
+  const emojiEl=$('configModeEmoji');
+  const nameEl=$('configModeName');
+  if(emojiEl && info){
+    if(mode==='tug'){
+      emojiEl.innerHTML=`<img src="${TUG_IMG}" alt="" style="width:3rem;height:3rem;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,.5));border-radius:8px" onerror="this.outerHTML='<span style=\\'font-size:2.2rem\\'>🎯</span>'">`;
+    } else {
+      emojiEl.textContent=info.emoji;
+    }
+  }
+  if(nameEl && info) nameEl.textContent=info.name;
+}
+
+function renderGrades(){const w=$('gradeList');w.innerHTML='';const r0=document.createElement('div');r0.className='grade-row';const a=document.createElement('button');a.className='grade g-all';a.innerHTML=`<div class="g-name">🌟 รวม</div><div class="g-count">${POOLS.all.length} คำ</div>`;a.onclick=()=>{sc();pickG('all')};r0.appendChild(a);w.appendChild(r0);const r1=document.createElement('div');r1.className='grade-row';const r2=document.createElement('div');r2.className='grade-row';GR.forEach((g,i)=>{const b=document.createElement('button');b.className='grade '+g.c;const cnt=POOLS[g.id]?POOLS[g.id].length:0;b.innerHTML=`<div class="g-name">${g.name}</div><div class="g-count">${cnt} คำ</div>`;b.onclick=()=>{sc();pickG(g.id)};if(i<4)r1.appendChild(b);else r2.appendChild(b)});w.appendChild(r1);w.appendChild(r2);}
+function pickG(id){G.config.gradeId=id;G.selectedWords=new Set();openWP()}
+function openWP(){const gid=G.config.gradeId;const g=GR.find(x=>x.id===gid);$('wpTitle').textContent=g?g.name:'รวม';const pool=POOLS[gid]||[];$('wpTotal').textContent=pool.length;if(G.selectedWords.size===0){pool.slice(0,Math.min(20,pool.length)).forEach(w=>G.selectedWords.add(w.en))}const w=$('wpActions');w.innerHTML='';const SS=20;const nS=Math.ceil(pool.length/SS);for(let i=0;i<Math.min(nS,30);i++){const c=document.createElement('button');c.className='wp-chip';c.textContent=i+1;c.onclick=()=>{sc();setSet(pool.slice(i*SS,(i+1)*SS))};w.appendChild(c)}const ab=document.createElement('button');ab.className='wp-chip all';ab.textContent='ทั้งหมด';ab.onclick=()=>{sc();pool.forEach(x=>G.selectedWords.add(x.en));renderGrid()};w.appendChild(ab);const cl=document.createElement('button');cl.className='wp-chip clear';cl.textContent='🗑';cl.onclick=()=>{sc();G.selectedWords.clear();renderGrid()};w.appendChild(cl);renderGrid();go('scWordPicker');}
+function setSet(ws){G.selectedWords.clear();ws.forEach(x=>G.selectedWords.add(x.en));renderGrid()}
+function renderGrid(){const gid=G.config.gradeId;const pool=POOLS[gid]||[];const grid=$('wpGrid');grid.innerHTML=pool.map(w=>{const sel=G.selectedWords.has(w.en);const safeEn=esc(w.en).replace(/'/g,"\\'");return `<button class="wp-card${sel?' selected':''}" data-en="${esc(w.en)}" onclick="tog('${safeEn}')"><div class="wp-en">${esc(w.en)}</div><div class="wp-th">${esc(w.th)}</div></button>`}).join('');updCnt();}
+function tog(en){sc();if(G.selectedWords.has(en))G.selectedWords.delete(en);else G.selectedWords.add(en);const c=document.querySelector(`.wp-card[data-en="${en.replace(/"/g,'&quot;')}"]`);if(c)c.classList.toggle('selected',G.selectedWords.has(en));updCnt()}
+function updCnt(){const n=G.selectedWords.size;$('wpSel').textContent=n;const c=$('wpCount');c.textContent=`เลือกแล้ว ${n} คำ`;c.className='wp-count'+(n<4?' warn':'');$('wpNext').disabled=n<4}
+function openAdd(){sc();$('awEn').value='';$('awTh').value='';$('addModal').hidden=false}
+function closeAdd(){sc();$('addModal').hidden=true}
+function saveAdd(){const en=$('awEn').value.trim();const th=$('awTh').value.trim();if(!en||!th){toast('⚠️');return}const gid=G.config.gradeId;if(gid==='all'){toast('⚠️');return}if(POOLS[gid].some(w=>w.en.toLowerCase()===en.toLowerCase())){toast('⚠️ มีแล้ว');return}if(POOLS[gid]&&!POOLS[gid].some(w=>w.en===en))POOLS[gid].push({en,th,custom:true});G.selectedWords.add(en);closeAdd();sCor();toast('✅');openWP();}
+
+/* ═══ TOURNAMENT CONFIG ═══ */
+function setTeamCount(n){sc();G.config.teamCount=n;document.querySelectorAll('.team-count-btn').forEach(b=>b.classList.toggle('active',parseInt(b.dataset.n)===n));renderTeamInputs();$('teamCountInfo').textContent=n+' ทีม';}
+function renderTeamInputs(){const w=$('teamInputsWrap');const n=G.config.teamCount;const defaults=['ทีมแดง','ทีมน้ำเงิน','ทีมเขียว','ทีมเหลือง'];const dots=['🎃','👻','🦇','🕷️'];let html='';for(let i=0;i<n;i++){html+=`<div class="team-input-row"><div class="team-color-dot t${i+1}">${dots[i]}</div><input type="text" id="teamName${i+1}" maxlength="16" value="${defaults[i]}" placeholder="ชื่อทีม ${i+1}"></div>`;}w.innerHTML=html;}
+function setTheme(theme){sc();G.config.theme=theme;document.querySelectorAll('.theme-chip').forEach(c=>c.classList.toggle('active',c.dataset.t===theme));applyTheme(theme);}
+function adjSetTime(d){sc();const el=$('setTimeInput');let v=parseInt(el.value)||3;v=Math.max(1,Math.min(30,v+d));el.value=v}
+
+/* ═══ CREATE ROOM ═══ */
+function createRoom(){
+  G.config.setDuration=(parseInt($('setTimeInput').value)||3)*60;
+  applyTheme(G.config.theme);G.role='host';
+  const code=gCode();G.roomCode=code;$('roomCodeDisplay').textContent=code;
+  const url=new URL(location.href);url.searchParams.set('code',code);const jU=url.toString();
+  $('roomUrlDisplay').innerHTML=`📱 <b>${esc(jU)}</b>`;
+  const qr=$('qrcode');qr.innerHTML='';
+  const qi=document.createElement('img');
+  qi.src=`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(jU)}`;
+  qi.onerror=()=>{qr.style.display='none'};qr.appendChild(qi);
+
+  G.tournament.teams=[];
+  for(let i=0;i<G.config.teamCount;i++){
+    const def=TEAMS_DEF[i];const nameEl=$('teamName'+(i+1));
+    G.tournament.teams.push({id:def.id,name:(nameEl&&nameEl.value.trim())||def.name,emoji:def.emoji,color:def.color,cls:def.cls,score:0,members:[],totalCorrect:0,totalWrong:0,avgTime:0});
+  }
+
+  $('hostStartBtn').textContent='⏳ กำลังเชื่อมต่อ...';
+  setConnStatus('⏳ กำลังเชื่อมต่อ...','wait');
+  connectMQTT(()=>{
+    setConnStatus('✅ เชื่อมต่อแล้ว · รอผู้เล่น','ok');
+    sub(`tug_kv10/${code}/#`,(topic,data)=>{
+      const parts=topic.split('/');
+      if(parts[2]==='join'||parts[2]==='ready')hostOnJoin(data);
+      else if(parts[2]==='player'&&parts[4]==='answer')hostOnAnswer(parts[3],data);
+      else if(parts[2]==='player'&&parts[4]==='leave')hostOnLeave(parts[3]);
+    });
+    toast('✅ สร้างห้องแล้ว! รหัส '+code,3000);
+    go('scHostLobby');sJoin();uSB();
+    $('teamCountInfo').textContent=G.config.teamCount+' ทีม';
+  },()=>{
+    setConnStatus('❌ เชื่อมต่อไม่ได้','err');toast('❌ MQTT ล้มเหลว',5000);
+  });
+}
+
+function assignTeamToPlayer(){
+  const counts=G.tournament.teams.map(t=>({id:t.id,count:Object.values(G.players).filter(p=>p.teamId===t.id).length}));
+  counts.sort((a,b)=>a.count-b.count);
+  const minCount=counts[0].count;
+  const candidates=counts.filter(c=>c.count===minCount);
+  return candidates[Math.floor(Math.random()*candidates.length)].id;
+}
+function rebalanceTeams(){
+  const players=Object.values(G.players);if(!players.length)return;
+  const n=G.tournament.teams.length;if(n<1)return;
+  const shuffled=[...players].sort(()=>Math.random()-0.5);
+  shuffled.forEach((p,i)=>{const teamIdx=i%n;p.teamId=G.tournament.teams[teamIdx].id;p.team=G.tournament.teams[teamIdx].name;});
+  G.tournament.teams.forEach(t=>t.members=[]);
+  players.forEach(p=>{const team=G.tournament.teams.find(t=>t.id===p.teamId);if(team)team.members.push(p);});
+  players.forEach(p=>{const team=G.tournament.teams.find(t=>t.id===p.teamId);if(!team)return;pub(`tug_kv10/${G.roomCode}/player/${p.id}/assigned`,{teamId:team.id,teamName:team.name,teamEmoji:team.emoji,teamColor:team.color});});
+  rPL();uSB();hostBroadcastLobby();
+}
+function hostOnJoin(d){
+  const id=d.playerId;if(!id)return;
+  if(!G.players[id]){
+    const teamId=assignTeamToPlayer();const team=G.tournament.teams.find(t=>t.id===teamId);
+    G.players[id]={id,name:d.name||'ผู้เล่น',avatar:d.avatar||'🎃',team:team?team.name:'',teamId,score:0,streak:0,totalAnswers:0,totalCorrect:0,totalWrong:0,totalTimeMs:0,avgTime:0,blocked:false,connected:true};
+    sJoin();
+    pub(`tug_kv10/${G.roomCode}/player/${id}/assigned`,{teamId,teamName:team.name,teamEmoji:team.emoji,teamColor:team.color});
+  }else{
+    G.players[id].connected=true;if(d.name)G.players[id].name=d.name;if(d.avatar)G.players[id].avatar=d.avatar;
+  }
+  G.tournament.teams.forEach(t=>t.members=[]);
+  Object.values(G.players).forEach(p=>{const team=G.tournament.teams.find(t=>t.id===p.teamId);if(team){p.team=team.name;team.members.push(p);}});
+  hostBroadcastLobby();rPL();uSB();
+}
+function hostOnAnswer(id,d){
+  if(G.gameState==='paused')return;
+  const p=G.players[id];if(!p)return;
+  if(!G.tournament.activeTeamIds.includes(p.teamId))return;
+  p.score+=Number(d.points)||0;p.totalAnswers=(p.totalAnswers||0)+1;
+  if(d.correct){p.streak=(p.streak||0)+1;p.totalCorrect=(p.totalCorrect||0)+1;}
+  else{p.streak=0;p.totalWrong=(p.totalWrong||0)+1;}
+  if(d.timeLeft){p.totalTimeMs=(p.totalTimeMs||0)+d.timeLeft;p.avgTime=p.totalTimeMs/p.totalAnswers;}
+  const team=G.tournament.teams.find(t=>t.id===p.teamId);
+  if(team){team.score=team.members.reduce((s,m)=>s+(m.score||0),0);team.totalCorrect=team.members.reduce((s,m)=>s+(m.totalCorrect||0),0);team.totalWrong=team.members.reduce((s,m)=>s+(m.totalWrong||0),0);}
+  G.replayLog.push({t:Date.now(),pid:p.id,teamId:p.teamId,qIdx:d.qIdx||0,correct:!!d.correct,pts:Number(d.points)||0});
+  renderArena();rLB();
+  HostTugArena.animateAnswer(p.teamId,!!d.correct);
+  $('hostTotalAnswers').textContent=Object.values(G.players).reduce((s,x)=>s+(x.totalAnswers||0),0);
+}
+function hostOnLeave(id){if(G.players[id]){G.players[id].connected=false;rPL();uSB();}}
+function hostBroadcastLobby(){const list=Object.values(G.players).map(p=>({id:p.id,name:p.name,avatar:p.avatar,team:p.team,teamId:p.teamId,blocked:p.blocked}));pub(`tug_kv10/${G.roomCode}/broadcast`,{type:'lobby',players:list,teams:G.tournament.teams.map(t=>({id:t.id,name:t.name,emoji:t.emoji,cls:t.cls,color:t.color}))});}
+function hostBroadcast(data){pub(`tug_kv10/${G.roomCode}/broadcast`,data);}
+function broadcastRanking(){
+  const list=Object.values(G.players).filter(p=>!p.blocked).sort((a,b)=>b.score-a.score).map(p=>({id:p.id,name:p.name,avatar:p.avatar,team:p.team,teamId:p.teamId,score:p.score}));
+  hostBroadcast({type:'ranking',list,teams:G.tournament.teams.map(t=>({id:t.id,name:t.name,emoji:t.emoji,cls:t.cls,score:t.score,color:t.color,members:t.members.map(m=>({id:m.id,avatar:m.avatar,name:m.name}))}))});
+}
+function rPL(){
+  const g=$('playersGrid');if(!g)return;
+  const l=Object.values(G.players);
+  $('playerCount').textContent=l.length;
+  if(!l.length){g.innerHTML='<p style="color:#7c6fa8;text-align:center;grid-column:1/-1;padding:16px">รอผู้เล่น...</p>';return}
+  let html='';
+  G.tournament.teams.forEach(team=>{
+    const mem=l.filter(p=>p.teamId===team.id);
+    html+=`<div class="team-group" style="grid-column:1/-1;border-left-color:${team.color}"><h4>${team.emoji} ${esc(team.name)} (${mem.length} คน) <span style="color:#7c6fa8;font-size:.75rem;font-weight:600">· ${G.tournament.teams.length} ทีม · รวม ${l.length} คน</span></h4><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px">${mem.length===0?'<p style="color:#7c6fa8;font-size:.85rem;padding:6px">- ว่าง -</p>':mem.map(p=>`<div class="player-card ${p.blocked?'blocked':''}"><span class="av">${esc(p.avatar)}</span><div class="name">${esc(p.name)}</div><button class="block-btn" onclick="togBlock('${p.id}')">${p.blocked?'✓':'✕'}</button></div>`).join('')}</div></div>`;
+  });
+  g.innerHTML=html;
+}
+function togBlock(id){sc();const p=G.players[id];if(!p)return;p.blocked=!p.blocked;rPL();uSB();pub(`tug_kv10/${G.roomCode}/broadcast`,{type:p.blocked?'blocked':'unblocked',playerId:id});}
+function uSB(){const a=Object.values(G.players).filter(p=>!p.blocked&&p.connected);const b=$('hostStartBtn');const teamsWithPlayers=G.tournament.teams.filter(t=>t.members.some(m=>!m.blocked&&m.connected)).length;const needTeams=Math.min(2,G.tournament.teams.length);b.disabled=a.length<2||teamsWithPlayers<needTeams;b.textContent=a.length<2?'⏳ รอผู้เล่น...':`▶ เริ่มทัวร์นาเมนต์! (${a.length} คน)`;}
+
+function copyJoinLink(){const url=new URL(location.href);url.searchParams.set('code',G.roomCode);const jU=url.toString();if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(jU).then(()=>toast('✅ คัดลอก!',2000)).catch(()=>fallbackCopy(jU));}else fallbackCopy(jU);}
+function fallbackCopy(text){const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('✅',2000);}catch(e){}document.body.removeChild(ta);}
+function saveQRCode(){const img=document.querySelector('#qrcode img');if(!img){toast('⚠️');return}fetch(img.src).then(r=>r.blob()).then(blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='tug-qr-'+G.roomCode+'.png';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);document.body.removeChild(a);},1000);toast('✅');}).catch(()=>{window.open(img.src,'_blank');});}
+
+/* ═══ HOST START ═══ */
+function hostStartTournament(){
+  rebalanceTeams();
+  const teams=G.tournament.teams;
+  const grid=$('bracketGrid');
+  const desc=$('bracketDesc');
+  if(teams.length===4){
+    desc.textContent='รอบคัดเลือก 4 ทีม → Semi 2 คู่ → ชิงที่ 3 + ชิงชนะเลิศ';
+    grid.innerHTML=`
+      <div class="bracket-col"><div class="bracket-col-title">รอบคัดเลือก</div><div class="bracket-match">${teams.map(t=>`<div class="bracket-team"><span class="bt-emoji">${t.emoji}</span><span class="bt-name">${esc(t.name)}</span></div>`).join('')}</div></div>
+      <div style="text-align:center;color:#7c6fa8;font-size:1.5rem">→</div>
+      <div class="bracket-col"><div class="bracket-col-title">รอบรองฯ</div>
+        <div class="bracket-match"><div class="bracket-team"><span class="bt-emoji">#1</span><span class="bt-name">อันดับ 1</span></div><div class="bracket-vs">VS</div><div class="bracket-team"><span class="bt-emoji">#4</span><span class="bt-name">อันดับ 4</span></div></div>
+        <div class="bracket-match"><div class="bracket-team"><span class="bt-emoji">#2</span><span class="bt-name">อันดับ 2</span></div><div class="bracket-vs">VS</div><div class="bracket-team"><span class="bt-emoji">#3</span><span class="bt-name">อันดับ 3</span></div></div>
+      </div>
+      <div style="text-align:center;color:#7c6fa8;font-size:1.5rem">→</div>
+      <div class="bracket-col"><div class="bracket-col-title">รอบชิง</div>
+        <div class="bracket-match"><div style="font-size:.7rem;color:#fbbf24;font-weight:900;text-align:center">🥇 ชิงชนะเลิศ</div><div class="bracket-team"><span class="bt-emoji">🏆</span><span class="bt-name">ผู้ชนะ A</span></div><div class="bracket-vs">VS</div><div class="bracket-team"><span class="bt-emoji">🏆</span><span class="bt-name">ผู้ชนะ B</span></div></div>
+        <div class="bracket-match"><div style="font-size:.7rem;color:#cd7f32;font-weight:900;text-align:center">🥉 ชิงที่ 3</div><div class="bracket-team"><span class="bt-emoji">🥉</span><span class="bt-name">ผู้แพ้ A</span></div><div class="bracket-vs">VS</div><div class="bracket-team"><span class="bt-emoji">🥉</span><span class="bt-name">ผู้แพ้ B</span></div></div>
+      </div>`;
+  } else if(teams.length===3){
+    desc.textContent='รอบคัดเลือก 3 ทีม → 1 vs 2 ชิง → อันดับ 3 อัตโนมัติ';
+    grid.innerHTML=`
+      <div class="bracket-col"><div class="bracket-col-title">รอบคัดเลือก (3 ทีม)</div><div class="bracket-match">${teams.map(t=>`<div class="bracket-team"><span class="bt-emoji">${t.emoji}</span><span class="bt-name">${esc(t.name)}</span></div>`).join('')}</div></div>
+      <div style="text-align:center;color:#7c6fa8;font-size:1.5rem">→</div>
+      <div class="bracket-col"><div class="bracket-col-title">รอบชิง</div><div class="bracket-match"><div class="bracket-team"><span class="bt-emoji">#1</span><span class="bt-name">อันดับ 1</span></div><div class="bracket-vs">VS</div><div class="bracket-team"><span class="bt-emoji">#2</span><span class="bt-name">อันดับ 2</span></div></div></div>
+      <div style="text-align:center;color:#7c6fa8;font-size:1.5rem">→</div>
+      <div class="bracket-col"><div class="bracket-col-title">ผล</div><div class="bracket-match" style="text-align:center;font-size:.85rem">🥇 #1 vs #2<br>🥈 ผู้แพ้<br>🥉 อันดับ 3 (auto)</div></div>`;
+  } else if(teams.length===2){
+    desc.textContent='แข่ง 2 ทีม รอบเดียว';
+    grid.innerHTML=`
+      <div class="bracket-col"><div class="bracket-col-title">แข่งครั้งเดียว</div><div class="bracket-match"><div class="bracket-team"><span class="bt-emoji">${teams[0].emoji}</span><span class="bt-name">${esc(teams[0].name)}</span></div><div class="bracket-vs">VS</div><div class="bracket-team"><span class="bt-emoji">${teams[1].emoji}</span><span class="bt-name">${esc(teams[1].name)}</span></div></div></div>
+      <div style="text-align:center;color:#7c6fa8;font-size:1.5rem">→</div>
+      <div class="bracket-col"><div class="bracket-col-title">ผล</div><div class="bracket-match" style="text-align:center;font-size:.85rem">🥇 ที่ 1<br>🥈 ที่ 2</div></div>
+      <div></div><div></div>`;
+  } else {
+    grid.innerHTML='<p style="text-align:center;color:#f87171;padding:20px">ต้องมีอย่างน้อย 2 ทีม</p>';
+  }
+  let status='👥 ';
+  G.tournament.teams.forEach(t=>{const n=t.members.filter(m=>!m.blocked&&m.connected).length;status+=`${t.emoji} ${t.name}: ${n} คน · `;});
+  $('bracketPlayerStatus').textContent=status.slice(0,-2);
+  go('scHostBracket');
+}
+
+function startQualifier(){
+  G.tournament.teams.forEach(t=>{t.score=0;t.members.forEach(m=>{m.score=0;m.streak=0;m.totalAnswers=0;m.totalCorrect=0;m.totalWrong=0;m.totalTimeMs=0;});});
+  G.tournament.activeTeamIds=G.tournament.teams.map(t=>t.id);
+  G.tournament.currentRound=0;G.tournament.phase='playing';G.tournament.matchId='qualifier';
+  G.gameState='playing';G.totalDeadline=Date.now()+G.config.setDuration*1000;
+
+  const sel=[],pool=POOLS[G.config.gradeId]||[];
+  pool.forEach(w=>{if(G.selectedWords.has(w.en))sel.push(w)});
+  if(sel.length<4){toast('⚠️ ต้องมี 4 คำ');return}
+  G.questions=bQ(sel);
+  const publicQs=G.questions.map(q=>({text:q.text,sub:q.sub,options:q.options.map(o=>o.text),correct:q.correct,timeLimit:q.timeLimit}));
+
+  hostBroadcast({
+    type:'tournament_start',mode:'tug',
+    teams:G.tournament.teams.map(t=>({id:t.id,name:t.name,emoji:t.emoji,cls:t.cls,color:t.color})),
+    setDuration:G.config.setDuration,theme:G.config.theme,
+    activeTeamIds:G.tournament.activeTeamIds,
+    roundName:'QUALIFIER',questions:publicQs,
+    playersEffectOn:G.playersEffectOn,playersBgmOn:G.playersBgmOn
+  });
+
+  go('scHostGame');
+  $('hostRoundLabel').textContent='ROUND 1 · QUALIFIER';
+  $('hostTotalAnswers').textContent='0';
+  $('pauseBtn').innerHTML='⏸';
+  applyTheme(G.config.theme);
+  if(G.hostBgmOn)startBGM();
+  renderArena();rLB();
+
+  clearInterval(G.totalTimerId);
+  G.totalTimerId=setInterval(()=>{
+    if(G.gameState==='ended'){clearInterval(G.totalTimerId);return}
+    if(G.gameState==='paused')return;
+    const remain=Math.max(0,Math.ceil((G.totalDeadline-Date.now())/1000));
+    const el=$('hostTotalTimer');if(el){el.textContent=fmtTime(remain);el.classList.toggle('warn',remain<=30)}
+    if(remain<=0){clearInterval(G.totalTimerId);endMatch();}
+  },500);
+  clearInterval(G.rankTimerId);
+  G.rankTimerId=setInterval(()=>{
+    if(G.gameState!=='playing'&&G.gameState!=='paused')return;
+    broadcastRanking();checkWeatherIntensity();
+  },2000);
+  broadcastRanking();
+  showHostCountdown('QUALIFIER',()=>{toast('🚀 เริ่มเลย!',1200);});
+}
+
+function endMatch(){
+  G.tournament.phase='setend';
+  hostBroadcast({type:'match_end'});
+  stopBGM();
+
+  setTimeout(()=>{
+    const teams=G.tournament.teams;
+    const n=teams.length;
+
+    if(G.tournament.matchId==='qualifier'){
+      const ranked=rankTeams([...teams]);
+      G.tournament.bracket.qualifier.ranking=ranked.map(t=>t.id);
+
+      if(n===2){
+        G.tournament.bracket.final={first:{teamA:ranked[0].id,teamB:ranked[1].id,winner:ranked[0].id,loser:ranked[1].id},third:null};
+        toast('🏆 จบการแข่งขัน! ประกาศผล...', 2500);
+        setTimeout(()=>endTournament(), 2000);
+      }
+      else if(n===3){
+        G.tournament.bracket.final={
+          third:{teamA:ranked[2].id,winner:ranked[2].id,auto:true,loser:null},
+          first:{teamA:ranked[0].id,teamB:ranked[1].id,winner:null,loser:null}
+        };
+        hostBroadcast({type:'rank_update',teamId:ranked[2].id,rank:3});
+        showBracketResult(ranked, ()=>runFinalMatch('championship', ranked[0].id, ranked[1].id));
+      }
+      else if(n===4){
+        G.tournament.bracket.semi=[
+          {id:'semi1',teamA:ranked[0].id,teamB:ranked[3].id,winner:null,loser:null},
+          {id:'semi2',teamA:ranked[1].id,teamB:ranked[2].id,winner:null,loser:null}
+        ];
+        showBracketResult(ranked, ()=>runSemiMatch('semi1'));
+      }
+    }
+    else if(G.tournament.matchId==='semi1'||G.tournament.matchId==='semi2'){
+      const w=determineMatchWinner();
+      const m=G.tournament.bracket.semi.find(x=>x.id===G.tournament.matchId);
+      m.winner=w.winner;m.loser=w.loser;
+      if(G.tournament.matchId==='semi1'){
+        setTimeout(()=>runSemiMatch('semi2'), 2500);
+      } else {
+        setTimeout(()=>runFinalMatches(), 2500);
+      }
+    }
+    else if(G.tournament.matchId==='third'){
+      const w=determineMatchWinner();
+      G.tournament.bracket.final.third.winner=w.winner;
+      G.tournament.bracket.final.third.loser=w.loser;
+      hostBroadcast({type:'rank_update',teamId:w.winner,rank:3});
+      hostBroadcast({type:'rank_update',teamId:w.loser,rank:4});
+      toast('🥉 ชิงที่ 3 จบ · ที่ 3 vs ที่ 4 ประกาศแล้ว',2000);
+      checkAllMatchesDone();
+    }
+    else if(G.tournament.matchId==='championship'){
+      const w=determineMatchWinner();
+      G.tournament.bracket.final.first.winner=w.winner;
+      G.tournament.bracket.final.first.loser=w.loser;
+      hostBroadcast({type:'rank_update',teamId:w.winner,rank:1});
+      hostBroadcast({type:'rank_update',teamId:w.loser,rank:2});
+      toast('🏆 ชิงชนะเลิศจบ! ที่ 1 vs ที่ 2 ประกาศแล้ว',2000);
+      checkAllMatchesDone();
+    }
+  }, 3000);
+}
+
+function determineMatchWinner(){
+  const tidA=G.tournament.currentMatchTeamA;
+  const tidB=G.tournament.currentMatchTeamB;
+  const tA=G.tournament.teams.find(t=>t.id===tidA);
+  const tB=G.tournament.teams.find(t=>t.id===tidB);
+  if(!tA||!tB)return{winner:tidA,loser:tidB};
+  if(tA.score>tB.score)return{winner:tA.id,loser:tB.id};
+  if(tB.score>tA.score)return{winner:tB.id,loser:tA.id};
+  if((tA.totalCorrect||0)>(tB.totalCorrect||0))return{winner:tA.id,loser:tB.id};
+  if((tB.totalCorrect||0)>(tA.totalCorrect||0))return{winner:tB.id,loser:tA.id};
+  return Math.random()<0.5?{winner:tA.id,loser:tB.id}:{winner:tB.id,loser:tA.id};
+}
+function rankTeams(teams){return teams.sort((a,b)=>{if(b.score!==a.score)return b.score-a.score;if((b.totalCorrect||0)!==(a.totalCorrect||0))return (b.totalCorrect||0)-(a.totalCorrect||0);if((a.avgTime||0)!==(b.avgTime||0))return (a.avgTime||0)-(b.avgTime||0);return Math.random()-0.5;});}
+
+function checkAllMatchesDone(){
+  const n=G.tournament.teams.length;
+  const f=G.tournament.bracket.final;
+  if(!f.first||!f.first.winner)return;
+  if(n===2){setTimeout(()=>endTournament(),1500);return;}
+  if(n===3){setTimeout(()=>endTournament(),1500);return;}
+  if(n===4){
+    if(!f.third||!f.third.winner)return;
+    setTimeout(()=>endTournament(),1500);
+    return;
+  }
+}
+
+function runSemiMatch(matchId){
+  const m=G.tournament.bracket.semi.find(x=>x.id===matchId);
+  G.tournament.activeTeamIds=[m.teamA,m.teamB];
+  G.tournament.currentRound=1;G.tournament.matchId=matchId;
+  G.tournament.phase='playing';G.gameState='playing';
+  G.tournament.currentMatchTeamA=m.teamA;G.tournament.currentMatchTeamB=m.teamB;
+  [m.teamA,m.teamB].forEach(tid=>{const t=G.tournament.teams.find(x=>x.id===tid);t.score=0;t.members.forEach(mm=>{mm.score=0;mm.streak=0;mm.totalAnswers=0;mm.totalCorrect=0;mm.totalWrong=0;});});
+  G.totalDeadline=Date.now()+G.config.setDuration*1000;
+  const sel=[],pool=POOLS[G.config.gradeId]||[];
+  pool.forEach(w=>{if(G.selectedWords.has(w.en))sel.push(w)});
+  G.questions=bQ(sel);
+  const publicQs=G.questions.map(q=>({text:q.text,sub:q.sub,options:q.options.map(o=>o.text),correct:q.correct,timeLimit:q.timeLimit}));
+
+  const teamA=G.tournament.teams.find(t=>t.id===m.teamA);
+  const teamB=G.tournament.teams.find(t=>t.id===m.teamB);
+  const roundName=matchId==='semi1'?'SEMI 1':'SEMI 2';
+  $('hostRoundLabel').textContent='ROUND 2 · '+roundName;
+  hostBroadcast({
+    type:'match_start',matchId,roundName,
+    teamA:{id:teamA.id,name:teamA.name,emoji:teamA.emoji,cls:teamA.cls},
+    teamB:{id:teamB.id,name:teamB.name,emoji:teamB.emoji,cls:teamB.cls},
+    setDuration:G.config.setDuration,theme:G.config.theme,
+    questions:publicQs,playersEffectOn:G.playersEffectOn,playersBgmOn:G.playersBgmOn
+  });
+  renderArena();rLB();
+  clearInterval(G.totalTimerId);
+  G.totalTimerId=setInterval(()=>{
+    if(G.gameState==='ended'){clearInterval(G.totalTimerId);return}
+    if(G.gameState==='paused')return;
+    const remain=Math.max(0,Math.ceil((G.totalDeadline-Date.now())/1000));
+    const el=$('hostTotalTimer');if(el){el.textContent=fmtTime(remain);el.classList.toggle('warn',remain<=30)}
+    if(remain<=0){clearInterval(G.totalTimerId);endMatch();}
+  },500);
+  showHostCountdown(roundName+' · '+teamA.name+' vs '+teamB.name,()=>{toast('🚀',1500);});
+}
+
+function runFinalMatches(){
+  const semi=G.tournament.bracket.semi;
+  const winA=semi[0].winner,winB=semi[1].winner;
+  const loseA=semi[0].loser,loseB=semi[1].loser;
+  G.tournament.bracket.final.third={teamA:loseA,teamB:loseB,winner:null,loser:null};
+  G.tournament.bracket.final.first={teamA:winA,teamB:winB,winner:null,loser:null};
+  G.tournament.matchId='third';
+  runFinalMatch('third',loseA,loseB);
+}
+
+function runFinalMatch(kind,tidA,tidB){
+  G.tournament.activeTeamIds=[tidA,tidB];
+  G.tournament.currentRound=2;G.tournament.phase='playing';G.gameState='playing';
+  G.tournament.currentMatchTeamA=tidA;G.tournament.currentMatchTeamB=tidB;
+  G.tournament.matchId=kind;
+  [tidA,tidB].forEach(tid=>{const t=G.tournament.teams.find(x=>x.id===tid);t.score=0;t.members.forEach(m=>{m.score=0;m.streak=0;m.totalAnswers=0;m.totalCorrect=0;m.totalWrong=0;});});
+  G.totalDeadline=Date.now()+G.config.setDuration*1000;
+  const sel=[],pool=POOLS[G.config.gradeId]||[];
+  pool.forEach(w=>{if(G.selectedWords.has(w.en))sel.push(w)});
+  G.questions=bQ(sel);
+  const publicQs=G.questions.map(q=>({text:q.text,sub:q.sub,options:q.options.map(o=>o.text),correct:q.correct,timeLimit:q.timeLimit}));
+  const teamA=G.tournament.teams.find(t=>t.id===tidA);
+  const teamB=G.tournament.teams.find(t=>t.id===tidB);
+  const label=kind==='third'?'🥉 ชิงที่ 3':'🏆 ชิงชนะเลิศ';
+  $('hostRoundLabel').textContent='ROUND 3 · '+(kind==='third'?'3rd PLACE':'FINAL');
+  hostBroadcast({
+    type:'match_start',matchId:kind,
+    roundName:kind==='third'?'THIRD':'FINAL',
+    teamA:{id:teamA.id,name:teamA.name,emoji:teamA.emoji,cls:teamA.cls},
+    teamB:{id:teamB.id,name:teamB.name,emoji:teamB.emoji,cls:teamB.cls},
+    setDuration:G.config.setDuration,theme:G.config.theme,
+    questions:publicQs,playersEffectOn:G.playersEffectOn,playersBgmOn:G.playersBgmOn
+  });
+  renderArena();rLB();
+  clearInterval(G.totalTimerId);
+  G.totalTimerId=setInterval(()=>{
+    if(G.gameState==='ended'){clearInterval(G.totalTimerId);return}
+    if(G.gameState==='paused')return;
+    const remain=Math.max(0,Math.ceil((G.totalDeadline-Date.now())/1000));
+    const el=$('hostTotalTimer');if(el){el.textContent=fmtTime(remain);el.classList.toggle('warn',remain<=30)}
+    if(remain<=0){clearInterval(G.totalTimerId);endMatch();}
+  },500);
+  showHostCountdown(label+' · '+teamA.name+' vs '+teamB.name,()=>{toast(label,2000);});
+}
+
+function endTournament(){
+  G.gameState='ended';
+  clearInterval(G.totalTimerId);
+  clearInterval(G.rankTimerId);
+  stopBGM();
+
+  const teams=G.tournament.teams;
+  const n=teams.length;
+  const f=G.tournament.bracket.final;
+  let ranks=[];
+
+  if(n===2){
+    const ranked=rankTeams([...teams]);
+    ranks=ranked.map((t,i)=>({id:t.id,name:t.name,emoji:t.emoji,cls:t.cls,score:t.score,rank:i+1}));
+  }
+  else if(n===3){
+    const first=teams.find(t=>t.id===f.first.winner);
+    const second=teams.find(t=>t.id===f.first.loser);
+    const third=teams.find(t=>t.id===f.third.teamA);
+    ranks=[first,second,third].filter(Boolean).map((t,i)=>({id:t.id,name:t.name,emoji:t.emoji,cls:t.cls,score:t.score,rank:i+1}));
+  }
+  else if(n===4){
+    const first=teams.find(t=>t.id===f.first.winner);
+    const second=teams.find(t=>t.id===f.first.loser);
+    const third=teams.find(t=>t.id===f.third.winner);
+    const fourth=teams.find(t=>t.id===f.third.loser);
+    ranks=[first,second,third,fourth].filter(Boolean).map((t,i)=>({id:t.id,name:t.name,emoji:t.emoji,cls:t.cls,score:t.score,rank:i+1}));
+  }
+
+  hostBroadcast({type:'tournament_end',ranks,stats:buildStats()});
+  rPodium(ranks);
+  go('scHostPodium');
+  $('hostBackCorner').classList.add('on');
+  sFin();
+  if(ranks[0])launchCelebration(TEAMS_DEF.find(d=>d.id===ranks[0].id)?.color||'#f97316');
+}
+
+function buildStats(){const wrongCount={};G.replayLog.forEach(e=>{if(!e.correct)wrongCount[e.qIdx]=(wrongCount[e.qIdx]||0)+1;});return{totalAnswers:G.replayLog.length,totalCorrect:G.replayLog.filter(e=>e.correct).length,totalWrong:G.replayLog.filter(e=>!e.correct).length};}
+function showBracketResult(ranked,cb){const ov=$('hostCountdown');ov.classList.add('on');const num=$('hostCountdownNum'),txt=$('hostCountdownText'),sub=$('hostCountdownSub');num.textContent='🏆';num.style.fontSize='5rem';txt.textContent='ผลรอบคัดเลือก';sub.innerHTML=ranked.map((t,i)=>`<div style="margin:4px 0">${['🥇','🥈','🥉','4️⃣'][i]||'#'} ${t.emoji} ${t.name} — ${t.score}</div>`).join('');setTimeout(()=>{ov.classList.remove('on');num.style.fontSize='9rem';cb();},3500);}
+function showHostCountdown(subtitle,cb){const ov=$('hostCountdown'),el=$('hostCountdownNum'),txt=$('hostCountdownText'),sub=$('hostCountdownSub');ov.classList.add('on');txt.textContent='เตรียมตัว...';sub.textContent=subtitle||'';el.style.fontSize='9rem';let c=5;el.textContent=c;el.style.animation='none';void el.offsetWidth;el.style.animation='cp 1s infinite';sCd();const timer=setInterval(()=>{c--;if(c<=0){clearInterval(timer);sCdGo();ov.classList.remove('on');if(cb)cb();}else{el.textContent=c;sCd();el.style.animation='none';void el.offsetWidth;el.style.animation='cp 1s infinite';}},1000);}
+function bQ(pool){if(pool.length<4)return[];const qTarget=Math.max(80,Math.min(300,Math.ceil(G.config.setDuration/2)+40));const qs=[];let bag=shuf(pool),bi=0;for(let k=0;k<qTarget;k++){if(bi>=bag.length){bag=shuf(pool);bi=0}const t=bag[bi++];const rv=Math.random()<0.5;const oth=pool.filter(w=>w.en!==t.en&&w.th!==t.th);const dis=shuf(oth).slice(0,3);if(dis.length<3){k--;continue}const opts=rv?shuf([t,...dis]).map(w=>({text:w.en,ok:w.en===t.en})):shuf([t,...dis]).map(w=>({text:w.th,ok:w.th===t.th}));const ci=opts.findIndex(o=>o.ok);qs.push({text:rv?t.th:t.en,sub:rv?'คำภาษาอังกฤษคือ?':'คำนี้แปลว่าอะไร?',options:opts,correct:ci,timeLimit:G.config.timeLimit});}return qs;}
+
+function hostPause(){
+  sc();const pb=$('pauseBtn');
+  if(G.gameState==='paused'){G.gameState='playing';G.totalDeadline=Date.now()+(G.remainingMs||0);pb.innerHTML='⏸';if(G.hostBgmOn)startBGM();HostTugArena.resume();}
+  else{G.remainingMs=Math.max(0,G.totalDeadline-Date.now());G.gameState='paused';pb.innerHTML='▶';stopBGM();HostTugArena.pause();}
+  hostBroadcast({type:'pause',paused:G.gameState==='paused'});
+}
+function hostAddT(s){sc();const ms=s*1000;if(G.gameState==='paused'){G.remainingMs=Math.max(0,(G.remainingMs||0)+ms);}else{G.totalDeadline=G.totalDeadline+ms;}hostBroadcast({type:'addTime',ms,paused:G.gameState==='paused'});toast(`⏱️ ${ms>0?'+':'-'}${Math.abs(ms)/1000} วิ`,1500);if(G.gameState!=='paused'){const remain=Math.max(0,Math.ceil((G.totalDeadline-Date.now())/1000));const el=$('hostTotalTimer');if(el)el.textContent=fmtTime(remain);}}
+function hostStop(){if(!confirm('หยุด?'))return;clearInterval(G.rankTimerId);stopBGM();G.gameState='ended';endTournament();}
+function hostBackToMain(){if(!confirm('กลับ?'))return;hostBroadcast({type:'silent'});stopBGM();setTimeout(()=>location.reload(),300);}
+
+/* ═══ HOST ARENA ═══ */
+const HostTugArena={
+  mounted:false,els:null,_raf:null,_lastTs:0,_current:50,_target:50,_paused:false,_lerpRate:0.0006,
+  build(container){container.innerHTML=`<div class="tug-arena"><div id="hostArenaContent"></div></div>`;this.els={content:container.querySelector('#hostArenaContent')};this.mounted=true;this.startRaf();},
+  startRaf(){if(this._raf)cancelAnimationFrame(this._raf);const loop=(ts)=>{this._raf=requestAnimationFrame(loop);if(!this.mounted||document.hidden||this._paused){this._lastTs=0;return;}if(!this._lastTs)this._lastTs=ts;let dt=ts-this._lastTs;this._lastTs=ts;if(dt>100)dt=100;const knot=this.els&&this.els.content?this.els.content.querySelector('.tug-knot'):null;if(!knot)return;const diff=this._target-this._current;if(Math.abs(diff)>0.01){const k=1-Math.exp(-this._lerpRate*dt);this._current+=diff*k;knot.style.left=this._current.toFixed(3)+'%';}};this._raf=requestAnimationFrame(loop);},
+  update(){const container=$('arenaWrap');if(!container)return;if(!this.mounted)this.build(container);const c=this.els.content;
+    if(G.tournament.activeTeamIds.length>=3){
+      const teams=G.tournament.teams.filter(t=>G.tournament.activeTeamIds.includes(t.id));
+      const maxScore=Math.max(100,...teams.map(t=>t.score));
+      const leader=teams.reduce((a,b)=>a.score>=b.score?a:b,teams[0]);
+      c.innerHTML=`<h3 style="text-align:center;color:#fb923c;margin-bottom:12px">🏆 รอบคัดเลือก — ${teams.length} ทีมแข่งพร้อมกัน</h3><div class="scoreboard-4">${teams.map(t=>`<div class="sb-card ${t.cls} ${t.id===leader.id&&leader.score>0?'leader':''}"><div class="sb-header"><span class="sb-emoji">${esc(t.emoji)}</span><span class="sb-name">${esc(t.name)}</span><span class="sb-score">${t.score}</span></div><div class="sb-bar"><div class="sb-bar-fill" style="width:${Math.min(100,(t.score/maxScore)*100)}%"></div></div><div class="sb-members">${t.members.slice(0,8).map(m=>`<span>${esc(m.avatar)}</span>`).join('')}</div><div style="font-size:.72rem;color:#c4b5fd;margin-top:4px">👥 ${t.members.length} · ✅ ${t.totalCorrect||0}</div></div>`).join('')}</div>`;
+    } else if(G.tournament.activeTeamIds.length===2){
+      const [tidA,tidB]=G.tournament.activeTeamIds;
+      const a=G.tournament.teams.find(t=>t.id===tidA),b=G.tournament.teams.find(t=>t.id===tidB);
+      const total=Math.max(1,a.score+b.score);const ratio=(b.score-a.score)/total;
+      this._target=Math.max(12,Math.min(88,50+ratio*42));
+      const sizeA=pickTugFontSize(a.members.length,false),sizeB=pickTugFontSize(b.members.length,false);
+      c.innerHTML=`<div class="tug-header"><div class="tug-team-info left"><span>${esc(a.emoji)}</span><span class="tname">${esc(a.name)}</span><span class="score">${a.score}</span></div><div class="tug-team-info right"><span class="score">${b.score}</span><span class="tname">${esc(b.name)}</span><span>${esc(b.emoji)}</span></div></div><div class="tug-stage"><div class="tug-center-line"></div><div class="tug-rope"></div><div class="tug-knot" style="left:${this._current}%"></div><div class="tug-players left" id="hostTugLeft" style="font-size:${sizeA}">${a.members.map(m=>`<span class="tug-player" data-pid="${esc(m.id)}">${esc(m.avatar)}</span>`).join('')}</div><div class="tug-players right" id="hostTugRight" style="font-size:${sizeB}">${b.members.map(m=>`<span class="tug-player" data-pid="${esc(m.id)}">${esc(m.avatar)}</span>`).join('')}</div></div><div class="tug-power-bars"><div class="tug-power-bar left"><div class="tug-power-fill" style="width:${(a.score/total)*100}%"></div></div><div class="tug-power-bar right"><div class="tug-power-fill" style="width:${(b.score/total)*100}%"></div></div></div><div class="tug-status-text">${Math.abs(ratio)<0.12?'⚖️ สูสี':ratio>0?'💪 '+esc(b.name)+' กำลังชนะ':'💪 '+esc(a.name)+' กำลังชนะ'}</div>`;
+    } else {c.innerHTML='<p style="text-align:center;color:#7c6fa8;padding:20px">รอทีม...</p>';}
+  },
+  animateAnswer(teamId,isCorrect){if(!this.els)return;const left=this.els.content.querySelector('#hostTugLeft');const right=this.els.content.querySelector('#hostTugRight');const target=(G.tournament.activeTeamIds[0]===teamId)?left:right;if(!target)return;target.querySelectorAll('.tug-player').forEach(a=>{a.classList.remove('pulling','stumble');void a.offsetWidth;a.classList.add(isCorrect?'pulling':'stumble');setTimeout(()=>a.classList.remove('pulling','stumble'),550);});},
+  pause(){this._paused=true;},resume(){this._paused=false;this._lastTs=0;}
+};
+function pickTugFontSize(n,isSmall){const table=isSmall?[[3,'1.5rem'],[5,'1.25rem'],[8,'1rem'],[12,'0.85rem'],[18,'0.7rem'],[Infinity,'0.6rem']]:[[3,'2.1rem'],[5,'1.8rem'],[8,'1.5rem'],[12,'1.2rem'],[18,'1rem'],[Infinity,'0.85rem']];for(const [max,size]of table){if(n<=max)return size;}return table[table.length-1][1];}
+function renderArena(){HostTugArena.update();}
+function rLB(){const w=$('hostLeaderboard');if(!w)return;const activeTeams=G.tournament.teams.filter(t=>G.tournament.activeTeamIds.includes(t.id));const l=[...activeTeams].sort((a,b)=>b.score-a.score);w.innerHTML=l.map((t,i)=>{const r=i+1;const c=r===1?'top1':'';const m=['🥇','🥈','🥉','4️⃣'][i]||`${r}.`;return `<div class="lb-row ${c}" style="border-left-color:${t.color}"><span class="lb-rank">${m}</span><span class="lb-av">${esc(t.emoji)}</span><span class="lb-name">${esc(t.name)} <span style="color:#86efac;font-size:.75rem">(${t.members.length} คน)</span></span><span class="lb-score">${t.score}</span></div>`;}).join('');}
+
+/* ═══ PODIUM ═══ */
+function rPodium(ranks){
+  const st=$('podiumStage');if(!st)return;
+  const t3=ranks.slice(0,3);
+  const ord=[1,0,2],cl=['p2','p1','p3'],md=['2','1','3'];
+  let html=ord.map((idx,i)=>{const p=t3[idx];if(!p)return `<div class="podium-place ${cl[i]}"><span class="podium-avatar">❓</span><div class="podium-name">-</div><div class="podium-score">0</div><div class="podium-base">${md[i]}</div></div>`;return `<div class="podium-place ${cl[i]}"><span class="podium-avatar">${esc(p.emoji)}</span><div class="podium-name">${esc(p.name)}</div><div class="podium-score">${p.score}</div><div class="podium-base">${md[i]}</div></div>`;}).join('');
+  const p4=ranks[3];
+  if(p4)html+=`<div class="podium-place p4"><span class="podium-avatar">${esc(p4.emoji)}</span><div class="podium-name">${esc(p4.name)}</div><div class="podium-score">${p4.score}</div><div class="podium-base">4</div></div>`;
+  st.innerHTML=html;
+  const s=buildStats();
+  $('podiumStats').innerHTML=`<div>📝 คำตอบรวม: <b style="color:#fbbf24">${s.totalAnswers}</b></div><div>✅ ตอบถูก: <b style="color:#4ade80">${s.totalCorrect}</b></div><div>❌ ตอบผิด: <b style="color:#f87171">${s.totalWrong}</b></div><div style="margin-top:8px">${G.tournament.teams.map(t=>`<div>${t.emoji} <b>${esc(t.name)}</b>: ${t.score} คะแนน</div>`).join('')}</div>`;
+}
+
+/* ═══ PLAYER JOIN ═══ */
+function renderAv(){const g=$('avatarGrid');if(!g)return;g.innerHTML=AV.map((a,i)=>`<button class="avatar-btn${i===0?' active':''}" data-a="${a}" onclick="selAv(this)">${a}</button>`).join('');}
+function selAv(b){sc();document.querySelectorAll('.avatar-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');G.myAvatar=b.dataset.a;}
+async function requestMicPermission(){try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});G.voiceStream=stream;return true;}catch(e){return false;}}
+function playerJoin(){
+  const code=$('joinCode').value.trim().toUpperCase();const name=$('joinName').value.trim();
+  if(code.length!==4){$('joinMsg').textContent='⚠️ รหัส 4 ตัว';return}
+  if(!name){$('joinMsg').textContent='⚠️ ใส่ชื่อ';return}
+  G.role='player';G.myName=name;G.roomCode=code;
+  G.myPlayerId='p_'+Date.now()+'_'+Math.random().toString(36).slice(2,8);
+  $('joinBtn').disabled=true;$('joinMsg').textContent='⏳ เชื่อมต่อ...';$('joinMsg').style.color='#c4b5fd';
+  go('scPlayerWait');
+  $('waitName').textContent=name;
+  $('waitTeam').textContent='🎲 กำลังรอสุ่มทีม...';
+  $('waitAvatar').textContent=G.myAvatar;
+  $('waitHint').textContent='📡 กำลังเชื่อมต่อ...';
+  const wantVoice=$('joinVoiceToggle').checked;
+  if(wantVoice){requestMicPermission().then(ok=>{$('waitVoice').textContent=ok?'🎤 ไมค์เปิดแล้ว':'⚠️ ไมค์ถูกปฏิเสธ';$('waitVoice').style.color=ok?'#4ade80':'#f87171';if(ok)G.voiceEnabled=true;});}
+  connectMQTT(()=>{
+    sub(`tug_kv10/${code}/broadcast`,(topic,data)=>{
+      if(data.playerId&&data.playerId!==G.myPlayerId&&(data.type==='blocked'||data.type==='unblocked'))return;
+      pOnBroadcast(data);
+    });
+    sub(`tug_kv10/${code}/player/${G.myPlayerId}/assigned`,(topic,data)=>{
+      if(!data)return;
+      G.myTeamId=data.teamId;G.myTeam=data.teamName;G.myTeamEmoji=data.teamEmoji||'🎃';
+      const wt=$('waitTeam');
+      if(wt){wt.textContent=`🎲 ทีมของคุณ: ${G.myTeamEmoji} ${G.myTeam}`;wt.style.color='#fbbf24';}
+      toast(`🎲 คุณอยู่ทีม ${G.myTeamEmoji} ${G.myTeam}`,3000);
+    });
+    const joinPayload={playerId:G.myPlayerId,name,avatar:G.myAvatar};
+    const announce=()=>{if(G.myGameActive)return;pub(`tug_kv10/${code}/join`,joinPayload,1);G.myJoinTimerId=setTimeout(announce,2000);};
+    announce();
+    $('joinMsg').textContent='';sJoin();
+  },()=>{$('joinMsg').textContent='❌ MQTT ไม่ได้';$('joinBtn').disabled=false;});
+}
+
+function pOnBroadcast(d){
+  if(!d)return;
+  switch(d.type){
+    case 'blocked':toast('🚫 ครูล็อก');break;
+    case 'unblocked':toast('✅ ปลดล็อก');break;
+    case 'ranking':
+      TugArenaPlayer.update(d.list);
+      updatePlayerRanking(d.list);
+      if(G.isSpectator)SpectatorArena.updateFromRanking(d.teams);
+      renderSpecLb();
+      break;
+    case 'sound':G.playersEffectOn=d.playersEffectOn!==false;G.playersBgmOn=d.playersBgmOn!==false;break;
+    case 'addTime':{
+      const ms=d.ms||0;
+      if(G.paused||d.paused){G.myTotalRemain=Math.max(0,(G.myTotalRemain||0)+ms);}
+      else{G.totalDeadline+=ms;pStartTimer();}
+      toast(`⏱️ ${ms>0?'+':'-'}${Math.abs(ms)/1000} วิ`,1500);
+      break;
+    }
+    case 'rank_update':{
+      if(d.teamId===G.myTeamId){
+        G.myFinalRank=d.rank;
+        if($('specTitle'))$('specTitle').textContent=`คุณได้ที่ ${d.rank} แล้ว!`;
+        if($('specEmoji'))$('specEmoji').textContent=['','🏆','🥈','🥉','🪑'][d.rank]||'🪑';
+        toast(`🏆 ทีมคุณได้ที่ ${d.rank}`, 3000);
+      }
+      break;
+    }
+    case 'tournament_start':
+      if(G.myJoinTimerId){clearTimeout(G.myJoinTimerId);G.myJoinTimerId=null;}
+      G.isSpectator=false;G.myFinalRank=null;
+      hideSpectatorOverlay();
+      G.tournament.teams=d.teams;G.tournament.activeTeamIds=d.activeTeamIds;
+      G.questions=d.questions;
+      G.myCurrentQ=0;G.myScore=0;G.myStreak=0;
+      G.totalDeadline=Date.now()+d.setDuration*1000;
+      G.myGameActive=true;G.paused=false;
+      G.playersEffectOn=d.playersEffectOn!==false;G.playersBgmOn=d.playersBgmOn!==false;
+      G.hint.points=3;
+      applyTheme(d.theme||'halloween');
+      $('pauseOverlay').classList.remove('on');
+      pCnt('เตรียมตัว...',()=>{
+        go('scPlayerQ');
+        $('pAnswersGrid').style.opacity='1';
+        $('pAnswersGrid').style.pointerEvents='auto';
+        TugArenaPlayer.init($('pArenaContainer'));
+        pStartTimer();pQ();
+        if(G.voiceEnabled)startVoiceRecognition();
+      });
+      break;
+    case 'match_start':{
+      if(G.myJoinTimerId){clearTimeout(G.myJoinTimerId);G.myJoinTimerId=null;}
+      G.tournament.activeTeamIds=[d.teamA.id,d.teamB.id];
+      const isMyTeam=(d.teamA.id===G.myTeamId||d.teamB.id===G.myTeamId);
+
+      if(!isMyTeam){
+        G.isSpectator=true;G.myGameActive=false;G.paused=false;
+        if(G.myQTimerId){clearInterval(G.myQTimerId);G.myQTimerId=null;}
+        if(G.myTotalTimerId){clearInterval(G.myTotalTimerId);G.myTotalTimerId=null;}
+        stopBGM();
+        go('scPlayerQ');
+        $('pAnswersGrid').style.opacity='.2';
+        $('pAnswersGrid').style.pointerEvents='none';
+        $('pQText').textContent='🪑 นั่งดูเพื่อนแข่ง';
+        $('pQSub').textContent=d.roundName+' · '+d.teamA.name+' vs '+d.teamB.name;
+        showSpectatorOverlay(d.teamA, d.teamB);
+        toast('🪑 ทีมคุณไม่ได้แข่ง — นั่งดู',2500);
+        return;
+      }
+
+      G.isSpectator=false;
+      hideSpectatorOverlay();
+      $('pAnswersGrid').style.opacity='1';
+      $('pAnswersGrid').style.pointerEvents='auto';
+
+      G.questions=d.questions;
+      G.myCurrentQ=0;G.myScore=0;G.myStreak=0;
+      G.totalDeadline=Date.now()+d.setDuration*1000;
+      G.myGameActive=true;G.paused=false;
+      G.playersEffectOn=d.playersEffectOn!==false;G.playersBgmOn=d.playersBgmOn!==false;
+      G.hint.points=3;
+      applyTheme(d.theme||'halloween');
+      $('pauseOverlay').classList.remove('on');
+      pCnt(d.roundName+' · '+d.teamA.name+' vs '+d.teamB.name,()=>{
+        go('scPlayerQ');
+        TugArenaPlayer.init($('pArenaContainer'));
+        pStartTimer();pQ();
+        if(G.voiceEnabled)startVoiceRecognition();
+      });
+      break;
+    }
+    case 'pause':
+      G.paused=!!d.paused;
+      if(d.paused){
+        if(G.myQTimerId){clearInterval(G.myQTimerId);G.myQTimerId=null}
+        G.myQRemain=Math.max(0,G.myQDeadline-Date.now());
+        G.myTotalRemain=Math.max(0,G.totalDeadline-Date.now());
+        stopBGM();
+        $('pauseOverlay').classList.add('on');
+        TugArenaPlayer.pause();
+      } else {
+        G.paused=false;
+        $('pauseOverlay').classList.remove('on');
+        G.totalDeadline=Date.now()+(G.myTotalRemain||0);
+        if(G.myGameActive && G.questions && G.myCurrentQ<G.questions.length){
+          G.myQDeadline=Date.now()+(G.myQRemain||0);
+          G.myQRemain=0;
+          if(G.myQTimerId)clearInterval(G.myQTimerId);
+          G.myQTimerId=setInterval(qTimerTick,200);
+        }
+        pStartTimer();TugArenaPlayer.resume();
+      }
+      break;
+    case 'match_end':
+      G.myGameActive=false;G.paused=false;
+      if(G.myQTimerId){clearInterval(G.myQTimerId);G.myQTimerId=null}
+      if(G.myTotalTimerId){clearInterval(G.myTotalTimerId);G.myTotalTimerId=null}
+      stopBGM();
+      toast('⏱️ จบเซ็ต! รอผล...',3000);
+      break;
+    case 'tournament_end':
+      G.myGameActive=false;G.paused=false;
+      if(G.myQTimerId){clearInterval(G.myQTimerId);G.myQTimerId=null}
+      if(G.myTotalTimerId){clearInterval(G.myTotalTimerId);G.myTotalTimerId=null}
+      if(G.myJoinTimerId){clearTimeout(G.myJoinTimerId);G.myJoinTimerId=null}
+      stopBGM();
+      TugArenaPlayer.destroy();
+      hideSpectatorOverlay();
+      if(G.voiceRecognition){try{G.voiceRecognition.stop()}catch(e){}}
+      if(G.voiceStream){G.voiceStream.getTracks().forEach(tr=>tr.stop());}
+      pEnd(d.ranks);
+      break;
+    case 'sticker':{
+      if(d.targetTeamId&&d.targetTeamId!==G.myTeamId)break;
+      showStickerFloat(d.emoji);
+      break;
+    }
+    case 'silent':stopBGM();break;
+  }
+}
+
+function startVoiceRecognition(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return;try{const r=new SR();r.continuous=true;r.interimResults=false;r.lang='en-US';r.onresult=(e)=>{const last=e.results[e.results.length-1][0].transcript;handleVoiceTranscript(last);};r.start();G.voiceRecognition=r;}catch(e){}}
+function handleVoiceTranscript(text){if(!G.myGameActive)return;const q=G.questions[G.myCurrentQ];if(!q)return;const clean=text.toLowerCase().trim().replace(/\s+/g,' ');const idx=q.options.findIndex(o=>o.toLowerCase().trim().replace(/\s+/g,' ')===clean);if(idx>=0)pAns(idx,null);}
+
+/* ═══ PLAYER TIMERS ═══ */
+function pCnt(subtitle,cb){go('scPlayerCountdown');const el=$('countdownNum'),sub=$('countdownSub');if(sub)sub.textContent=subtitle||'';let c=5;el.textContent=c;sCd();el.style.animation='none';void el.offsetWidth;el.style.animation='cp 1s infinite';const t=setInterval(()=>{c--;if(c<=0){clearInterval(t);sCdGo();cb();}else{el.textContent=c;sCd();el.style.animation='none';void el.offsetWidth;el.style.animation='cp 1s infinite';}},1000);}
+function pStartTimer(){if(G.myTotalTimerId)clearInterval(G.myTotalTimerId);G.myTotalTimerId=setInterval(()=>{if(!G.myGameActive){clearInterval(G.myTotalTimerId);return;}if(G.paused)return;const r=Math.max(0,Math.ceil((G.totalDeadline-Date.now())/1000));const el=$('pTotalTimer');if(el)el.textContent=fmtTime(r);},500);}
+function qTimerTick(){if(!G.myGameActive){if(G.myQTimerId)clearInterval(G.myQTimerId);G.myQTimerId=null;return;}if(G.paused)return;const r=Math.max(0,Math.ceil((G.myQDeadline-Date.now())/1000));if(r<=0){if(G.myQTimerId)clearInterval(G.myQTimerId);G.myQTimerId=null;pAns(-1,null);}}
+function startQTimer(){if(!G.myGameActive)return;const q=G.questions[G.myCurrentQ];if(!q)return;G.myQStart=Date.now();G.myQDeadline=Date.now()+q.timeLimit*1000;if(G.myQTimerId)clearInterval(G.myQTimerId);G.myQTimerId=setInterval(qTimerTick,200);}
+function pQ(){
+  if(!G.myGameActive)return;
+  if(G.isSpectator)return;
+  if(!G.questions||G.myCurrentQ>=G.questions.length){
+    $('pQText').textContent='🎉 ตอบครบ!';$('pQSub').textContent='รอจบเซ็ต...';$('pAnswersGrid').innerHTML='';$('pQNum').textContent='—';return;
+  }
+  const q=G.questions[G.myCurrentQ];
+  $('pQNum').textContent=G.myCurrentQ+1;
+  $('pQText').textContent=q.text;$('pQSub').textContent=q.sub||'';
+  $('pScore').textContent=G.myScore;$('pStreak').textContent=G.myStreak;
+  $('pFeedback').classList.remove('show','correct','wrong');
+  $('hintBtn').disabled=G.hint.points<=0;
+  $('hintPoints').textContent=G.hint.points;
+  const g=$('pAnswersGrid');const sy=['▲','◆','●','■'],cl=['a0','a1','a2','a3'];
+  g.innerHTML=q.options.map((o,i)=>`<button class="ans-btn ${cl[i]}" data-i="${i}" onclick="pAns(${i},this)"><span class="symbol">${sy[i]}</span><span>${esc(o)}</span></button>`).join('');
+  g.style.opacity='1';g.style.pointerEvents='auto';
+  startQTimer();
+  if(G.myStreak>=4&&!G.ultReady){G.ultReady=true;$('ultReadyBanner').hidden=false;}
+}
+function pAns(choice,btn){
+  if(!G.myGameActive)return;
+  if(G.paused)return;
+  const q=G.questions[G.myCurrentQ];if(!q)return;
+  if(G.myQTimerId){clearInterval(G.myQTimerId);G.myQTimerId=null;}
+  const isCorrect=choice===q.correct;
+  const timeLeft=Math.max(0,G.myQDeadline-Date.now());
+  let pts=0;
+  if(isCorrect){pts=500+Math.round((timeLeft/(q.timeLimit*1000))*500);G.myStreak++;if(G.myStreak>=3)pts+=100;if(G.myStreak>=5)pts+=200;G.sessionProg.totalCorrect++;}
+  else{G.myStreak=0;G.sessionProg.totalWrong++;}
+  if(G.myStreak>G.sessionProg.bestStreak)G.sessionProg.bestStreak=G.myStreak;
+  G.myScore+=pts;
+  const btns=document.querySelectorAll('#pAnswersGrid .ans-btn');
+  btns.forEach((b,i)=>{b.disabled=true;if(i===q.correct)b.classList.add('correct');else if(i===choice)b.classList.add('wrong');else b.classList.add('fade');});
+  const fb=$('pFeedback');fb.classList.remove('correct','wrong');void fb.offsetWidth;
+  if(isCorrect){fb.classList.add('show','correct');$('pFbEmoji').textContent=G.myStreak>=3?'🔥':'✅';$('pFbText').textContent=G.myStreak>=3?`ติดกัน x${G.myStreak}!`:'ถูก!';$('pFbPts').textContent='+'+pts;sCor();if(G.myStreak===3||G.myStreak===5)showComboCounter(`x${G.myStreak}!`);if(G.myStreak===5){sUlt();screenShake(400,14);if(!G.ultReady){G.ultReady=true;$('ultReadyBanner').hidden=false;}}TugArenaPlayer.triggerSelfPull();}
+  else{fb.classList.add('show','wrong');$('pFbEmoji').textContent='❌';$('pFbText').textContent='ผิด!';$('pFbPts').textContent='+0';sWr();TugArenaPlayer.triggerSelfStumble();}
+  $('pScore').textContent=G.myScore;$('pStreak').textContent=G.myStreak;
+  pub(`tug_kv10/${G.roomCode}/player/${G.myPlayerId}/answer`,{points:pts,correct:isCorrect,qIdx:G.myCurrentQ,choice,timeLeft,name:G.myName,avatar:G.myAvatar,team:G.myTeam});
+  setTimeout(()=>{if(!G.myGameActive||G.paused)return;G.myCurrentQ++;pQ();},1500);
+}
+function showComboCounter(text){const el=$('comboCounter');el.textContent=text;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1200);}
+function useUlt(){if(!G.ultReady)return;G.ultReady=false;$('ultReadyBanner').hidden=true;sUlt();screenShake(500,20);launchConfetti(80,'#fbbf24');toast('🔥 ท่าไม้ตาย!',1500);}
+
+/* ═══ HINTS ═══ */
+function openHintModal(){if(G.hint.points<=0)return;$('hintModalPoints').textContent=G.hint.points;$('hintCutBtn').disabled=G.hint.points<1;$('hintLetterBtn').disabled=G.hint.points<2;$('hintModal').hidden=false;}
+function closeHintModal(){$('hintModal').hidden=true;}
+function useHint(type){const q=G.questions[G.myCurrentQ];if(!q)return;if(type==='cut'&&G.hint.points>=1){G.hint.points-=1;const wrongIdxs=q.options.map((o,i)=>i).filter(i=>i!==q.correct);const toCut=wrongIdxs[Math.floor(Math.random()*wrongIdxs.length)];const el=document.querySelector(`#pAnswersGrid .ans-btn[data-i="${toCut}"]`);if(el)el.classList.add('hinted-out');toast('✂️ ตัด 1');}else if(type==='letter'&&G.hint.points>=2){G.hint.points-=2;const correctOpt=q.options[q.correct];toast(`🔤 ขึ้นต้นด้วย "${correctOpt.charAt(0).toUpperCase()}"`,3000);}closeHintModal();$('hintPoints').textContent=G.hint.points;$('hintBtn').disabled=G.hint.points<=0;}
+
+/* ═══ STICKERS ═══ */
+const STICKER_LIST=['👏','❤️','⭐','🔥','🎉','💪','🌟','🎯','🚀','🏆','😍','🤩','💖','✨','👍','🎊','🌈','💯','🦸‍♀️','🥳'];
+function openStickerPanel(){const sel=$('stickerTeamSelect');sel.innerHTML=G.tournament.teams.map(t=>`<option value="${t.id}">${t.emoji} ${esc(t.name)}</option>`).join('');$('stickerGrid').innerHTML=STICKER_LIST.map(s=>`<button class="sticker-opt" onclick="sendSticker('${s}')">${s}</button>`).join('');$('stickerPanel').hidden=false;}
+function closeStickerPanel(){$('stickerPanel').hidden=true;}
+function sendSticker(emoji){const targetTeamId=$('stickerTeamSelect').value;pub(`tug_kv10/${G.roomCode}/broadcast`,{type:'sticker',emoji,targetTeamId,fromHost:true});toast('🎁 ส่งแล้ว!',1500);closeStickerPanel();}
+function showStickerFloat(emoji){const el=document.createElement('div');el.className='sticker-float';el.textContent=emoji;el.style.left=(10+Math.random()*80)+'%';el.style.setProperty('--dx',(Math.random()*80-40)+'px');document.body.appendChild(el);setTimeout(()=>el.remove(),2600);}
+
+/* ═══ WEATHER ═══ */
+function checkWeatherIntensity(){const teams=G.tournament.teams.filter(t=>G.tournament.activeTeamIds.includes(t.id));if(teams.length<2)return;const sorted=[...teams].sort((a,b)=>b.score-a.score);const total=Math.max(1,teams.reduce((s,t)=>s+t.score,0));const intensity=Math.abs((sorted[0].score-sorted[sorted.length-1].score)/total);if(intensity>0.5){if(!$('weatherLayer').dataset.on){$('weatherLayer').dataset.on='1';startRain();}}else{if($('weatherLayer').dataset.on){$('weatherLayer').dataset.on='';$('weatherLayer').innerHTML='';}}if(intensity>0.7&&Math.random()<0.15)triggerLightning();}
+function startRain(){const w=$('weatherLayer');w.innerHTML='';for(let i=0;i<60;i++){const d=document.createElement('div');d.className='rain-drop';d.style.left=Math.random()*100+'%';d.style.animationDuration=(0.4+Math.random()*0.5)+'s';d.style.animationDelay=(Math.random()*1)+'s';w.appendChild(d);}}
+function triggerLightning(){const lf=$('lightningFlash');lf.classList.add('on');org(80,0,0.6,0.3);setTimeout(()=>lf.classList.remove('on'),150);setTimeout(()=>{lf.classList.add('on');setTimeout(()=>lf.classList.remove('on'),80);},250);}
+function screenShake(duration,intensity){if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;const el=document.body;const start=performance.now();const loop=(now)=>{const t=(now-start)/duration;if(t>=1){el.style.transform='';return;}const decay=1-t;const dx=(Math.random()-0.5)*intensity*decay;const dy=(Math.random()-0.5)*intensity*decay;el.style.transform=`translate(${dx}px, ${dy}px)`;requestAnimationFrame(loop);};requestAnimationFrame(loop);}
+
+/* ═══ CELEBRATION ═══ */
+function launchCelebration(color){launchConfetti(200,color);launchFireworks();}
+function launchConfetti(count,baseColor){const colors=[baseColor||'#f97316','#fbbf24','#a855f7','#22c55e','#dc2626','#3b82f6'];for(let i=0;i<count;i++){const c=document.createElement('div');c.className='confetti-piece';c.style.left=Math.random()*100+'%';c.style.background=colors[Math.floor(Math.random()*colors.length)];c.style.width=(6+Math.random()*8)+'px';c.style.height=(8+Math.random()*10)+'px';c.style.borderRadius=Math.random()<0.4?'50%':'2px';c.style.animationDuration=(2.5+Math.random()*2)+'s';c.style.animationDelay=(Math.random()*0.6)+'s';c.style.transform=`rotate(${Math.random()*360}deg)`;document.body.appendChild(c);setTimeout(()=>c.remove(),5000);}}
+function launchFireworks(){const canvas=$('fireworksCanvas');canvas.classList.add('on');canvas.width=window.innerWidth;canvas.height=window.innerHeight;const ctx=canvas.getContext('2d');const parts=[];const colors=['#f97316','#fbbf24','#a855f7','#22c55e','#dc2626','#3b82f6','#ec4899'];function burst(x,y){const color=colors[Math.floor(Math.random()*colors.length)];for(let i=0;i<50;i++){const a=Math.random()*Math.PI*2;const sp=2+Math.random()*5;parts.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:1,color});}}let raf=null;function loop(){ctx.fillStyle='rgba(0,0,0,0.15)';ctx.fillRect(0,0,canvas.width,canvas.height);parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=0.08;p.vx*=0.985;p.vy*=0.985;p.life-=0.012;ctx.fillStyle=p.color;ctx.globalAlpha=Math.max(0,p.life);ctx.beginPath();ctx.arc(p.x,p.y,2.5,0,Math.PI*2);ctx.fill();});for(let i=parts.length-1;i>=0;i--)if(parts[i].life<=0)parts.splice(i,1);if(parts.length>0)raf=requestAnimationFrame(loop);else{canvas.classList.remove('on');ctx.clearRect(0,0,canvas.width,canvas.height);}}for(let i=0;i<6;i++){setTimeout(()=>{burst(canvas.width*(0.15+Math.random()*0.7),canvas.height*(0.2+Math.random()*0.4));if(!raf)raf=requestAnimationFrame(loop);},i*600);}}
+
+/* ═══ PLAYER ARENA ═══ */
+const TugArenaPlayer={
+  mounted:false,els:null,_raf:null,_lastTs:0,_current:50,_target:50,_paused:false,_lerpRate:0.0007,
+  init(container){if(!container)return;if(this.mounted)this.destroy();this.build(container);},
+  build(container){container.innerHTML=`<div class="ptug-arena"><div class="ptug-header"><div class="ptug-team-info left"><span class="ptug-tname">ทีมคุณ</span><span class="ptug-score">0</span></div><div class="ptug-team-info right"><span class="ptug-score">0</span><span class="ptug-tname">คู่แข่ง</span></div></div><div class="ptug-stage"><div class="ptug-center-line"></div><div class="ptug-rope"></div><div class="ptug-knot" style="left:50%"></div><div class="ptug-players left" id="ptugLeft"></div><div class="ptug-players right" id="ptugRight"></div></div><div class="ptug-status" id="ptugStatus">⚖️ สูสี</div></div>`;
+    this.els={leftName:container.querySelector('.ptug-team-info.left .ptug-tname'),leftScore:container.querySelector('.ptug-team-info.left .ptug-score'),rightName:container.querySelector('.ptug-team-info.right .ptug-tname'),rightScore:container.querySelector('.ptug-team-info.right .ptug-score'),knot:container.querySelector('.ptug-knot'),leftPlayers:container.querySelector('#ptugLeft'),rightPlayers:container.querySelector('#ptugRight'),status:container.querySelector('#ptugStatus')};
+    this._current=50;this._target=50;this._lastTs=0;this._paused=false;this.mounted=true;this.startRaf();
+  },
+  startRaf(){if(this._raf)cancelAnimationFrame(this._raf);const loop=(ts)=>{this._raf=requestAnimationFrame(loop);if(!this.mounted||document.hidden||this._paused){this._lastTs=0;return;}if(!this._lastTs)this._lastTs=ts;let dt=ts-this._lastTs;this._lastTs=ts;if(dt>100)dt=100;const diff=this._target-this._current;if(Math.abs(diff)>0.01){const k=1-Math.exp(-this._lerpRate*dt);this._current+=diff*k;if(this.els&&this.els.knot)this.els.knot.style.left=this._current.toFixed(3)+'%';}};this._raf=requestAnimationFrame(loop);},
+  update(list){if(!this.mounted||!this.els)return;if(!Array.isArray(list))return;const myTeam=G.tournament.teams.find(t=>t.id===G.myTeamId);if(!myTeam)return;const active=G.tournament.activeTeamIds;let rival=null;if(active.length===2){const rivalId=active.find(id=>id!==G.myTeamId);rival=G.tournament.teams.find(t=>t.id===rivalId);}else{const others=G.tournament.teams.filter(t=>active.includes(t.id)&&t.id!==G.myTeamId);others.sort((a,b)=>b.score-a.score);rival=others[0];}if(!rival)return;const myMembers=list.filter(p=>p.teamId===myTeam.id);const rivalMembers=list.filter(p=>p.teamId===rival.id);const myScore=myMembers.reduce((s,p)=>s+(p.score||0),0);const rivalScore=rivalMembers.reduce((s,p)=>s+(p.score||0),0);this.els.leftName.textContent='ทีมคุณ · '+myTeam.name;this.els.leftScore.textContent=myScore;this.els.rightName.textContent='คู่แข่ง · '+rival.name;this.els.rightScore.textContent=rivalScore;const total=Math.max(1,myScore+rivalScore);const ratio=(rivalScore-myScore)/total;this._target=Math.max(12,Math.min(88,50+ratio*42));const sizeA=pickTugFontSize(myMembers.length,true),sizeB=pickTugFontSize(rivalMembers.length,true);const sigA=myMembers.map(m=>m.id+m.avatar).join('|'),sigB=rivalMembers.map(m=>m.id+m.avatar).join('|');if(this.els.leftPlayers.dataset.sig!==sigA){this.els.leftPlayers.innerHTML=myMembers.map(m=>`<span class="ptug-player" data-pid="${esc(m.id)}">${esc(m.avatar)}</span>`).join('');this.els.leftPlayers.dataset.sig=sigA;}if(this.els.rightPlayers.dataset.sig!==sigB){this.els.rightPlayers.innerHTML=rivalMembers.map(m=>`<span class="ptug-player" data-pid="${esc(m.id)}">${esc(m.avatar)}</span>`).join('');this.els.rightPlayers.dataset.sig=sigB;}this.els.leftPlayers.style.fontSize=sizeA;this.els.rightPlayers.style.fontSize=sizeB;const myWin=-ratio;const abs=Math.abs(myWin);let st='⚖️ สูสี',cls='';if(abs>0.7){st=myWin>0?'🔥 ใกล้ชนะแล้ว!':'⚠️ ใกล้แพ้!';cls=myWin>0?'advantage':'disadvantage';}else if(abs>0.35){st=myWin>0?'💪 กำลังได้เปรียบ':'😰 กำลังเสียเปรียบ';cls=myWin>0?'advantage':'disadvantage';}this.els.status.textContent=st;this.els.status.className='ptug-status '+cls;},
+  triggerSelfPull(){if(!this.els)return;this.els.leftPlayers.querySelectorAll('.ptug-player').forEach(a=>{a.classList.remove('pulling','stumble');void a.offsetWidth;a.classList.add('pulling');setTimeout(()=>a.classList.remove('pulling'),500);});},
+  triggerSelfStumble(){if(!this.els)return;const me=this.els.leftPlayers.querySelector(`.ptug-player[data-pid="${G.myPlayerId}"]`);if(me){me.classList.remove('pulling','stumble');void me.offsetWidth;me.classList.add('stumble');setTimeout(()=>me.classList.remove('stumble'),500);}},
+  pause(){this._paused=true;},resume(){this._paused=false;this._lastTs=0;},
+  destroy(){if(this._raf)cancelAnimationFrame(this._raf);this._raf=null;this.mounted=false;this.els=null;const c=$('pArenaContainer');if(c)c.innerHTML='';}
+};
+
+/* ═══ SPECTATOR ARENA ═══ */
+const SpectatorArena={
+  mounted:false,els:null,_raf:null,_lastTs:0,_current:50,_target:50,_teams:null,
+  init(container,teamA,teamB){
+    if(!container)return;
+    if(this.mounted)this.destroy();
+    this.els={
+      teamA:container.querySelector('#specTeamA'),
+      teamB:container.querySelector('#specTeamB'),
+      knot:container.querySelector('#specKnot'),
+      playersA:container.querySelector('#specPlayersA'),
+      playersB:container.querySelector('#specPlayersB'),
+      scoreA:container.querySelector('#specScoreA'),
+      scoreB:container.querySelector('#specScoreB')
+    };
+    this.els.teamA.textContent=teamA.emoji+' '+teamA.name;
+    this.els.teamB.textContent=teamB.emoji+' '+teamB.name;
+    this._teams={A:teamA.id,B:teamB.id};
+    this._current=50;this._target=50;this._lastTs=0;
+    this.mounted=true;
+    this.startRaf();
+  },
+  startRaf(){
+    if(this._raf)cancelAnimationFrame(this._raf);
+    const loop=(ts)=>{
+      this._raf=requestAnimationFrame(loop);
+      if(!this.mounted||document.hidden){this._lastTs=0;return;}
+      if(!this._lastTs)this._lastTs=ts;
+      let dt=ts-this._lastTs;this._lastTs=ts;
+      if(dt>100)dt=100;
+      const diff=this._target-this._current;
+      if(Math.abs(diff)>0.01){
+        const k=1-Math.exp(-0.0007*dt);
+        this._current+=diff*k;
+        if(this.els&&this.els.knot)this.els.knot.style.left=this._current.toFixed(3)+'%';
+      }
+    };
+    this._raf=requestAnimationFrame(loop);
+  },
+  updateFromRanking(teamsData){
+    if(!this.mounted||!this.els||!this._teams)return;
+    if(!Array.isArray(teamsData))return;
+    const tA=teamsData.find(t=>t.id===this._teams.A);
+    const tB=teamsData.find(t=>t.id===this._teams.B);
+    if(!tA||!tB)return;
+    const sA=tA.score||0,sB=tB.score||0;
+    this.els.scoreA.textContent=sA;
+    this.els.scoreB.textContent=sB;
+    const total=Math.max(1,sA+sB);
+    const ratio=(sB-sA)/total;
+    this._target=Math.max(12,Math.min(88,50+ratio*42));
+    const memA=tA.members||[],memB=tB.members||[];
+    const sigA=memA.map(m=>m.id+m.avatar).join('|');
+    const sigB=memB.map(m=>m.id+m.avatar).join('|');
+    if(this.els.playersA.dataset.sig!==sigA){
+      this.els.playersA.innerHTML=memA.map(m=>`<span class="spec-player">${esc(m.avatar)}</span>`).join('');
+      this.els.playersA.dataset.sig=sigA;
+    }
+    if(this.els.playersB.dataset.sig!==sigB){
+      this.els.playersB.innerHTML=memB.map(m=>`<span class="spec-player">${esc(m.avatar)}</span>`).join('');
+      this.els.playersB.dataset.sig=sigB;
+    }
+  },
+  destroy(){if(this._raf)cancelAnimationFrame(this._raf);this._raf=null;this.mounted=false;this.els=null;this._teams=null;}
+};
+
+function showSpectatorOverlay(teamA,teamB){
+  const ov=$('spectatorOverlay');
+  ov.hidden=false;
+  if(G.myFinalRank){
+    $('specTitle').textContent=`คุณได้ที่ ${G.myFinalRank} แล้ว!`;
+    $('specEmoji').textContent=['','🏆','🥈','🥉','🪑'][G.myFinalRank]||'🪑';
+  }else{
+    $('specTitle').textContent='นั่งดูเพื่อนแข่ง';
+    $('specEmoji').textContent='🪑';
+  }
+  $('specSub').textContent='รอลุ้นผลไปพร้อมกัน!';
+  SpectatorArena.init($('spectatorTug'),teamA,teamB);
+  renderSpecLb();
+}
+function hideSpectatorOverlay(){
+  $('spectatorOverlay').hidden=true;
+  SpectatorArena.destroy();
+}
+function renderSpecLb(){
+  const el=$('specLbBody');
+  if(!el)return;
+  const activeTeams=G.tournament.teams.filter(t=>G.tournament.activeTeamIds.includes(t.id));
+  const sorted=[...activeTeams].sort((a,b)=>b.score-a.score);
+  el.innerHTML=sorted.map((t,i)=>{
+    const m=['🥇','🥈','🥉','4️⃣'][i]||`${i+1}.`;
+    return `<div class="spec-lb-row"><span style="min-width:22px">${m}</span><span>${t.emoji}</span><span class="n">${esc(t.name)}</span><span class="s">${t.score}</span></div>`;
+  }).join('');
+}
+
+/* ═══ PLAYER RANK + END ═══ */
+function updatePlayerRanking(list){
+  if(!list||!$('pRankList'))return;
+  const myIdx=list.findIndex(p=>p.id===G.myPlayerId);
+  const myRank=myIdx>=0?myIdx+1:0;
+  $('pMyRank').textContent=myRank?`${myRank} / ${list.length}`:'-';
+  const slice=list.slice(0,10);
+  const rows=slice.map((p,i)=>{
+    const r=i+1;
+    const isMe=p.id===G.myPlayerId;
+    const bg=isMe?'background:linear-gradient(90deg,rgba(251,191,36,.35),rgba(251,191,36,.18));border:1.5px solid #fbbf24':'background:rgba(0,0,0,.2);border:1.5px solid transparent';
+    return `<div style="display:flex;gap:8px;padding:5px 10px;border-radius:8px;${bg};margin:3px 0;align-items:center"><span style="min-width:28px;color:#fb923c;font-weight:900;font-size:.82rem">#${r}</span><span style="font-size:1.05rem">${esc(p.avatar)}</span><span style="flex:1;font-weight:700;font-size:.82rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(p.name)}${p.team?` <span style="color:#86efac;font-size:.7rem">[${esc(p.team)}]</span>`:''}</span><span style="color:#4ade80;font-weight:900;font-family:monospace;font-size:.88rem">${p.score}</span>${isMe?'<span style="font-size:1rem">⭐</span>':''}</div>`;
+  }).join('');
+  $('pRankList').innerHTML=rows||'<p style="color:#7c6fa8;text-align:center;font-size:.8rem;padding:8px">-</p>';
+}
+
+function pEnd(ranks){
+  go('scPlayerEnd');
+  const myTeam=ranks.find(r=>r.id===G.myTeamId);
+  $('pFinalScore').textContent=G.myScore;
+  $('pFinalRank').textContent=myTeam?`ทีมอันดับ #${myTeam.rank}`:'ขอบคุณที่เล่น!';
+  const st=$('podiumStagePlayer');
+  const t3=ranks.slice(0,3);
+  const ord=[1,0,2],cl=['p2','p1','p3'],md=['2','1','3'];
+  st.innerHTML=ord.map((idx,i)=>{const p=t3[idx];if(!p)return '';return `<div class="podium-place ${cl[i]}"><span class="podium-avatar">${esc(p.emoji)}</span><div class="podium-name">${esc(p.name)}</div><div class="podium-score">${p.score}</div><div class="podium-base">${md[i]}</div></div>`;}).join('');
+  const badges=[{id:'first_blood',emoji:'🎯',label:'First Blood',got:G.sessionProg.totalCorrect>0},{id:'on_fire',emoji:'🔥',label:'On Fire',got:G.sessionProg.bestStreak>=3},{id:'sniper',emoji:'🎖️',label:'Sniper',got:G.sessionProg.bestStreak>=5},{id:'speed',emoji:'⚡',label:'Speed',got:true}];
+  $('pPlayerBadges').innerHTML=badges.map(b=>`<div class="badge-item ${b.got?'unlocked':''}"><div class="bi-emoji">${b.emoji}</div><div>${b.label}</div></div>`).join('');
+  sFin();
+}
+
+/* ═══ PDF ═══ */
+async function exportPDF(){
+  try{
+    const {jsPDF}=window.jspdf;
+    const el=document.querySelector('.screen.active');if(!el)return;
+    toast('📄 กำลังสร้าง PDF...',2000);
+    const canvas=await html2canvas(el,{backgroundColor:'#0a0612',scale:2,useCORS:true});
+    const img=canvas.toDataURL('image/png');
+    const pdf=new jsPDF({orientation:canvas.width>canvas.height?'l':'p',unit:'px',format:[canvas.width,canvas.height]});
+    pdf.addImage(img,'PNG',0,0,canvas.width,canvas.height);
+    pdf.save('tug-report-'+(G.roomCode||'session')+'-'+new Date().toISOString().slice(0,10)+'.pdf');
+    toast('✅ ส่งออกแล้ว!',2000);
+  }catch(e){toast('❌ PDF ไม่สำเร็จ',2500);}
+}
+function exportHostReport(){exportPDF();}
+function exportPlayerReport(){exportPDF();}
+
+function toggleLang(){G.lang=G.lang==='th'?'en':'th';$('langToggle').textContent='🌐 '+G.lang.toUpperCase();}
+
+/* ═══ INIT ═══ */
+renderGrades();renderAv();applyTheme('halloween');renderTeamInputs();updateConfigModeDisplay();
+$('langToggle').textContent='🌐 TH';
+{
+  const p=new URLSearchParams(location.search);
+  const c=p.get('code');
+  if(c&&c.length===4){setTimeout(()=>{const el=$('joinCode');if(el)el.value=c.toUpperCase();go('scPlayerJoin');},100);}
+}
+document.addEventListener('input',(e)=>{if(e.target.id==='joinCode')e.target.value=e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,'');});
+document.addEventListener('touchstart',()=>{iA();},{once:true,passive:true});
+document.addEventListener('click',()=>{iA();},{once:true});
+(function(){const corner=$('hostBackCorner');if(!corner)return;corner.addEventListener('touchstart',function(e){if(e.target.tagName!=='BUTTON'){this.classList.add('show');setTimeout(()=>this.classList.remove('show'),4000);}},{passive:true});})();
+window.addEventListener('resize',()=>{const c=$('fireworksCanvas');if(c){c.width=window.innerWidth;c.height=window.innerHeight;}});
+console.log('🎃 Tug of War v16.3.3 · Custom image for tug mode');
+</script>
+</body>
+</html>
